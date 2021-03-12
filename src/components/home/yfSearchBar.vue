@@ -1,9 +1,7 @@
 <template>
-  <div class="container__search__bar">
-    <div class="search_bar">
-      <input type="text" placeholder="Search food, restaurant, ..." />
-      <i class="fas fa-search"></i>
-    </div>
+  <div class="search_bar">
+    <input type="text" placeholder="Search food, restaurant, ..." />
+    <i class="fas fa-search"></i>
   </div>
 </template>
 
@@ -14,22 +12,16 @@ export default {
 </script>
 
 <style scoped>
-.container__search__bar {
-  width: 100%;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container__search__bar .search_bar {
+.search_bar {
   height: 40px;
   border-radius: 20px;
+  margin-top: 40px;
   display: flex;
   align-items: center;
-  background-color: #fdbe0c;
+  background-color: #faf9fb;
 }
 
-.container__search__bar .search_bar input {
+.search_bar input {
   height: 100%;
   width: 160px;
   margin: 10px 10px;
@@ -38,7 +30,7 @@ export default {
   color: var(--text-color);
 }
 
-.container__search__bar .search_bar i {
+.search_bar i {
   margin-right: 20px;
   margin-left: 10px;
   color: var(--text-color);

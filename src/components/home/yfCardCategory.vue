@@ -21,14 +21,13 @@ export default {
 .card__category {
   margin: 10px 20px;
   border-radius: 20px;
-  background-color: #d0d0d4;
   transition: 300ms ease;
-  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 40px rgba(166, 173, 201, 0.2);
+  background-color: #fff;
 }
 
 .card__category:hover {
-  background-color: #fdbe0c;
   cursor: pointer;
+  background-color: #fdbe0c;
 }
 
 .card__category .container__card__category {

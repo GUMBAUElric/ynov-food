@@ -4,7 +4,7 @@
 */
 
 :root {
-  --background-color: #faf9fb;
+  --background-color: #27282c;
   --text-color: #303241;
 }
 
@@ -116,8 +116,8 @@ section {
 }
 body {
   line-height: 1;
-  background-color: var(--background-color);
   color: var(--text-color);
+  background-color: var(--background-color);
 }
 ol,
 ul {
