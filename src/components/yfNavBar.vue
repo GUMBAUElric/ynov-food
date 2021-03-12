@@ -1,15 +1,17 @@
 <template>
-  <div class="container">
-    <div class="logo_app">
-      <img src="../assets/img/icon/logo_yf.svg" alt="logo_yf" />
-    </div>
-    <div class="title-app">
-      <h1>Ynov Food</h1>
-    </div>
+  <div class="navbar">
+    <div class="container__navbar">
+      <div class="logo__app">
+        <img src="../assets/img/icon/logo_yf.svg" alt="logo_yf" />
+      </div>
+      <div class="title-app">
+        <h1>Ynov Food</h1>
+      </div>
 
-    <div class="favorite">
-      <i class="fas fa-star"></i>
-      <p class="nb_favorite">0</p>
+      <div class="favorite">
+        <i class="fas fa-star"></i>
+        <p class="nb_favorite">0</p>
+      </div>
     </div>
   </div>
 </template>
@@ -21,32 +23,40 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin-top: 50px;
+.navbar {
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #303241;
+}
+
+.navbar .container__navbar {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  color: #303241;
 }
 
-.container .logo_app img {
+.navbar .container__navbar .logo__app img {
   width: 50px;
 }
-.container .title-app {
+.navbar .container__navbar .title-app {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.4em;
 }
 
-.container .favorite {
+.navbar .container__navbar .favorite {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.container .favorite .nb_favorite {
+.navbar .container__navbar .favorite .nb_favorite {
   margin-left: 10px;
 }
 </style>
