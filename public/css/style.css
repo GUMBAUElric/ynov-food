@@ -3,6 +3,11 @@
    License: none (public domain)
 */
 
+:root {
+  --background-color: #faf9fb;
+  --text-color: #303241;
+}
+
 /** Nunito font */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300&display=swap');
 
@@ -111,7 +116,7 @@ section {
 }
 body {
   line-height: 1;
-  background-color: #faf9fb;
+  background-color: var(--background-color);
 }
 ol,
 ul {
@@ -131,4 +136,14 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--text-color);
+  opacity: 1; /* Firefox */
 }
