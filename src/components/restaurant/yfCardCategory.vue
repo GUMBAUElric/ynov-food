@@ -1,11 +1,11 @@
 <template>
-  <div class="card__category">
+  <div class="card__category" :class="category.isSelected ? 'active' : ''">
     <div class="container__card__category">
       <div class="food_logo">
-        <img src="../../assets/img/food/burger.svg" alt="" />
+        <img :src="require(`../../assets/img/food/${category.food_logo}`)" alt="" />
       </div>
       <div class="food_name">
-        Burger
+        {{ category.food_name }}
       </div>
     </div>
   </div>
@@ -14,18 +14,32 @@
 <script>
 export default {
   name: 'yfCardCategory',
+  props: {
+    category: {
+      type: Object,
+      required: true,
+    },
+  },
 }
 </script>
 
 <style scoped>
 .card__category {
+  height: 70px;
   margin: 10px 20px;
   border-radius: 20px;
   transition: 300ms ease;
   background-color: #fff;
+  overflow: hidden;
+}
+
+.active {
+  height: 100px;
+  background-color: #fdbe0c;
 }
 
 .card__category:hover {
+  height: 100px;
   cursor: pointer;
   background-color: #fdbe0c;
 }
