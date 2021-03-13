@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import RestaurantList from '@/views/RestaurantList.vue'
+import RestaurantsList from '@/views/RestaurantsList.vue'
 
 Vue.use(VueRouter)
 
@@ -11,8 +11,8 @@ const routes = [
   },
   {
     path: '/restaurants/list',
-    name: 'RestaurantList',
-    component: RestaurantList,
+    name: 'RestaurantsList',
+    component: RestaurantsList,
   },
 ]
 

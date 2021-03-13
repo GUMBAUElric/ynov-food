@@ -24,7 +24,7 @@ import yfCardCategory from '@/components/restaurantList/yfCardCategory.vue'
 import yfCardRestaurant from '@/components/restaurantList/yfCardRestaurant.vue'
 
 export default {
-  name: 'Home',
+  name: 'RestaurantsList',
   components: {
     yfSearchBar,
     yfCardCategory,
