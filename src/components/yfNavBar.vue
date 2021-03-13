@@ -7,7 +7,6 @@
       <div class="title-app">
         <h1>Ynov Food</h1>
       </div>
-
       <div class="favorite">
         <i class="fas fa-star"></i>
         <p class="nb_favorite">0</p>
@@ -24,12 +23,12 @@ export default {
 
 <style scoped>
 .navbar {
-  height: 15vh;
+  height: 70px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: #303241;
+  background-color: #fefefe;
 }
 
 .navbar .container__navbar {

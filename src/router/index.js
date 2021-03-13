@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import RestaurantList from '@/views/RestaurantList.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '*',
-    redirect: '/home',
+    redirect: '/restaurants/list',
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: Home,
+    path: '/restaurants/list',
+    name: 'RestaurantList',
+    component: RestaurantList,
   },
 ]
 
