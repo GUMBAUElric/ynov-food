@@ -19,9 +19,9 @@
 
 <script>
 // @ is an alias to /src
-import yfSearchBar from '@/components/restaurantList/yfSearchBar.vue'
-import yfCardCategory from '@/components/restaurantList/yfCardCategory.vue'
-import yfCardRestaurant from '@/components/restaurantList/yfCardRestaurant.vue'
+import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.vue'
+import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
+import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
 
 export default {
   name: 'RestaurantsList',
