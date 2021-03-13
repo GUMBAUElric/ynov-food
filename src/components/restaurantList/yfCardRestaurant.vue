@@ -7,6 +7,9 @@
           alt="image_restaurant"
         />
       </div>
+      <div class="favorite">
+        <i class="fas fa-heart"></i>
+      </div>
       <div class="name_restaurant">
         <h3>La casa de papel</h3>
       </div>
@@ -59,6 +62,17 @@ export default {
   height: 70px;
   margin-top: -50px;
   border-radius: 50%;
+}
+
+.card__restaurant .container__card__restaurant .favorite {
+  margin-right: -120px;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.favorite-active {
+  color: var(--primary-color);
 }
 
 .card__restaurant .container__card__restaurant .name_restaurant {
