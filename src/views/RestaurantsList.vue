@@ -1,5 +1,5 @@
 <template>
-  <div class="container__home">
+  <div class="container__restaurants__list">
     <div class="container__search__bar">
       <yfSearchBar />
     </div>
@@ -14,6 +14,9 @@
     <div class="container__cards__restaurant">
       <yfCardRestaurant v-for="(item, idx) in 10" :key="idx" />
     </div>
+    <div class="container__footer">
+      <yfRestaurantsListFooter />
+    </div>
   </div>
 </template>
 
@@ -22,6 +25,7 @@
 import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.vue'
 import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
 import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
+import yfRestaurantsListFooter from '@/components/restaurantList/yfRestaurantsListFooter.vue'
 
 export default {
   name: 'RestaurantsList',
@@ -29,6 +33,7 @@ export default {
     yfSearchBar,
     yfCardCategory,
     yfCardRestaurant,
+    yfRestaurantsListFooter,
   },
   data() {
     return {
@@ -91,11 +96,11 @@ export default {
 </script>
 
 <style scoped>
-.container__home {
+.container__restaurants__list {
   width: 100%;
 }
 
-.container__home .container__search__bar {
+.container__restaurants__list .container__search__bar {
   width: 100%;
   height: 20%;
   display: flex;
@@ -103,7 +108,7 @@ export default {
   align-items: center;
 }
 
-.container__home .container__cards__categories {
+.container__restaurants__list .container__cards__categories {
   width: 100%;
   margin: 60px 0;
   display: flex;
@@ -111,12 +116,19 @@ export default {
   justify-content: center;
 }
 
-.container__home .container__cards__restaurant {
+.container__restaurants__list .container__cards__restaurant {
   width: 100%;
   height: 80%;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+}
+
+.container__restaurants__list .container__footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
