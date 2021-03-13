@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'yfCardCategory',
+  name: 'yfRestaurantsListCardCategory',
   props: {
     category: {
       type: Object,
