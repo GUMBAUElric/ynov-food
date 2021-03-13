@@ -6,6 +6,7 @@
 :root {
   --background-color: #27282c;
   --text-color: #303241;
+  --primary-color: #fdbe0c;
 }
 
 /** Nunito font */
@@ -140,7 +141,8 @@ table {
 }
 
 textarea:focus,
-input:focus {
+input:focus,
+button:focus {
   outline: none;
 }
 
