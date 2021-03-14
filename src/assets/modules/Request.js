@@ -21,14 +21,8 @@ export default function Request() {
    * @param {string} params  The params of get request
    * @desc Send a HTTP GET request with axios
    * */
-  const get = async (path, params) => {
+  const getYelp = async (path, params) => {
     let dataFetched = null
-
-    // Add latitude and longitude of Lyon if it doesn't exist
-    if (!('latitude' in params) && !('longitude' in params)) {
-      params.latitude = '45.764042'
-      params.longitude = '4.835659'
-    }
 
     try {
       const { status, data } = await axios.get(`${ENDPOINT_YELP_API + path}`, {
@@ -40,13 +34,13 @@ export default function Request() {
 
       if (status === 200) dataFetched = data
     } catch (error) {
-      console.trace(error)
+      console.error(error)
     }
 
     return dataFetched
   }
 
   return {
-    get,
+    getYelp,
   }
 }
