@@ -25,9 +25,14 @@ export default {
   methods: {
     incrementPage() {
       this.page += 1
+      this.emitToParent()
     },
     decrementPage() {
       this.page -= 1
+      this.emitToParent()
+    },
+    emitToParent() {
+      this.$emit('pageUpdated')
     },
   },
 }

@@ -2,26 +2,23 @@
   <div class="card__restaurant">
     <div class="container__card__restaurant">
       <div class="image_restaurant">
-        <img
-          src="https://s3-media3.fl.yelpcdn.com/bphoto/LiSESAyRJzf9m3CWPpeNpg/o.jpg"
-          alt="image_restaurant"
-        />
+        <img :src="restaurant.image_url" alt="image_restaurant" />
       </div>
       <div class="favorite">
         <i class="fas fa-heart"></i>
       </div>
       <div class="name_restaurant">
-        <h3>La casa de papel</h3>
+        <h3>{{ restaurant.name }}</h3>
       </div>
       <div class="categorie_restaurant">
-        <p>Italian</p>
+        <p v-for="(item, idx) in restaurant.categories" :key="idx">{{ item.title }}</p>
       </div>
       <div class="rating_restaurant">
         <i class="fas fa-star" v-for="(item, idx) in 5" :key="idx"></i>
       </div>
       <div class="city_restaurant">
         <i class="fas fa-map-marker-alt"></i>
-        <p>Lyon</p>
+        <p>{{ restaurant.location.city }}</p>
       </div>
       <div class="see_details">
         <button>
@@ -36,6 +33,12 @@
 <script>
 export default {
   name: 'yfRestaurantsListCardRestaurant',
+  props: {
+    restaurant: {
+      type: Object,
+      required: true,
+    },
+  },
 }
 </script>
 

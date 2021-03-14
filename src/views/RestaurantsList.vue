@@ -12,16 +12,17 @@
       />
     </div>
     <div class="container__cards__restaurant">
-      <yfCardRestaurant v-for="(item, idx) in 10" :key="idx" />
+      <yfCardRestaurant v-for="item in restaurants_list" :key="item.id" :restaurant="item" />
     </div>
     <div class="container__footer">
-      <yfRestaurantsListFooter />
+      <yfRestaurantsListFooter @pageUpdated="updadeRestaurantsList" />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { mapActions, mapState } from 'vuex'
 import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.vue'
 import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
 import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
@@ -79,18 +80,28 @@ export default {
           isSelected: false,
         },
       ],
+      offset: 0,
     }
   },
   computed: {
+    ...mapState(['restaurants_list']),
     getIndexSelectedCategory() {
       return this.categories.findIndex(category => category.isSelected === true)
     },
   },
   methods: {
+    ...mapActions(['fetchRestaurants']),
     setSelected(idx) {
       this.categories[this.getIndexSelectedCategory].isSelected = false
       this.categories[idx].isSelected = true
     },
+    updadeRestaurantsList() {
+      this.offset += 10
+      this.fetchRestaurants({ offset: this.offset })
+    },
+  },
+  mounted() {
+    this.fetchRestaurants()
   },
 }
 </script>
