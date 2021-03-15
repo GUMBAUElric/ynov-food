@@ -3,6 +3,7 @@ node_modules
 /dist
 /doc
 .env
+/src/assets/json
 
 # local env files
 .env.local
