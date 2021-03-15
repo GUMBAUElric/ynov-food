@@ -12,7 +12,7 @@
       />
     </div>
     <div class="container__cards__restaurant">
-      <yfCardRestaurant v-for="item in restaurants_list" :key="item.id" :restaurant="item" />
+      <yfCardRestaurant v-for="item in restaurantsList" :key="item.id" :restaurant="item" />
     </div>
     <div class="container__footer">
       <yfRestaurantsListFooter />
@@ -27,6 +27,7 @@ import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.
 import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
 import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
 import yfRestaurantsListFooter from '@/components/restaurantList/yfRestaurantsListFooter.vue'
+import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
@@ -38,6 +39,7 @@ export default {
   },
   data() {
     return {
+      restaurantsList,
       categories: [
         {
           food_name: 'All',
@@ -96,7 +98,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchRestaurants()
+    // this.fetchRestaurants()
   },
 }
 </script>

@@ -14,7 +14,9 @@
         <p>{{ fetchCategories }}</p>
       </div>
       <div class="rating_restaurant">
-        <i class="fas fa-star" v-for="(item, idx) in 5" :key="idx"></i>
+        <div v-for="(item, idx) in 5" :key="idx">
+          <i v-if="restaurant.rating > idx" class="fas fa-star"></i>
+        </div>
       </div>
       <div class="city_restaurant">
         <i class="fas fa-map-marker-alt"></i>
@@ -33,6 +35,12 @@
 <script>
 export default {
   name: 'yfRestaurantsListCardRestaurant',
+  data() {
+    return {
+      rating: 0,
+      half_rating: 0,
+    }
+  },
   props: {
     restaurant: {
       type: Object,
@@ -43,6 +51,16 @@ export default {
     fetchCategories() {
       return this.restaurant.categories.map(item => item.title).join(', ')
     },
+  },
+  methods: {
+    checkRating() {
+      const [rating, halfRating] = this.restaurant.rating.toString().split('.')
+      this.rating = parseInt(rating, 10)
+      this.half_rating = halfRating === undefined ? 0 : parseInt(halfRating, 10)
+    },
+  },
+  mounted() {
+    this.checkRating()
   },
 }
 </script>
@@ -98,6 +116,7 @@ export default {
 
 .card__restaurant .container__card__restaurant .rating_restaurant {
   margin: 20px 0;
+  display: inline-flex;
 }
 
 .card__restaurant .container__card__restaurant .rating_restaurant i {
