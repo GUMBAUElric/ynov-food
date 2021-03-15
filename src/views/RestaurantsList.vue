@@ -15,7 +15,7 @@
       <yfCardRestaurant v-for="item in restaurants_list" :key="item.id" :restaurant="item" />
     </div>
     <div class="container__footer">
-      <yfRestaurantsListFooter @pageUpdated="updadeRestaurantsList" />
+      <yfRestaurantsListFooter />
     </div>
   </div>
 </template>
@@ -80,7 +80,6 @@ export default {
           isSelected: false,
         },
       ],
-      offset: 0,
     }
   },
   computed: {
@@ -94,10 +93,6 @@ export default {
     setSelected(idx) {
       this.categories[this.getIndexSelectedCategory].isSelected = false
       this.categories[idx].isSelected = true
-    },
-    updadeRestaurantsList() {
-      this.offset += 10
-      this.fetchRestaurants({ offset: this.offset })
     },
   },
   mounted() {
