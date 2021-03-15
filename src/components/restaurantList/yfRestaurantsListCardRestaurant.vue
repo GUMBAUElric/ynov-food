@@ -13,16 +13,17 @@
       <div class="categories_restaurant">
         <p>{{ fetchCategories }}</p>
       </div>
+
+      <div class="city_restaurant">
+        <i class="fas fa-map-marker-alt"></i>
+        <p>{{ restaurant.location.city }}</p>
+      </div>
       <div class="rating_restaurant">
         <i v-for="(item, idx) in rating" :key="idx" class="fas fa-star"></i>
         <div v-for="(item, idx) in 5 - rating" :key="idx">
           <i v-if="half_rating !== 0 && idx === 0" class="fad fa-star-half-alt"></i>
           <i v-else class="far fa-star"></i>
         </div>
-      </div>
-      <div class="city_restaurant">
-        <i class="fas fa-map-marker-alt"></i>
-        <p>{{ restaurant.location.city }}</p>
       </div>
       <div class="see_details">
         <button>
@@ -114,6 +115,17 @@ export default {
 
 .card__restaurant .container__card__restaurant .categories_restaurant p {
   text-align: center;
+  margin-left: 5px;
+}
+
+.card__restaurant .container__card__restaurant .city_restaurant {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card__restaurant .container__card__restaurant .city_restaurant p {
+  margin-left: 5px;
 }
 
 .card__restaurant .container__card__restaurant .rating_restaurant {
@@ -125,25 +137,12 @@ export default {
   margin: 0 5px;
 }
 
-.card__restaurant .container__card__restaurant .city_restaurant {
-  display: flex;
-  align-items: center;
-}
-
-.card__restaurant .container__card__restaurant .city_restaurant p {
-  margin-left: 5px;
-}
-
-.card__restaurant .container__card__restaurant .see_details {
-  margin-top: 10px;
-}
-
 .card__restaurant .container__card__restaurant .see_details button {
   position: relative;
   height: 40px;
   width: 130px;
-  margin-top: 15px;
   border-radius: 20px;
+  margin-top: 5px;
   background-color: #fff;
   z-index: 0;
   transition: 300ms;
