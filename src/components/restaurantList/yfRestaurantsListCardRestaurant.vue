@@ -10,8 +10,8 @@
       <div class="name_restaurant">
         <h3>{{ restaurant.name }}</h3>
       </div>
-      <div class="categorie_restaurant">
-        <p v-for="(item, idx) in restaurant.categories" :key="idx">{{ item.title }}</p>
+      <div class="categories_restaurant">
+        <p>{{ fetchCategories }}</p>
       </div>
       <div class="rating_restaurant">
         <i class="fas fa-star" v-for="(item, idx) in 5" :key="idx"></i>
@@ -39,12 +39,18 @@ export default {
       required: true,
     },
   },
+  computed: {
+    fetchCategories() {
+      return this.restaurant.categories.map(item => item.title).join(', ')
+    },
+  },
 }
 </script>
 
 <style scoped>
 .card__restaurant {
-  width: 180px;
+  width: 210px;
+  height: 310px;
   margin: 40px 50px;
   border-radius: 20px;
   background-color: #fff;
@@ -80,6 +86,14 @@ export default {
 
 .card__restaurant .container__card__restaurant .name_restaurant {
   margin: 20px 0;
+}
+
+.card__restaurant .container__card__restaurant .name_restaurant h3 {
+  text-align: center;
+}
+
+.card__restaurant .container__card__restaurant .categories_restaurant p {
+  text-align: center;
 }
 
 .card__restaurant .container__card__restaurant .rating_restaurant {
