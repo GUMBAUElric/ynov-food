@@ -14,8 +14,10 @@
         <p>{{ fetchCategories }}</p>
       </div>
       <div class="rating_restaurant">
-        <div v-for="(item, idx) in 5" :key="idx">
-          <i v-if="restaurant.rating > idx" class="fas fa-star"></i>
+        <i v-for="(item, idx) in rating" :key="idx" class="fas fa-star"></i>
+        <div v-for="(item, idx) in 5 - rating" :key="idx">
+          <i v-if="half_rating !== 0 && idx === 0" class="fad fa-star-half-alt"></i>
+          <i v-else class="far fa-star"></i>
         </div>
       </div>
       <div class="city_restaurant">
@@ -53,14 +55,14 @@ export default {
     },
   },
   methods: {
-    checkRating() {
+    fetchRating() {
       const [rating, halfRating] = this.restaurant.rating.toString().split('.')
       this.rating = parseInt(rating, 10)
       this.half_rating = halfRating === undefined ? 0 : parseInt(halfRating, 10)
     },
   },
   mounted() {
-    this.checkRating()
+    this.fetchRating()
   },
 }
 </script>
