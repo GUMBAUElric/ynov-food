@@ -15,6 +15,9 @@
 </template>
 
 <script>
+/** Import */
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'yfRestaurantsListFooter',
   data() {
@@ -22,12 +25,23 @@ export default {
       page: 1,
     }
   },
+  watch: {
+    offset(offset) {
+      this.fetchRestaurants({ offset })
+    },
+  },
+  computed: {
+    ...mapState(['offset']),
+  },
   methods: {
+    ...mapActions(['fetchRestaurants', 'incrementOffset', 'decrementOffset']),
     incrementPage() {
       this.page += 1
+      this.incrementOffset(12)
     },
     decrementPage() {
       this.page -= 1
+      this.decrementOffset(12)
     },
   },
 }

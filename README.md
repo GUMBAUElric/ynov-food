@@ -36,6 +36,14 @@ Here are the prerequisites necessary for this project
 
 ## How to install ?
 
+### Create a .env file and add yelp api token
+
+```
+VUE_APP_TOKEN_API="YOUR_TOKEN_API"
+```
+
+### Install node_modules
+
 ```
 yarn install
 ```

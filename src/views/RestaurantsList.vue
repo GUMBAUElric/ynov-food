@@ -12,7 +12,7 @@
       />
     </div>
     <div class="container__cards__restaurant">
-      <yfCardRestaurant v-for="(item, idx) in 10" :key="idx" />
+      <yfCardRestaurant v-for="item in restaurantsList" :key="item.id" :restaurant="item" />
     </div>
     <div class="container__footer">
       <yfRestaurantsListFooter />
@@ -22,10 +22,12 @@
 
 <script>
 // @ is an alias to /src
+import { mapActions, mapState } from 'vuex'
 import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.vue'
 import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
 import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
 import yfRestaurantsListFooter from '@/components/restaurantList/yfRestaurantsListFooter.vue'
+import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
@@ -37,60 +39,66 @@ export default {
   },
   data() {
     return {
+      restaurantsList,
       categories: [
         {
           food_name: 'All',
-          food_logo: 'burger.svg',
+          food_logo: 'all.svg',
           isSelected: true,
         },
         {
-          food_name: 'burger',
+          food_name: 'Burger',
           food_logo: 'burger.svg',
           isSelected: false,
         },
         {
-          food_name: 'burger',
-          food_logo: 'burger.svg',
+          food_name: 'Pizza',
+          food_logo: 'pizza.svg',
           isSelected: false,
         },
         {
-          food_name: 'burger',
-          food_logo: 'burger.svg',
+          food_name: 'Sushi',
+          food_logo: 'sushi.svg',
           isSelected: false,
         },
         {
-          food_name: 'burger',
-          food_logo: 'burger.svg',
+          food_name: 'Dessert',
+          food_logo: 'dessert.svg',
           isSelected: false,
         },
         {
-          food_name: 'burger',
-          food_logo: 'burger.svg',
+          food_name: 'Favoris',
+          food_logo: 'favorite.svg',
           isSelected: false,
         },
         {
-          food_name: 'burger',
-          food_logo: 'burger.svg',
+          food_name: 'Around me',
+          food_logo: 'pin.svg',
           isSelected: false,
         },
         {
-          food_name: 'burger',
-          food_logo: 'burger.svg',
+          food_name: 'Reserverd',
+          food_logo: 'reserved.svg',
           isSelected: false,
         },
       ],
     }
   },
   computed: {
+    ...mapState(['restaurants_list']),
     getIndexSelectedCategory() {
       return this.categories.findIndex(category => category.isSelected === true)
     },
   },
   methods: {
+    ...mapActions(['fetchRestaurants']),
     setSelected(idx) {
       this.categories[this.getIndexSelectedCategory].isSelected = false
       this.categories[idx].isSelected = true
     },
+  },
+  mounted() {
+    // this.fetchRestaurants()
   },
 }
 </script>

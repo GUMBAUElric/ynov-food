@@ -8,7 +8,7 @@
         <h1>Ynov Food</h1>
       </div>
       <div class="favorite">
-        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
         <p class="nb_favorite">0</p>
       </div>
     </div>
