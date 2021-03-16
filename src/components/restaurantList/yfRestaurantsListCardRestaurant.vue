@@ -20,7 +20,7 @@
       </div>
       <div class="rating_restaurant">
         <i v-for="(item, idx) in rating" :key="idx" class="fas fa-star"></i>
-        <div v-for="(item, idx) in 5 - rating" :key="idx">
+        <div v-for="(item, idx) in 5 - rating" :key="`_${idx}`">
           <i v-if="half_rating !== 0 && idx === 0" class="fad fa-star-half-alt"></i>
           <i v-else class="far fa-star"></i>
         </div>
