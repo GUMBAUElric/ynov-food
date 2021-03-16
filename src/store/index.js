@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     restaurants_list: [],
     offset: 0,
+    category: '',
   },
   mutations: {
     UPDATE_RESTAURANTS_LIST(state, newList) {
@@ -21,12 +22,13 @@ export default new Vuex.Store({
     DECREMENT_OFFSET(state, offset) {
       state.offset -= offset
     },
+    UPDATE_TERM(state, category) {
+      state.category = category
+    },
   },
   actions: {
-    async fetchRestaurants({ commit }, params) {
+    async fetchRestaurants({ commit, state }, params = {}) {
       try {
-        if (!params) params = {}
-
         // Add latitude and longitude of Lyon if it doesn't exist
         if (!('latitude' in params) || !('longitude' in params)) {
           params.latitude = '45.764042'
@@ -35,6 +37,10 @@ export default new Vuex.Store({
 
         // Add limit if it doesn't exist
         if (!('limit' in params)) params.limit = 12
+
+        // Check offset and category
+        if (state.offset) params.offset = state.offset
+        if (state.category) params.term = state.category
 
         const { businesses } = await getYelp('/businesses/search', params)
         commit('UPDATE_RESTAURANTS_LIST', businesses)
@@ -47,6 +53,18 @@ export default new Vuex.Store({
     },
     decrementOffset({ commit }, offset) {
       commit('DECREMENT_OFFSET', offset)
+    },
+    updateCategory({ commit }, category) {
+      if (
+        category !== 'All' &&
+        category !== 'Favoris' &&
+        category !== 'Around me' &&
+        category !== 'Reserverd'
+      ) {
+        commit('UPDATE_TERM', category)
+      } else {
+        commit('UPDATE_TERM', '')
+      }
     },
   },
 })

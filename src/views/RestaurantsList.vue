@@ -84,17 +84,27 @@ export default {
       ],
     }
   },
+  watch: {
+    category() {
+      this.fetchRestaurants()
+    },
+    offset() {
+      this.fetchRestaurants()
+    },
+  },
   computed: {
-    ...mapState(['restaurants_list']),
+    ...mapState(['restaurants_list', 'offset', 'category']),
     getIndexSelectedCategory() {
       return this.categories.findIndex(category => category.isSelected === true)
     },
   },
   methods: {
-    ...mapActions(['fetchRestaurants']),
+    ...mapActions(['fetchRestaurants', 'updateCategory']),
     setSelected(idx) {
+      // const { food_name } = this.categories[idx]
       this.categories[this.getIndexSelectedCategory].isSelected = false
       this.categories[idx].isSelected = true
+      // this.updateCategory(food_name)
     },
   },
   mounted() {
