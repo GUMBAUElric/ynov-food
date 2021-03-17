@@ -55,16 +55,7 @@ export default new Vuex.Store({
       commit('DECREMENT_OFFSET', offset)
     },
     updateCategory({ commit }, category) {
-      if (
-        category !== 'All' &&
-        category !== 'Favoris' &&
-        category !== 'Around me' &&
-        category !== 'Reserverd'
-      ) {
-        commit('UPDATE_TERM', category)
-      } else {
-        commit('UPDATE_TERM', '')
-      }
+      commit('UPDATE_TERM', category)
     },
   },
 })
