@@ -42,11 +42,6 @@ export default {
       restaurantsList,
       categories: [
         {
-          food_name: 'All',
-          food_logo: 'all.svg',
-          isSelected: true,
-        },
-        {
           food_name: 'Burger',
           food_logo: 'burger.svg',
           isSelected: false,
@@ -54,6 +49,16 @@ export default {
         {
           food_name: 'Pizza',
           food_logo: 'pizza.svg',
+          isSelected: false,
+        },
+        {
+          food_name: 'Taco',
+          food_logo: 'taco.svg',
+          isSelected: false,
+        },
+        {
+          food_name: 'Salade',
+          food_logo: 'salad.svg',
           isSelected: false,
         },
         {
@@ -66,35 +71,39 @@ export default {
           food_logo: 'dessert.svg',
           isSelected: false,
         },
-        {
-          food_name: 'Favoris',
-          food_logo: 'favorite.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Around me',
-          food_logo: 'pin.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Reserverd',
-          food_logo: 'reserved.svg',
-          isSelected: false,
-        },
       ],
     }
   },
+  watch: {
+    category() {
+      // this.fetchRestaurants()
+    },
+    offset() {
+      this.fetchRestaurants()
+    },
+  },
   computed: {
-    ...mapState(['restaurants_list']),
+    ...mapState(['restaurants_list', 'offset', 'category']),
     getIndexSelectedCategory() {
       return this.categories.findIndex(category => category.isSelected === true)
     },
   },
   methods: {
-    ...mapActions(['fetchRestaurants']),
+    ...mapActions(['fetchRestaurants', 'updateCategory']),
     setSelected(idx) {
-      this.categories[this.getIndexSelectedCategory].isSelected = false
-      this.categories[idx].isSelected = true
+      const { food_name } = this.categories[idx]
+      const idxSelectedCategory = this.getIndexSelectedCategory
+
+      this.categories[idx].isSelected = !this.categories[idx].isSelected
+
+      if (idxSelectedCategory !== -1) {
+        this.categories[idxSelectedCategory].isSelected = false
+
+        const foodName =
+          this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
+
+        this.updateCategory(foodName)
+      } else this.updateCategory(food_name)
     },
   },
   mounted() {
