@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'yfRestaurantsListSearchBar',
+  name: 'yfRestaurantsListSearch',
 }
 </script>
 

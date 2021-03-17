@@ -1,10 +1,11 @@
 <template>
   <div class="container__restaurants__list">
-    <div class="container__search__bar">
-      <yfSearchBar />
+    <div class="container__filter">
+      <yfRestaurantsListFilter />
+      <yfRestaurantsListSearch />
     </div>
     <div class="container__cards__categories">
-      <yfCardCategory
+      <yfRestaurantsListCardCategory
         v-for="(category, idx) in categories"
         :key="idx"
         :category="category"
@@ -12,7 +13,11 @@
       />
     </div>
     <div class="container__cards__restaurant">
-      <yfCardRestaurant v-for="item in restaurantsList" :key="item.id" :restaurant="item" />
+      <yfRestaurantsListCardRestaurant
+        v-for="item in restaurantsList"
+        :key="item.id"
+        :restaurant="item"
+      />
     </div>
     <div class="container__footer">
       <yfRestaurantsListFooter />
@@ -23,18 +28,20 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapState } from 'vuex'
-import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.vue'
-import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
-import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
+import yfRestaurantsListFilter from '@/components/restaurantList/yfRestaurantsListFilter.vue'
+import yfRestaurantsListSearch from '@/components/restaurantList/yfRestaurantsListSearch.vue'
+import yfRestaurantsListCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
+import yfRestaurantsListCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
 import yfRestaurantsListFooter from '@/components/restaurantList/yfRestaurantsListFooter.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
   components: {
-    yfSearchBar,
-    yfCardCategory,
-    yfCardRestaurant,
+    yfRestaurantsListFilter,
+    yfRestaurantsListSearch,
+    yfRestaurantsListCardCategory,
+    yfRestaurantsListCardRestaurant,
     yfRestaurantsListFooter,
   },
   data() {
@@ -117,7 +124,7 @@ export default {
   width: 100%;
 }
 
-.container__restaurants__list .container__search__bar {
+.container__restaurants__list .container__filter {
   width: 100%;
   height: 20%;
   display: flex;
