@@ -3,6 +3,7 @@
     <div class="container__filter">
       <yfRestaurantsListFilter />
       <yfRestaurantsListSearch />
+      <yfRestaurantsListSlider />
     </div>
     <div class="container__cards__categories">
       <yfRestaurantsListCardCategory
@@ -28,11 +29,12 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapState } from 'vuex'
-import yfRestaurantsListFilter from '@/components/restaurantList/yfRestaurantsListFilter.vue'
-import yfRestaurantsListSearch from '@/components/restaurantList/yfRestaurantsListSearch.vue'
-import yfRestaurantsListCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
-import yfRestaurantsListCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
-import yfRestaurantsListFooter from '@/components/restaurantList/yfRestaurantsListFooter.vue'
+import yfRestaurantsListFilter from '@/components/restauranstList/yfRestaurantsListFilter.vue'
+import yfRestaurantsListSearch from '@/components/restauranstList/yfRestaurantsListSearch.vue'
+import yfRestaurantsListSlider from '@/components/restauranstList/yfRestaurantsListSlider.vue'
+import yfRestaurantsListCardCategory from '@/components/restauranstList/yfRestaurantsListCardCategory.vue'
+import yfRestaurantsListCardRestaurant from '@/components/restauranstList/yfRestaurantsListCardRestaurant.vue'
+import yfRestaurantsListFooter from '@/components/restauranstList/yfRestaurantsListFooter.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
@@ -40,6 +42,7 @@ export default {
   components: {
     yfRestaurantsListFilter,
     yfRestaurantsListSearch,
+    yfRestaurantsListSlider,
     yfRestaurantsListCardCategory,
     yfRestaurantsListCardRestaurant,
     yfRestaurantsListFooter,
