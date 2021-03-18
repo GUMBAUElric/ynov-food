@@ -15,7 +15,7 @@ export default {
 .search_bar {
   height: 40px;
   border-radius: 20px;
-  margin-top: 40px;
+  margin: 40px 60px 0 60px;
   display: flex;
   align-items: center;
   background-color: #faf9fb;
