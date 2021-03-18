@@ -9,15 +9,22 @@ export default function Geolocation() {
   const getPermissionStatus = async () => {
     let permissionStatus = ''
     try {
-      permissionStatus = await navigator.permissions.query({ name: 'geolocation' })
+      const { state } = await navigator.permissions.query({ name: 'geolocation' })
+
+      permissionStatus = state
     } catch (error) {
       console.error(error)
     }
     return permissionStatus
   }
   const getGeolocation = () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      return { latitude: position.coords.latitude, longitude: position.coords.longitude }
+    return new Promise(resolve => {
+      navigator.geolocation.getCurrentPosition(position => {
+        resolve({
+          latitude: position.coords.latitude.toString(),
+          longitude: position.coords.longitude.toString(),
+        })
+      })
     })
   }
   return {
