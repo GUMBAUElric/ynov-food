@@ -43,7 +43,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchRestaurants']),
+    ...mapActions(['fetchRestaurants', 'enableGeolocation', 'disableGeolocation', 'updateOpenNow']),
+    /**
+     * @function filterByGeoLocation
+     * @desc This method filter restaurant by latitute and longitude
+     * @returns {void}
+     */
     async filterByGeoLocation() {
       if (this.filter.aroudMe) {
         try {
@@ -51,16 +56,21 @@ export default {
 
           if (permission === 'granted') {
             const { latitude, longitude } = await getGeolocation()
-            this.fetchRestaurants({ latitude, longitude, radius: '40000' })
+            this.enableGeolocation({ latitude, longitude, radius: 40000 })
           }
         } catch (error) {
           console.error(error)
         }
-      } else this.fetchRestaurants()
+      } else this.disableGeolocation()
     },
+    /**
+     * @function filterByOpening
+     * @desc This method filter open restaurant
+     * @returns {void}
+     */
     filterByOpening() {
-      if (this.filter.isOpen) this.fetchRestaurants({ open_now: true })
-      else this.fetchRestaurants()
+      if (this.filter.isOpen) this.updateOpenNow(true)
+      else this.updateOpenNow(false)
     },
   },
 }
