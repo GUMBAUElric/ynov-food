@@ -18,6 +18,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     restaurants_list: [],
+    auto_complete: [],
     rating: '0',
     params: {
       latitude: '45.764042',
@@ -57,6 +58,9 @@ export default new Vuex.Store({
     UPDATE_RATING(state, rating) {
       state.rating = rating
     },
+    UPDATE_AUTO_COMPLETE(state, autoComplete) {
+      state.auto_complete = autoComplete
+    },
   },
   actions: {
     async fetchRestaurants({ commit, state }) {
@@ -68,6 +72,28 @@ export default new Vuex.Store({
         }
 
         commit('UPDATE_RESTAURANTS_LIST', businesses)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async fetchAutoComplete({ commit, dispatch, state }, text) {
+      try {
+        const { latitude, longitude } = state.params
+
+        let { categories, businesses, terms } = await getYelp('/autocomplete', {
+          latitude,
+          longitude,
+          text,
+        })
+
+        categories = categories.map(item => item.title)
+        businesses = businesses.map(item => item.name)
+        terms = terms.map(item => item.text)
+
+        const autoComplete = [...categories, ...businesses, ...terms]
+        commit('UPDATE_AUTO_COMPLETE', autoComplete)
+        commit('UPDATE_TERM', text)
+        dispatch('fetchRestaurants')
       } catch (error) {
         console.error(error)
       }
@@ -102,6 +128,13 @@ export default new Vuex.Store({
     },
     updateRating({ commit }, rating) {
       commit('UPDATE_RATING', rating)
+    },
+    updateAutoComplete({ commit }, text) {
+      commit('UPDATE_AUTO_COMPLETE', text)
+    },
+    resetSearching({ commit }) {
+      commit('UPDATE_AUTO_COMPLETE', [])
+      commit('UPDATE_TERM', '')
     },
   },
 })
