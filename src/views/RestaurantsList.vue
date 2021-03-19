@@ -1,10 +1,12 @@
 <template>
   <div class="container__restaurants__list">
-    <div class="container__search__bar">
-      <yfSearchBar />
+    <div class="container__filter">
+      <yfRestaurantsListFilter />
+      <yfRestaurantsListSearch />
+      <yfRestaurantsListSlider />
     </div>
     <div class="container__cards__categories">
-      <yfCardCategory
+      <yfRestaurantsListCardCategory
         v-for="(category, idx) in categories"
         :key="idx"
         :category="category"
@@ -12,7 +14,11 @@
       />
     </div>
     <div class="container__cards__restaurant">
-      <yfCardRestaurant v-for="item in restaurantsList" :key="item.id" :restaurant="item" />
+      <yfRestaurantsListCardRestaurant
+        v-for="item in restaurantsList"
+        :key="item.id"
+        :restaurant="item"
+      />
     </div>
     <div class="container__footer">
       <yfRestaurantsListFooter />
@@ -23,18 +29,22 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapState } from 'vuex'
-import yfSearchBar from '@/components/restaurantList/yfRestaurantsListSearchBar.vue'
-import yfCardCategory from '@/components/restaurantList/yfRestaurantsListCardCategory.vue'
-import yfCardRestaurant from '@/components/restaurantList/yfRestaurantsListCardRestaurant.vue'
-import yfRestaurantsListFooter from '@/components/restaurantList/yfRestaurantsListFooter.vue'
+import yfRestaurantsListFilter from '@/components/restauranstList/yfRestaurantsListFilter.vue'
+import yfRestaurantsListSearch from '@/components/restauranstList/yfRestaurantsListSearch.vue'
+import yfRestaurantsListSlider from '@/components/restauranstList/yfRestaurantsListSlider.vue'
+import yfRestaurantsListCardCategory from '@/components/restauranstList/yfRestaurantsListCardCategory.vue'
+import yfRestaurantsListCardRestaurant from '@/components/restauranstList/yfRestaurantsListCardRestaurant.vue'
+import yfRestaurantsListFooter from '@/components/restauranstList/yfRestaurantsListFooter.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
   components: {
-    yfSearchBar,
-    yfCardCategory,
-    yfCardRestaurant,
+    yfRestaurantsListFilter,
+    yfRestaurantsListSearch,
+    yfRestaurantsListSlider,
+    yfRestaurantsListCardCategory,
+    yfRestaurantsListCardRestaurant,
     yfRestaurantsListFooter,
   },
   data() {
@@ -74,22 +84,25 @@ export default {
       ],
     }
   },
-  watch: {
-    category() {
-      // this.fetchRestaurants()
-    },
-    offset() {
-      this.fetchRestaurants()
-    },
-  },
   computed: {
-    ...mapState(['restaurants_list', 'offset', 'category']),
+    ...mapState(['restaurants_list']),
+    /**
+     * @computed getIndexSelectedCategory
+     * @desc Find index selected category
+     * @returns {number}
+     */
     getIndexSelectedCategory() {
       return this.categories.findIndex(category => category.isSelected === true)
     },
   },
   methods: {
-    ...mapActions(['fetchRestaurants', 'updateCategory']),
+    ...mapActions(['fetchRestaurants', 'updateTerm']),
+    /**
+     * @computed setSelected
+     * @desc This method set category selected
+     * @param {number} idx The index of selected category
+     * @returns {void}
+     */
     setSelected(idx) {
       const { food_name } = this.categories[idx]
       const idxSelectedCategory = this.getIndexSelectedCategory
@@ -102,8 +115,8 @@ export default {
         const foodName =
           this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
 
-        this.updateCategory(foodName)
-      } else this.updateCategory(food_name)
+        this.updateTerm(foodName)
+      } else this.updateTerm(food_name)
     },
   },
   mounted() {
@@ -117,7 +130,7 @@ export default {
   width: 100%;
 }
 
-.container__restaurants__list .container__search__bar {
+.container__restaurants__list .container__filter {
   width: 100%;
   height: 20%;
   display: flex;

@@ -27,10 +27,20 @@ export default {
   },
   methods: {
     ...mapActions(['fetchRestaurants', 'incrementOffset', 'decrementOffset']),
+    /**
+     * @function incrementPage
+     * @desc This method increment page
+     * @returns {void}
+     */
     incrementPage() {
       this.page += 1
       this.incrementOffset(12)
     },
+    /**
+     * @function decrementPage
+     * @desc This method decrement page
+     * @returns {void}
+     */
     decrementPage() {
       this.page -= 1
       this.decrementOffset(12)

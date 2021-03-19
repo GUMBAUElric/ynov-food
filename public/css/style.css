@@ -150,3 +150,25 @@ input::placeholder {
   color: var(--text-color);
   opacity: 1; /* Firefox */
 }
+
+/***** SEARCH *****/
+
+.style-chooser .vs__dropdown-toggle {
+  border-radius: 20px;
+}
+
+.style-chooser .vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle,
+.style-chooser .vs__dropdown-menu {
+  min-width: 170px;
+  border: none;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  color: var(--text-color);
+  background: #fff;
+}
+
+.style-chooser .vs__clear,
+.style-chooser .vs__open-indicator {
+  fill: var(--text-color);
+}
