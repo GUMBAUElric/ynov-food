@@ -1,13 +1,34 @@
 <template>
   <div class="search_bar">
-    <input type="text" placeholder="Search food, restaurant, ..." />
+    <input
+      type="text"
+      placeholder="Search food, restaurant, ..."
+      v-model="search"
+      @keyup.enter="updateTerm(search)"
+    />
     <i class="fas fa-search"></i>
   </div>
 </template>
 
 <script>
+/** Import */
+import { mapActions } from 'vuex'
+
 export default {
   name: 'yfRestaurantsListSearch',
+  data() {
+    return {
+      search: '',
+    }
+  },
+  watch: {
+    search(newValue) {
+      if (newValue === '') this.updateTerm('')
+    },
+  },
+  methods: {
+    ...mapActions(['updateTerm']),
+  },
 }
 </script>
 
