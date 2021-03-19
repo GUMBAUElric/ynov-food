@@ -84,22 +84,25 @@ export default {
       ],
     }
   },
-  watch: {
-    category() {
-      // this.fetchRestaurants()
-    },
-    offset() {
-      this.fetchRestaurants()
-    },
-  },
   computed: {
-    ...mapState(['restaurants_list', 'offset', 'category']),
+    ...mapState(['restaurants_list']),
+    /**
+     * @computed getIndexSelectedCategory
+     * @desc Find index selected category
+     * @returns {number}
+     */
     getIndexSelectedCategory() {
       return this.categories.findIndex(category => category.isSelected === true)
     },
   },
   methods: {
-    ...mapActions(['fetchRestaurants', 'updateCategory']),
+    ...mapActions(['fetchRestaurants', 'updateTerm']),
+    /**
+     * @computed setSelected
+     * @desc This method set category selected
+     * @param {number} idx The index of selected category
+     * @returns {void}
+     */
     setSelected(idx) {
       const { food_name } = this.categories[idx]
       const idxSelectedCategory = this.getIndexSelectedCategory
@@ -112,8 +115,8 @@ export default {
         const foodName =
           this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
 
-        this.updateCategory(foodName)
-      } else this.updateCategory(food_name)
+        this.updateTerm(foodName)
+      } else this.updateTerm(food_name)
     },
   },
   mounted() {
