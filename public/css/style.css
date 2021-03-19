@@ -160,15 +160,15 @@ input::placeholder {
 .style-chooser .vs__search::placeholder,
 .style-chooser .vs__dropdown-toggle,
 .style-chooser .vs__dropdown-menu {
-  background: #fff;
+  min-width: 170px;
   border: none;
-  color: #394066;
   text-transform: lowercase;
   font-variant: small-caps;
-  width: 180px;
+  color: var(--text-color);
+  background: #fff;
 }
 
 .style-chooser .vs__clear,
 .style-chooser .vs__open-indicator {
-  fill: #394066;
+  fill: var(--text-color);
 }
