@@ -21,7 +21,7 @@
       <div class="rating_restaurant">
         <i v-for="(item, idx) in rating" :key="idx" class="fas fa-star"></i>
         <div v-for="(item, idx) in 5 - rating" :key="`_${idx}`">
-          <i v-if="half_rating !== 0 && idx === 0" class="fad fa-star-half-alt"></i>
+          <i v-if="checkIfIsHalfNumber(idx)" class="fad fa-star-half-alt"></i>
           <i v-else class="far fa-star"></i>
         </div>
       </div>
@@ -51,15 +51,33 @@ export default {
     },
   },
   computed: {
+    /**
+     * @computed fetchCategories
+     * @desc Join categories by ', '
+     * @returns {object[]}
+     */
     fetchCategories() {
       return this.restaurant.categories.map(item => item.title).join(', ')
     },
   },
   methods: {
+    /**
+     * @function fetchRating
+     * @desc This method fetch rating to display in the stars icons
+     * @returns {void}
+     */
     fetchRating() {
       const [rating, halfRating] = this.restaurant.rating.toString().split('.')
       this.rating = parseInt(rating, 10)
       this.half_rating = halfRating === undefined ? 0 : parseInt(halfRating, 10)
+    },
+    /**
+     * @function checkIfIsHalfNumber
+     * @desc This method check if rating is half number
+     * @returns {boolean}
+     */
+    checkIfIsHalfNumber(idx) {
+      return this.half_rating !== 0 && idx === 0
     },
   },
   mounted() {
