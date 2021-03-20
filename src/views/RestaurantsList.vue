@@ -15,7 +15,7 @@
     </div>
     <div class="container__cards__restaurant">
       <yfRestaurantsListCardRestaurant
-        v-for="item in restaurants_list"
+        v-for="item in restaurantsList"
         :key="item.id"
         :restaurant="item"
       />
@@ -120,7 +120,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchRestaurants()
+    // this.fetchRestaurants()
   },
 }
 </script>
@@ -134,6 +134,7 @@ export default {
   width: 100%;
   height: 20%;
   display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 }
