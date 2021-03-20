@@ -4,8 +4,9 @@
       class="style-chooser"
       :options="auto_complete"
       v-model="search"
-      @input="setAtClick"
-      @input.native="setAtTyping"
+      @input="setSearch"
+      @keyup.enter.native="setSearch"
+      @input.native="setAutoComplete"
     >
       <template v-slot:no-options="{ search, searching }">
         <template v-if="searching">
@@ -45,7 +46,7 @@ export default {
      * @desc Set autocomplete when typing
      * @returns {void}
      */
-    setAtTyping(e) {
+    setAutoComplete(e) {
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
@@ -62,7 +63,7 @@ export default {
      * @desc Set autocomplete when click on suggestion
      * @returns {void}
      */
-    setAtClick(value) {
+    setSearch(value) {
       this.search = value
       if (this.search !== '') this.updateTerm(this.search)
     },

@@ -76,7 +76,7 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async fetchAutoComplete({ commit, dispatch, state }, text) {
+    async fetchAutoComplete({ commit, state }, text) {
       try {
         const { latitude, longitude } = state.params
 
@@ -92,8 +92,6 @@ export default new Vuex.Store({
 
         const autoComplete = [...categories, ...businesses, ...terms]
         commit('UPDATE_AUTO_COMPLETE', autoComplete)
-        commit('UPDATE_TERM', text)
-        dispatch('fetchRestaurants')
       } catch (error) {
         console.error(error)
       }
