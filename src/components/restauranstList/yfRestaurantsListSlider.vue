@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center container">
       <div class="value">{{ range }}</div>
       <input type="range" min="0" max="5" step="0.5" value="0" @change="filterByRating($event)" />
-      <i class="fas fa-heart"></i>
+      <i class="fas fa-star"></i>
     </div>
   </div>
 </template>
