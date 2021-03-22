@@ -1,16 +1,14 @@
+/**------------------------------------------------------------------------
+ * ?                                ABOUT
+ * @author         :  ElricGUMBAU
+ * @email          :  elric.gumbau@ynov.com 
+ * @description    :  Classes CSS
+ *------------------------------------------------------------------------**/
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
-
-:root {
-  --background-color: #27282c;
-  --text-color: #303241;
-  --primary-color: #fdbe0c;
-}
-
-/** Nunito font */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300&display=swap');
 
 html,
 body,
@@ -149,6 +147,56 @@ button:focus {
 input::placeholder {
   color: var(--text-color);
   opacity: 1; /* Firefox */
+}
+
+/***** Variables *****/
+
+:root {
+  --background-color: #27282c;
+  --text-color: #303241;
+  --primary-color: #fdbe0c;
+}
+
+/***** Font *****/
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300&display=swap');
+
+/***** FLEXBOX *****/
+
+.d-none {
+  display: none !important;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-flow: row wrap;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.justify-content-evenly {
+  justify-content: space-evenly;
+}
+
+.align-items-center {
+  align-items: center;
 }
 
 /***** SEARCH *****/

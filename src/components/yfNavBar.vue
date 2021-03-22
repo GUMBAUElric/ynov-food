@@ -1,18 +1,18 @@
 <template>
-  <div class="navbar">
-    <div class="container__navbar">
-      <div class="logo__app">
-        <img src="../assets/img/icon/logo_yf.svg" alt="logo_yf" />
-      </div>
-      <div class="title-app">
-        <h1>Ynov Food</h1>
-      </div>
-      <div class="favorite">
-        <i class="fas fa-heart"></i>
-        <p class="nb_favorite">0</p>
-      </div>
+  <nav class="d-flex justify-content-center align-items-center navbar">
+    <div class="container-navbar">
+      <ul class="d-flex justify-content-around align-items-center">
+        <li class="logo-app">
+          <img src="../assets/img/icon/logo_yf.svg" alt="logo-yf" />
+        </li>
+        <li class="title-app"><h1>Ynov Food</h1></li>
+        <li class="d-flex favorite">
+          <i class="fas fa-heart"></i>
+          <p class="nb_favorite">0</p>
+        </li>
+      </ul>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -24,38 +24,21 @@ export default {
 <style scoped>
 .navbar {
   height: 70px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   background-color: #fefefe;
 }
 
-.navbar .container__navbar {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
+.navbar .container-navbar {
+  width: 80%;
 }
 
-.navbar .container__navbar .logo__app img {
+.navbar .container-navbar .logo-app img {
   width: 50px;
 }
-.navbar .container__navbar .title-app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.navbar .container-navbar .title-app {
   font-size: 1.4em;
 }
 
-.navbar .container__navbar .favorite {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.navbar .container__navbar .favorite .nb_favorite {
+.navbar .container-navbar .favorite .nb_favorite {
   margin-left: 10px;
 }
 </style>

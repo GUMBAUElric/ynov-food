@@ -1,12 +1,22 @@
 <template>
   <div class="pagination">
-    <div class="container">
-      <div class="arrow_left " :class="page === 1 ? 'hidden' : ''" @click="decrementPage">
-        <i class="fas fa-chevron-left"></i>
+    <div class="d-flex flex-column justify-content-center align-items-center container">
+      <div class="d-flex">
+        <div
+          class="d-flex justify-content-center align-items-center arrow-right arrow-left"
+          :class="page === 1 ? 'd-none' : ''"
+          @click="decrementPage"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div
+          class="d-flex justify-content-center align-items-center arrow-right"
+          @click="incrementPage"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </div>
       </div>
-      <div class="arrow_right" @click="incrementPage">
-        <i class="fas fa-chevron-right"></i>
-      </div>
+
       <div class="page">
         <p>Page : {{ page }}</p>
       </div>
@@ -34,7 +44,7 @@ export default {
      */
     incrementPage() {
       this.page += 1
-      this.incrementOffset(14)
+      this.incrementOffset(20)
     },
     /**
      * @function decrementPage
@@ -43,7 +53,7 @@ export default {
      */
     decrementPage() {
       this.page -= 1
-      this.decrementOffset(14)
+      this.decrementOffset(20)
     },
   },
 }
@@ -52,40 +62,24 @@ export default {
 <style scoped>
 .pagination {
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.pagination .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pagination .container .arrow_left,
-.pagination .container .arrow_right {
+.pagination .container .arrow-left,
+.pagination .container .arrow-right {
   width: 40px;
   height: 40px;
   margin: 0 10px;
   border-radius: 10px;
   background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
 }
 
-.pagination .container .arrow_left.hidden {
-  display: none;
-}
-
-.pagination .container .arrow_left i {
+.pagination .container .arrow-left i {
   margin-top: 2px;
   margin-right: 2px;
 }
 
-.pagination .container .arrow_right i {
+.pagination .container .arrow-right i {
   margin-top: 2px;
   margin-left: 2px;
 }

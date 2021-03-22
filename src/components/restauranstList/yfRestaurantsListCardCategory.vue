@@ -1,6 +1,6 @@
 <template>
   <div class="card-category" :class="category.isSelected ? 'active' : ''">
-    <div class="container">
+    <div class="d-flex flex-column align-items-center container">
       <div class="food-logo">
         <img :src="require(`../../assets/img/food/${category.food_logo}`)" alt="" />
       </div>
@@ -46,10 +46,6 @@ export default {
 
 .card-category .container {
   margin: 10px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .card-category .container .food-logo img {

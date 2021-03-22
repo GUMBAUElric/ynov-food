@@ -1,11 +1,11 @@
 <template>
-  <section class="list-restaurants">
-    <div class="container filter">
+  <section class="d-flex flex-column align-items-center restaurants-list">
+    <div class="d-flex flex-wrap justify-content-around container-filter">
       <yfRestaurantsListOptions />
       <yfRestaurantsListSearch />
       <yfRestaurantsListSlider />
     </div>
-    <div class="container card-categories">
+    <div class="d-flex flex-wrap justify-content-center container-categories">
       <yfRestaurantsListCardCategory
         v-for="(category, idx) in categories"
         :key="idx"
@@ -13,14 +13,14 @@
         @click.native="setSelected(idx)"
       />
     </div>
-    <div class="container card-restaurants">
+    <div class="d-flex flex-wrap justify-content-center container-restaurants">
       <yfRestaurantsListCardRestaurant
         v-for="item in restaurantsList"
         :key="item.id"
         :restaurant="item"
       />
     </div>
-    <div class="container footer">
+    <div class="footer">
       <yfRestaurantsListPagination />
     </div>
   </section>
@@ -126,49 +126,39 @@ export default {
 </script>
 
 <style scoped>
-.list-restaurants {
+.restaurants-list {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.list-restaurants .container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-}
-
-.list-restaurants .container.filter {
-  width: 100%;
+.restaurants-list .container-filter {
+  width: 80%;
   height: 20%;
-  align-items: unset;
 }
 
-.list-restaurants .container.card-categories {
-  width: 100%;
+.restaurants-list .container-categories {
+  width: 80%;
   margin: 60px 0;
 }
 
-.list-restaurants .container.card-restaurants {
+.restaurants-list .container-restaurants {
   width: 100%;
   height: 80%;
 }
 
-.list-restaurants .container.footer {
+.restaurants-list .footer {
   width: 100%;
 }
 
-@media screen and (min-width: 1800px) {
-  .list-restaurants .container.card-restaurants {
-    width: 80%;
+@media screen and (max-width: 750px) {
+  .restaurants-list .container-filter {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-@media screen and (min-width: 3000px) {
-  .list-restaurants .container.card-restaurants {
-    width: 50%;
+@media screen and (min-width: 1800px) {
+  .restaurants-list .container-restaurants {
+    width: 1700px;
   }
 }
 </style>

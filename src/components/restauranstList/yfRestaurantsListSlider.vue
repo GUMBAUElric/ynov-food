@@ -1,9 +1,9 @@
 <template>
-  <div class="slider">
-    <div class="container">
+  <div class="d-flex slider">
+    <div class="d-flex align-items-center container">
       <div class="value">{{ range }}</div>
       <input type="range" min="0" max="5" step="0.5" value="0" @change="filterByRating($event)" />
-      <i class="fas fa-star"></i>
+      <i class="fas fa-heart"></i>
     </div>
   </div>
 </template>
@@ -39,16 +39,10 @@ export default {
 
 <style scoped>
 .slider {
-  display: flex;
   margin-top: 40px;
-  align-items: center;
-  justify-content: center;
 }
 
 .slider .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #fff;
 }
 

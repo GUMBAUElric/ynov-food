@@ -1,6 +1,6 @@
 <template>
   <div class="card-restaurant">
-    <div class="container">
+    <div class="d-flex flex-column align-items-center container">
       <div class="restaurant-image">
         <img :src="restaurant.image_url" alt="restaurant-image" />
       </div>
@@ -14,11 +14,11 @@
         <p>{{ fetchCategories }}</p>
       </div>
 
-      <div class="restaurant-city">
+      <div class="d-flex restaurant-city">
         <i class="fas fa-map-marker-alt"></i>
         <p>{{ restaurant.location.city }}</p>
       </div>
-      <div class="restaurant-rating">
+      <div class="d-inline-flex restaurant-rating">
         <i v-for="(item, idx) in rating" :key="idx" class="fas fa-star"></i>
         <div v-for="(item, idx) in 5 - rating" :key="`_${idx}`">
           <i v-if="checkIfIsHalfNumber(idx)" class="fad fa-star-half-alt"></i>
@@ -99,10 +99,6 @@ export default {
 
 .card-restaurant .container {
   margin: 20px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .card-restaurant .container .restaurant-image img {
@@ -137,8 +133,6 @@ export default {
 }
 
 .card-restaurant .container .restaurant-city {
-  display: flex;
-  align-items: center;
   margin-top: 20px;
 }
 
@@ -148,7 +142,6 @@ export default {
 
 .card-restaurant .container .restaurant-rating {
   margin: 20px 0;
-  display: inline-flex;
 }
 
 .card-restaurant .container .restaurant-rating i {
