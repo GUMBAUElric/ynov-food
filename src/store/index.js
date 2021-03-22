@@ -23,7 +23,7 @@ export default new Vuex.Store({
     params: {
       latitude: '45.764042',
       longitude: '4.835659',
-      limit: 12,
+      limit: 20,
       offset: 0,
       open_now: false,
       radius: 0,
