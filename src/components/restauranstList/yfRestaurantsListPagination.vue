@@ -1,15 +1,15 @@
 <template>
-  <div class="footer">
-    <div class="pagination">
+  <div class="pagination">
+    <div class="container">
       <div class="arrow_left " :class="page === 1 ? 'hidden' : ''" @click="decrementPage">
         <i class="fas fa-chevron-left"></i>
       </div>
       <div class="arrow_right" @click="incrementPage">
         <i class="fas fa-chevron-right"></i>
       </div>
-    </div>
-    <div class="page">
-      <p>Page : {{ page }}</p>
+      <div class="page">
+        <p>Page : {{ page }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'yfRestaurantsListFooter',
+  name: 'yfRestaurantsListPagination',
   data() {
     return {
       page: 1,
@@ -34,7 +34,7 @@ export default {
      */
     incrementPage() {
       this.page += 1
-      this.incrementOffset(12)
+      this.incrementOffset(14)
     },
     /**
      * @function decrementPage
@@ -43,27 +43,28 @@ export default {
      */
     decrementPage() {
       this.page -= 1
-      this.decrementOffset(12)
+      this.decrementOffset(14)
     },
   },
 }
 </script>
 
 <style scoped>
-.footer {
+.pagination {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
 }
 
-.footer .pagination {
-  display: flex;
-  align-items: center;
-}
-
-.footer .pagination .arrow_left,
-.footer .pagination .arrow_right {
+.pagination .container .arrow_left,
+.pagination .container .arrow_right {
   width: 40px;
   height: 40px;
   margin: 0 10px;
@@ -75,21 +76,21 @@ export default {
   cursor: pointer;
 }
 
-.footer .pagination .arrow_left.hidden {
+.pagination .container .arrow_left.hidden {
   display: none;
 }
 
-.footer .pagination .arrow_left i {
+.pagination .container .arrow_left i {
   margin-top: 2px;
   margin-right: 2px;
 }
 
-.footer .pagination .arrow_right i {
+.pagination .container .arrow_right i {
   margin-top: 2px;
   margin-left: 2px;
 }
 
-.footer .page {
+.pagination .container .page {
   margin-top: 15px;
   color: #fff;
 }

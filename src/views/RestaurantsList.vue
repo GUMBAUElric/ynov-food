@@ -1,11 +1,11 @@
 <template>
-  <div class="container__restaurants__list">
-    <div class="container__filter">
-      <yfRestaurantsListFilter />
+  <section class="list-restaurants">
+    <div class="container filter">
+      <yfRestaurantsListOptions />
       <yfRestaurantsListSearch />
       <yfRestaurantsListSlider />
     </div>
-    <div class="container__cards__categories">
+    <div class="container card-categories">
       <yfRestaurantsListCardCategory
         v-for="(category, idx) in categories"
         :key="idx"
@@ -13,39 +13,39 @@
         @click.native="setSelected(idx)"
       />
     </div>
-    <div class="container__cards__restaurant">
+    <div class="container card-restaurants">
       <yfRestaurantsListCardRestaurant
         v-for="item in restaurantsList"
         :key="item.id"
         :restaurant="item"
       />
     </div>
-    <div class="container__footer">
-      <yfRestaurantsListFooter />
+    <div class="container footer">
+      <yfRestaurantsListPagination />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 // @ is an alias to /src
 import { mapActions, mapState } from 'vuex'
-import yfRestaurantsListFilter from '@/components/restauranstList/yfRestaurantsListFilter.vue'
+import yfRestaurantsListOptions from '@/components/restauranstList/yfRestaurantsListOptions.vue'
 import yfRestaurantsListSearch from '@/components/restauranstList/yfRestaurantsListSearch.vue'
 import yfRestaurantsListSlider from '@/components/restauranstList/yfRestaurantsListSlider.vue'
 import yfRestaurantsListCardCategory from '@/components/restauranstList/yfRestaurantsListCardCategory.vue'
 import yfRestaurantsListCardRestaurant from '@/components/restauranstList/yfRestaurantsListCardRestaurant.vue'
-import yfRestaurantsListFooter from '@/components/restauranstList/yfRestaurantsListFooter.vue'
+import yfRestaurantsListPagination from '@/components/restauranstList/yfRestaurantsListPagination.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
   components: {
-    yfRestaurantsListFilter,
+    yfRestaurantsListOptions,
     yfRestaurantsListSearch,
     yfRestaurantsListSlider,
     yfRestaurantsListCardCategory,
     yfRestaurantsListCardRestaurant,
-    yfRestaurantsListFooter,
+    yfRestaurantsListPagination,
   },
   data() {
     return {
@@ -126,40 +126,49 @@ export default {
 </script>
 
 <style scoped>
-.container__restaurants__list {
+.list-restaurants {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.container__restaurants__list .container__filter {
+.list-restaurants .container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.list-restaurants .container.filter {
   width: 100%;
   height: 20%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
+  align-items: unset;
 }
 
-.container__restaurants__list .container__cards__categories {
+.list-restaurants .container.card-categories {
   width: 100%;
   margin: 60px 0;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
 }
 
-.container__restaurants__list .container__cards__restaurant {
+.list-restaurants .container.card-restaurants {
   width: 100%;
   height: 80%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
 }
 
-.container__restaurants__list .container__footer {
+.list-restaurants .container.footer {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+@media screen and (min-width: 1800px) {
+  .list-restaurants .container.card-restaurants {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 3000px) {
+  .list-restaurants .container.card-restaurants {
+    width: 50%;
+  }
 }
 </style>

@@ -1,31 +1,31 @@
 <template>
-  <div class="card__restaurant">
-    <div class="container__card__restaurant">
-      <div class="image_restaurant">
-        <img :src="restaurant.image_url" alt="image_restaurant" />
+  <div class="card-restaurant">
+    <div class="container">
+      <div class="restaurant-image">
+        <img :src="restaurant.image_url" alt="restaurant-image" />
       </div>
       <div class="favorite">
         <i class="fas fa-heart"></i>
       </div>
-      <div class="name_restaurant">
+      <div class="restaurant-name">
         <h3>{{ restaurant.name }}</h3>
       </div>
-      <div class="categories_restaurant">
+      <div class="restaurant-categories">
         <p>{{ fetchCategories }}</p>
       </div>
 
-      <div class="city_restaurant">
+      <div class="restaurant-city">
         <i class="fas fa-map-marker-alt"></i>
         <p>{{ restaurant.location.city }}</p>
       </div>
-      <div class="rating_restaurant">
+      <div class="restaurant-rating">
         <i v-for="(item, idx) in rating" :key="idx" class="fas fa-star"></i>
         <div v-for="(item, idx) in 5 - rating" :key="`_${idx}`">
           <i v-if="checkIfIsHalfNumber(idx)" class="fad fa-star-half-alt"></i>
           <i v-else class="far fa-star"></i>
         </div>
       </div>
-      <div class="see_details">
+      <div class="more-details">
         <button>
           Voir en détails
           <i class="fas fa-chevron-right"></i>
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped>
-.card__restaurant {
+.card-restaurant {
   width: 210px;
   height: 310px;
   margin: 40px 50px;
@@ -97,7 +97,7 @@ export default {
   z-index: 0;
 }
 
-.card__restaurant .container__card__restaurant {
+.card-restaurant .container {
   margin: 20px 20px;
   display: flex;
   flex-direction: column;
@@ -105,14 +105,14 @@ export default {
   justify-content: center;
 }
 
-.card__restaurant .container__card__restaurant .image_restaurant img {
+.card-restaurant .container .restaurant-image img {
   width: 70px;
   height: 70px;
   margin-top: -50px;
   border-radius: 50%;
 }
 
-.card__restaurant .container__card__restaurant .favorite {
+.card-restaurant .container .favorite {
   margin-right: -120px;
   margin-top: -20px;
   margin-bottom: 10px;
@@ -123,39 +123,39 @@ export default {
   color: var(--primary-color);
 }
 
-.card__restaurant .container__card__restaurant .name_restaurant {
+.card-restaurant .container .restaurant-name {
   margin: 20px 0;
 }
 
-.card__restaurant .container__card__restaurant .name_restaurant h3 {
+.card-restaurant .container .restaurant-name h3 {
   text-align: center;
 }
 
-.card__restaurant .container__card__restaurant .categories_restaurant p {
+.card-restaurant .container .restaurant-categories p {
   text-align: center;
   margin-left: 5px;
 }
 
-.card__restaurant .container__card__restaurant .city_restaurant {
+.card-restaurant .container .restaurant-city {
   display: flex;
   align-items: center;
   margin-top: 20px;
 }
 
-.card__restaurant .container__card__restaurant .city_restaurant p {
+.card-restaurant .container .restaurant-city p {
   margin-left: 5px;
 }
 
-.card__restaurant .container__card__restaurant .rating_restaurant {
+.card-restaurant .container .restaurant-rating {
   margin: 20px 0;
   display: inline-flex;
 }
 
-.card__restaurant .container__card__restaurant .rating_restaurant i {
+.card-restaurant .container .restaurant-rating i {
   margin: 0 5px;
 }
 
-.card__restaurant .container__card__restaurant .see_details button {
+.card-restaurant .container .more-details button {
   position: relative;
   height: 40px;
   width: 130px;
@@ -169,11 +169,11 @@ export default {
   border: 3px solid var(--primary-color);
 }
 
-.card__restaurant .container__card__restaurant .see_details button:hover {
+.card-restaurant .container .more-details button:hover {
   width: 160px;
 }
 
-.card__restaurant .container__card__restaurant .see_details button::before {
+.card-restaurant .container .more-details button::before {
   content: '';
   position: absolute;
   height: 40px;
@@ -187,18 +187,18 @@ export default {
   background-color: var(--primary-color);
 }
 
-.card__restaurant .container__card__restaurant .see_details button:hover::before {
+.card-restaurant .container .more-details button:hover::before {
   transform: translate(0%);
 }
 
-.card__restaurant .container__card__restaurant .see_details button i {
+.card-restaurant .container .more-details button i {
   transform: scale(0);
   margin-left: -10px;
   font-size: 0.9em;
   transition: 300ms;
 }
 
-.card__restaurant .container__card__restaurant .see_details button:hover i {
+.card-restaurant .container .more-details button:hover i {
   display: inline;
   margin-left: 10px;
   transform: scale(1);

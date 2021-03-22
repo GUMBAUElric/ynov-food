@@ -1,6 +1,6 @@
 <template>
-  <div class="range">
-    <div class="field">
+  <div class="slider">
+    <div class="container">
       <div class="value">{{ range }}</div>
       <input type="range" min="0" max="5" step="0.5" value="0" @change="filterByRating($event)" />
       <i class="fas fa-star"></i>
@@ -24,7 +24,7 @@ export default {
     /**
      * @function filterByRating
      * @desc Ths method filter restaurant by rating
-     * @param {event} e Change evenement
+     * @param {event} e Evenement
      * @returns {void}
      */
     async filterByRating(e) {
@@ -38,21 +38,21 @@ export default {
 </script>
 
 <style scoped>
-.range {
+.slider {
   display: flex;
   margin-top: 40px;
   align-items: center;
   justify-content: center;
 }
 
-.range .field {
+.slider .container {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
 }
 
-.range .field input {
+.slider .container input {
   margin: 0 20px;
   height: 3px;
   width: 100%;

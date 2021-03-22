@@ -1,10 +1,10 @@
 <template>
-  <div class="card__category" :class="category.isSelected ? 'active' : ''">
-    <div class="container__card__category">
-      <div class="food_logo">
+  <div class="card-category" :class="category.isSelected ? 'active' : ''">
+    <div class="container">
+      <div class="food-logo">
         <img :src="require(`../../assets/img/food/${category.food_logo}`)" alt="" />
       </div>
-      <div class="food_name">
+      <div class="food-name">
         {{ category.food_name }}
       </div>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.card__category {
+.card-category {
   height: 70px;
   margin: 10px 20px;
   border-radius: 20px;
@@ -38,13 +38,13 @@ export default {
   background-color: var(--primary-color);
 }
 
-.card__category:hover {
+.card-category:hover {
   height: 100px;
   cursor: pointer;
   background-color: var(--primary-color);
 }
 
-.card__category .container__card__category {
+.card-category .container {
   margin: 10px 20px;
   display: flex;
   flex-direction: column;
@@ -52,11 +52,11 @@ export default {
   justify-content: center;
 }
 
-.card__category .container__card__category .food_logo img {
+.card-category .container .food-logo img {
   width: 40px;
 }
 
-.card__category .container__card__category .food_name {
+.card-category .container .food-name {
   margin-top: 20px;
 }
 </style>

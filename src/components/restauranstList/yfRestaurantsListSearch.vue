@@ -1,21 +1,23 @@
 <template>
-  <div class="search_bar">
-    <v-select
-      class="style-chooser"
-      :options="auto_complete"
-      v-model="search"
-      @input="setSearch"
-      @keyup.enter.native="setSearch"
-      @input.native="setAutoComplete"
-    >
-      <template v-slot:no-options="{ search, searching }">
-        <template v-if="searching">
-          No results found for <em>{{ search }}</em
-          >.
+  <div class="search">
+    <div class="container">
+      <v-select
+        class="search-bar"
+        :options="auto_complete"
+        v-model="search"
+        @input="setSearch"
+        @keyup.enter.native="setSearch"
+        @input.native="setAutoComplete"
+      >
+        <template v-slot:no-options="{ search, searching }">
+          <template v-if="searching">
+            No results found for <em>{{ search }}</em
+            >.
+          </template>
+          <em style="opacity: 0.5;" v-else>Start typing </em>
         </template>
-        <em style="opacity: 0.5;" v-else>Start typing </em>
-      </template>
-    </v-select>
+      </v-select>
+    </div>
   </div>
 </template>
 
@@ -72,10 +74,7 @@ export default {
 </script>
 
 <style scoped>
-.search_bar {
-  height: 40px;
+.search {
   margin: 40px 60px 0 60px;
-  display: flex;
-  align-items: center;
 }
 </style>

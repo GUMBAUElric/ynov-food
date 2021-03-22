@@ -1,6 +1,6 @@
 <template>
-  <div class="filter">
-    <div class="container__filter">
+  <div class="options">
+    <div class="container">
       <div class="aroud-me">
         <input
           type="checkbox"
@@ -33,7 +33,7 @@ import Geolocation from '@/assets/modules/Geolocation'
 const { getPermissionStatus, getGeolocation } = Geolocation()
 
 export default {
-  name: 'yfRestaurantsListFilter',
+  name: 'yfRestaurantsListOptions',
   data() {
     return {
       filter: {
@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style scoped>
-.filter {
+.options {
   height: 40px;
   border-radius: 20px;
   margin-top: 40px;
@@ -86,13 +86,13 @@ export default {
   color: #faf9fb;
 }
 
-.filter .container__filter {
+.options .container {
   margin: 15px 20px;
   display: flex;
   flex-direction: column;
 }
 
-.filter .container__filter .is-open {
+.options .container .is-open {
   margin-top: 10px;
 }
 </style>
