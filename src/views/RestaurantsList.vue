@@ -1,27 +1,8 @@
 <template>
   <section class="d-flex flex-column align-items-center restaurants-list">
-    <div class="d-flex flex-wrap justify-content-around container-filter">
+    <div class="d-flex flex-column align-items-center header">
+      <yfRestaurantsListTagLine />
       <yfRestaurantsListOptions />
-      <yfRestaurantsListSearch />
-      <yfRestaurantsListSlider />
-    </div>
-    <div class="d-flex flex-wrap justify-content-center container-categories">
-      <yfRestaurantsListCardCategory
-        v-for="(category, idx) in categories"
-        :key="idx"
-        :category="category"
-        @click.native="setSelected(idx)"
-      />
-    </div>
-    <div class="d-flex flex-wrap justify-content-center container-restaurants">
-      <yfRestaurantsListCardRestaurant
-        v-for="item in restaurantsList"
-        :key="item.id"
-        :restaurant="item"
-      />
-    </div>
-    <div class="footer">
-      <yfRestaurantsListPagination />
     </div>
   </section>
 </template>
@@ -29,23 +10,15 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapState } from 'vuex'
-import yfRestaurantsListOptions from '@/components/restauranstList/yfRestaurantsListOptions.vue'
-import yfRestaurantsListSearch from '@/components/restauranstList/yfRestaurantsListSearch.vue'
-import yfRestaurantsListSlider from '@/components/restauranstList/yfRestaurantsListSlider.vue'
-import yfRestaurantsListCardCategory from '@/components/restauranstList/yfRestaurantsListCardCategory.vue'
-import yfRestaurantsListCardRestaurant from '@/components/restauranstList/yfRestaurantsListCardRestaurant.vue'
-import yfRestaurantsListPagination from '@/components/restauranstList/yfRestaurantsListPagination.vue'
+import yfRestaurantsListTagLine from '@/components/restaurantsList/yfRestaurantsListTagLine.vue'
+import yfRestaurantsListOptions from '@/components/restaurantsList/yfRestaurantsListOptions.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
   components: {
+    yfRestaurantsListTagLine,
     yfRestaurantsListOptions,
-    yfRestaurantsListSearch,
-    yfRestaurantsListSlider,
-    yfRestaurantsListCardCategory,
-    yfRestaurantsListCardRestaurant,
-    yfRestaurantsListPagination,
   },
   data() {
     return {
@@ -130,30 +103,8 @@ export default {
   width: 100%;
 }
 
-.restaurants-list .container-filter {
-  width: 80%;
-  height: 20%;
-}
-
-.restaurants-list .container-categories {
-  width: 80%;
-  margin: 60px 0;
-}
-
-.restaurants-list .container-restaurants {
-  width: 100%;
-  height: 80%;
-}
-
-.restaurants-list .footer {
-  width: 100%;
-}
-
-@media screen and (max-width: 750px) {
-  .restaurants-list .container-filter {
-    flex-direction: column;
-    align-items: center;
-  }
+.restaurants-list .header {
+  width: 95%;
 }
 
 @media screen and (min-width: 1800px) {

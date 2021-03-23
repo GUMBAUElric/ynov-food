@@ -146,6 +146,11 @@ table {
   border-spacing: 0;
 }
 
+input {
+  background-color: transparent;
+  border-color: transparent;
+}
+
 textarea:focus,
 input:focus,
 button:focus {
@@ -199,21 +204,60 @@ input::placeholder {
   align-items: center;
 }
 
+/***** CARD *****/
+
+.card {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.card .card-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 15px 15px;
+}
+
+.card-material {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.card-material .card-material-content {
+  display: flex;
+  align-items: center;
+  margin: 15px 15px;
+  width: 100%;
+}
+
 /***** SEARCH *****/
 
 .search-bar .vs__dropdown-toggle {
-  border-radius: 20px;
+  border-radius: 15px;
+}
+
+.vs--searchable .vs__dropdown-toggle {
+  height: 40px;
 }
 
 .search-bar .vs__search::placeholder,
 .search-bar .vs__dropdown-toggle,
 .search-bar .vs__dropdown-menu {
-  min-width: 170px;
+  width: 300px;
+  font-size: 1.1em;
   border: none;
   text-transform: lowercase;
   font-variant: small-caps;
   color: var(--text-color);
   background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .search-bar .vs__clear,
