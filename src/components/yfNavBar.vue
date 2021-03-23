@@ -24,7 +24,8 @@ export default {
 <style scoped>
 .navbar {
   height: 70px;
-  background-color: #fefefe;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 .navbar .container-navbar {

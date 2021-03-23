@@ -5,6 +5,14 @@
  * @description    :  Classes CSS
  *------------------------------------------------------------------------**/
 
+/***** Variables *****/
+
+:root {
+  --background-color: #f7f8fa;
+  --text-color: #303241;
+  --primary-color: #fdbe0c;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -147,14 +155,6 @@ button:focus {
 input::placeholder {
   color: var(--text-color);
   opacity: 1; /* Firefox */
-}
-
-/***** Variables *****/
-
-:root {
-  --background-color: #27282c;
-  --text-color: #303241;
-  --primary-color: #fdbe0c;
 }
 
 /***** Font *****/
