@@ -1,5 +1,5 @@
 <template>
-  <nav class="d-flex justify-content-center align-items-center navbar">
+  <nav class="navbar">
     <div class="container-navbar">
       <ul class="d-flex justify-content-around align-items-center">
         <li class="logo-app">
@@ -23,6 +23,9 @@ export default {
 
 <style scoped>
 .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 70px;
   background-color: #fff;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;

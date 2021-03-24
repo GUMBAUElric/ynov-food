@@ -18,30 +18,62 @@
         </template>
       </v-select>
     </div>
-    <div class="card-material options">
-      <div class="card-material-content justify-content-center">
+    <div class="options">
+      <button
+        class="btn btn-primary"
+        :class="isSelected.aroundMe ? 'btn-primary-selected' : ''"
+        @click="filterByGeoLocation"
+      >
         <i class="far fa-compass"></i>
-        <p>Autour de moi</p>
-      </div>
+        <span>Autour de moi</span>
+      </button>
     </div>
-    <div class="card-material options">
-      <div class="card-material-content justify-content-center">
-        <i class="fal fa-door-open"></i>
-        <p>Restaurant ouvert</p>
-      </div>
+    <div class="options">
+      <button
+        class="btn btn-primary"
+        :class="isSelected.isOpen ? 'btn-primary-selected' : ''"
+        @click="filterByOpening"
+      >
+        <i class="far fa-door-open"></i>
+        <span>Restaurant ouvert</span>
+      </button>
     </div>
-    <div class="card-material options">
-      <div class="card-material-content justify-content-center">
-        <input type="range" name="" min="0" max="5" />
-        <i class="fas fa-star"></i>
+    <div class="options card-material">
+      <div class="card-material-content">
+        <yfRestaurantsListOptionsSlider icon="fas fa-star" @rangeValue="range" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/** Import */
+import yfRestaurantsListOptionsSlider from '@/components/restaurantsList/yfRestaurantsListOptionsSlider.vue'
+
 export default {
   name: 'yfRestaurantsListOptions',
+  components: {
+    yfRestaurantsListOptionsSlider,
+  },
+  data() {
+    return {
+      isSelected: {
+        aroundMe: false,
+        isOpen: false,
+      },
+    }
+  },
+  methods: {
+    filterByGeoLocation() {
+      this.isSelected.aroundMe = !this.isSelected.aroundMe
+    },
+    filterByOpening() {
+      this.isSelected.isOpen = !this.isSelected.isOpen
+    },
+    range(value) {
+      console.log(value)
+    },
+  },
 }
 </script>
 
@@ -51,16 +83,8 @@ export default {
   margin: 70px 0;
 }
 
-.container-options .options .card-material-content i {
-  margin: 0px 5px;
-}
-
-.container-options .options .card-material-content p {
-  margin: 0px 5px;
-}
-
-.container-options .options .card-material-content input {
-  width: 150px;
+.container-options .card-material .card-material-content {
+  margin: 0 5px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -71,8 +95,12 @@ export default {
     margin: 40px 0;
   }
 
-  .container-options .card-material {
+  .container-options .options button {
     width: 300px;
+  }
+
+  .container-options .card-material .card-material-content {
+    margin: 5px 5px;
   }
 
   .container-options .options {

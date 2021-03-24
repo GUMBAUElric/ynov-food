@@ -17,6 +17,30 @@ export default {
 .card {
   width: 800px;
   margin-top: 50px;
+  position: relative;
+  transition: 300ms ease;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  background-color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  bottom: 0;
+  border-radius: 0 20px 0 0;
+  transition: 500ms ease;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  background-color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 20px;
 }
 
 .card .card-content {
