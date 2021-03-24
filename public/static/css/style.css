@@ -237,6 +237,23 @@ input::placeholder {
   width: 100%;
 }
 
+/***** ALIGNMENT *****/
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.middle {
+  display: flex;
+  align-items: center;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+}
+
 /***** BUTTON *****/
 
 .btn {
@@ -246,6 +263,7 @@ input::placeholder {
   border-radius: 20px;
   padding: 15px 15px;
   font-size: 0.95em;
+  font-weight: 300;
   cursor: pointer;
   transition: 300ms ease;
   border-color: transparent;

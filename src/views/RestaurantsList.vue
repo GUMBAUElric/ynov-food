@@ -1,8 +1,20 @@
 <template>
   <section class="d-flex flex-column align-items-center restaurants-list">
-    <div class="d-flex flex-column align-items-center header">
+    <div class="top flex-column">
       <yfRestaurantsListTagLine />
       <yfRestaurantsListOptions />
+    </div>
+    <div class="middle flex-column">
+      <yfRestaurantsListCategories />
+    </div>
+    <div class="bottom d-flex">
+      <div class="container d-flex flex-wrap justify-content-around">
+        <yfRestaurantsListCardRestaurant
+          v-for="item in restaurantsList"
+          :key="item.id"
+          :restaurant="item"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -12,6 +24,8 @@
 import { mapActions, mapState } from 'vuex'
 import yfRestaurantsListTagLine from '@/components/restaurantsList/yfRestaurantsListTagLine.vue'
 import yfRestaurantsListOptions from '@/components/restaurantsList/yfRestaurantsListOptions.vue'
+import yfRestaurantsListCategories from '@/components/restaurantsList/yfRestaurantsListCategories.vue'
+import yfRestaurantsListCardRestaurant from '@/components/restaurantsList/yfRestaurantsListCardRestaurant.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
@@ -19,78 +33,19 @@ export default {
   components: {
     yfRestaurantsListTagLine,
     yfRestaurantsListOptions,
+    yfRestaurantsListCategories,
+    yfRestaurantsListCardRestaurant,
   },
   data() {
     return {
       restaurantsList,
-      categories: [
-        {
-          food_name: 'Burger',
-          food_logo: 'burger.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Pizza',
-          food_logo: 'pizza.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Taco',
-          food_logo: 'taco.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Salade',
-          food_logo: 'salad.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Sushi',
-          food_logo: 'sushi.svg',
-          isSelected: false,
-        },
-        {
-          food_name: 'Dessert',
-          food_logo: 'dessert.svg',
-          isSelected: false,
-        },
-      ],
     }
   },
   computed: {
     ...mapState(['restaurants_list']),
-    /**
-     * @computed getIndexSelectedCategory
-     * @desc Find index selected category
-     * @returns {number}
-     */
-    getIndexSelectedCategory() {
-      return this.categories.findIndex(category => category.isSelected === true)
-    },
   },
   methods: {
     ...mapActions(['fetchRestaurants', 'updateTerm']),
-    /**
-     * @computed setSelected
-     * @desc This method set category selected
-     * @param {number} idx The index of selected category
-     * @returns {void}
-     */
-    setSelected(idx) {
-      const { food_name } = this.categories[idx]
-      const idxSelectedCategory = this.getIndexSelectedCategory
-
-      this.categories[idx].isSelected = !this.categories[idx].isSelected
-
-      if (idxSelectedCategory !== -1) {
-        this.categories[idxSelectedCategory].isSelected = false
-
-        const foodName =
-          this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
-
-        this.updateTerm(foodName)
-      } else this.updateTerm(food_name)
-    },
   },
   mounted() {
     // this.fetchRestaurants()
@@ -103,8 +58,21 @@ export default {
   width: 100%;
 }
 
-.restaurants-list .header {
+.restaurants-list .top {
   width: 95%;
+}
+
+.restaurants-list .middle {
+  width: 95%;
+}
+
+.restaurants-list .bottom {
+  width: 95%;
+}
+
+.restaurants-list .bottom .container {
+  width: 100%;
+  margin-top: 25px;
 }
 
 @media screen and (min-width: 1800px) {
