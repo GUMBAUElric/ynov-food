@@ -3,8 +3,8 @@
     <div class="card-material-content">
       <div class="card-material-header">
         <img :src="restaurant.image_url" alt="restaurant-image" />
-        <button class="btn btn-primary">
-          <i class="fas fa-heart"></i>
+        <button class="btn btn-primary" @click="checkIsFavorite(restaurant.id)">
+          <i class="fas fa-heart" :class="isFavorite ? 'favorite' : ''"></i>
         </button>
       </div>
       <div class="card-material-body flex-column justify-content-evenly">
@@ -13,7 +13,7 @@
             <div class="name">
               <h3>{{ restaurant.name }}</h3>
             </div>
-            <div class="d-flex justify-content-evenly rating-city">
+            <div class="d-flex flex-wrap justify-content-evenly rating-city">
               <div class="d-inline-flex rating">
                 <i class="fas fa-star"></i>
                 <p>{{ restaurant.rating }}</p>
@@ -39,19 +39,23 @@
 </template>
 
 <script>
+/** Import */
+import FireBase from '@/assets/modules/FireBase'
+
 export default {
   name: 'yfRestaurantsListCardRestaurant',
-  data() {
-    return {
-      rating: 0,
-      half_rating: 0,
-    }
-  },
+  inject: ['notyf'],
   props: {
     restaurant: {
       type: Object,
       default: () => {
         return {}
+      },
+    },
+    favorites: {
+      type: Array,
+      default: () => {
+        return []
       },
     },
   },
@@ -64,25 +68,42 @@ export default {
     fetchCategories() {
       return this.restaurant.categories.map(item => item.title).join(', ')
     },
+    /**
+     * @computed isFavorite
+     * @desc Return if restaurant is favorite
+     * @returns {boolean}
+     */
+    isFavorite() {
+      return this.favorites.find(item => item.id_restaurant === this.restaurant.id) !== undefined
+    },
+    /**
+     * @computed isFavorite
+     * @desc Return index of favorite restaurant
+     * @returns {number}
+     */
+    favoriteIndex() {
+      return this.favorites.findIndex(item => item.id_restaurant === this.restaurant.id)
+    },
   },
   methods: {
     /**
-     * @function fetchRating
-     * @desc This method fetch rating to display in the stars icons
-     * @returns {void}
+     * @function checkIsFavorite
+     * @desc Check favorite
+     * @returns {object[]}
      */
-    fetchRating() {
-      const [rating, halfRating] = this.restaurant.rating.toString().split('.')
-      this.rating = parseInt(rating, 10)
-      this.half_rating = halfRating === undefined ? 0 : parseInt(halfRating, 10)
-    },
-    /**
-     * @function checkIfIsHalfNumber
-     * @desc This method check if rating is half number
-     * @returns {boolean}
-     */
-    checkIfIsHalfNumber(idx) {
-      return this.half_rating !== 0 && idx === 0
+    async checkIsFavorite(idRestaurant) {
+      try {
+        if (!this.isFavorite) {
+          await FireBase().insert({ id_restaurant: idRestaurant })
+          this.notyf.success('Favoris ajouté')
+        } else {
+          await FireBase().remove(this.favorites[this.favoriteIndex].id)
+          this.notyf.success('Favoris supprimé')
+        }
+      } catch (error) {
+        console.error(error)
+        this.notyf.error('Désolé. Une erreur est survenue')
+      }
     },
   },
 }
@@ -199,5 +220,9 @@ export default {
   button {
   width: 130px;
   height: 40px;
+}
+
+.favorite {
+  color: var(--primary-color) !important;
 }
 </style>

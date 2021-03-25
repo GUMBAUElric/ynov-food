@@ -8,7 +8,7 @@
         <li class="title-app"><h1>Ynov Food</h1></li>
         <li class="d-flex favorite">
           <i class="fas fa-heart"></i>
-          <p class="nb_favorite">0</p>
+          <p class="nb_favorite">{{ numberOfFavorites }}</p>
         </li>
       </ul>
     </div>
@@ -16,8 +16,17 @@
 </template>
 
 <script>
+/** Import */
+import { mapState } from 'vuex'
+
 export default {
   name: 'yfNavBar',
+  computed: {
+    ...mapState(['favorites']),
+    numberOfFavorites() {
+      return this.favorites.length
+    },
+  },
 }
 </script>
 

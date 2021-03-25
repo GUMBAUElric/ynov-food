@@ -8,6 +8,7 @@
         v-for="item in restaurantsList"
         :key="item.id"
         :restaurant="item"
+        :favorites="favorites"
       />
     </div>
   </div>
@@ -15,6 +16,7 @@
 
 <script>
 /** Import */
+import { mapState } from 'vuex'
 import yfRestaurantsListCardRestaurant from '@/components/restaurantsList/yfRestaurantsListCardRestaurant.vue'
 
 export default {
@@ -31,6 +33,9 @@ export default {
         return []
       },
     },
+  },
+  computed: {
+    ...mapState(['favorites']),
   },
 }
 </script>
