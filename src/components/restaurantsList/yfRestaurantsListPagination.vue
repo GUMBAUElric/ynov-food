@@ -2,21 +2,13 @@
   <div class="pagination">
     <div class="d-flex flex-column justify-content-center align-items-center container">
       <div class="d-flex">
-        <div
-          class="d-flex justify-content-center align-items-center arrow-right arrow-left"
-          :class="page === 1 ? 'd-none' : ''"
-          @click="decrementPage"
-        >
+        <button class="btn btn-primary" :class="page === 1 ? 'd-none' : ''" @click="decrementPage">
           <i class="fas fa-chevron-left"></i>
-        </div>
-        <div
-          class="d-flex justify-content-center align-items-center arrow-right"
-          @click="incrementPage"
-        >
+        </button>
+        <button class="btn btn-primary" @click="incrementPage">
           <i class="fas fa-chevron-right"></i>
-        </div>
+        </button>
       </div>
-
       <div class="page">
         <p>Page : {{ page }}</p>
       </div>
@@ -64,28 +56,14 @@ export default {
   margin-bottom: 20px;
 }
 
-.pagination .container .arrow-left,
-.pagination .container .arrow-right {
+.pagination .container button {
   width: 40px;
   height: 40px;
-  margin: 0 10px;
   border-radius: 10px;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.pagination .container .arrow-left i {
-  margin-top: 2px;
-  margin-right: 2px;
-}
-
-.pagination .container .arrow-right i {
-  margin-top: 2px;
-  margin-left: 2px;
+  margin: 0 10px;
 }
 
 .pagination .container .page {
   margin-top: 15px;
-  color: #fff;
 }
 </style>

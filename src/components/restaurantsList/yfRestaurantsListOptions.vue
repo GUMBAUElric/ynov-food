@@ -1,22 +1,7 @@
 <template>
   <div class="d-flex justify-content-around container-options">
     <div class="d-flex align-items-center options">
-      <v-select
-        class="search-bar"
-        :options="auto_complete"
-        v-model="search"
-        @input="setSearch"
-        @keyup.enter.native="setSearch"
-        @input.native="setAutoComplete"
-      >
-        <template v-slot:no-options="{ search, searching }">
-          <template v-if="searching">
-            No results found for <em>{{ search }}</em
-            >.
-          </template>
-          <em style="opacity: 0.5;" v-else>Start typing </em>
-        </template>
-      </v-select>
+      <yfRestaurantsListOptionsSearch />
     </div>
     <div class="options">
       <button
@@ -41,7 +26,7 @@
     <div class="options card-material">
       <div class="card-material-content">
         <div class="card-material-body">
-          <yfRestaurantsListOptionsSlider icon="fas fa-star" @rangeValue="range" />
+          <yfRestaurantsListOptionsSlider icon="fas fa-star" @rangeValue="filterByRating" />
         </div>
       </div>
     </div>
@@ -50,12 +35,18 @@
 
 <script>
 /** Import */
+import { mapActions } from 'vuex'
 import yfRestaurantsListOptionsSlider from '@/components/restaurantsList/yfRestaurantsListOptionsSlider.vue'
+import yfRestaurantsListOptionsSearch from '@/components/restaurantsList/yfRestaurantsListOptionsSearch.vue'
+import Geolocation from '@/assets/modules/Geolocation'
+
+const { getPermissionStatus, getGeolocation } = Geolocation()
 
 export default {
   name: 'yfRestaurantsListOptions',
   components: {
     yfRestaurantsListOptionsSlider,
+    yfRestaurantsListOptionsSearch,
   },
   data() {
     return {
@@ -66,14 +57,56 @@ export default {
     }
   },
   methods: {
-    filterByGeoLocation() {
+    ...mapActions([
+      'fetchRestaurants',
+      'enableGeolocation',
+      'disableGeolocation',
+      'updateOpenNow',
+      'updateRating',
+    ]),
+    /**
+     * @function filterByGeoLocation
+     * @desc This method filter restaurant by latitute and longitude
+     * @returns {void}
+     */
+    async filterByGeoLocation() {
       this.isSelected.aroundMe = !this.isSelected.aroundMe
+
+      if (this.isSelected.aroundMe) {
+        try {
+          const { latitude, longitude } = await getGeolocation()
+          const permission = await getPermissionStatus()
+
+          if (permission === 'granted') {
+            this.enableGeolocation({ latitude, longitude, radius: 40000 })
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      } else {
+        this.disableGeolocation()
+      }
     },
+    /**
+     * @function filterByOpening
+     * @desc This method filter open restaurant
+     * @returns {void}
+     */
     filterByOpening() {
       this.isSelected.isOpen = !this.isSelected.isOpen
+
+      if (this.isSelected.isOpen) this.updateOpenNow(true)
+      else this.updateOpenNow(false)
     },
-    range(value) {
-      console.log(value)
+    /**
+     * @function filterByRating
+     * @desc Ths method filter restaurant by rating
+     * @param {event} value Value of range slider
+     * @returns {void}
+     */
+    filterByRating(value) {
+      this.updateRating(value)
+      this.fetchRestaurants()
     },
   },
 }

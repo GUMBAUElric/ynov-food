@@ -7,8 +7,9 @@
     <div class="middle flex-column">
       <yfRestaurantsListCategories />
     </div>
-    <div class="bottom d-flex justify-content-center">
+    <div class="bottom d-flex flex-column justify-content-center">
       <yfRestaurantsListContainerCardsRestaurants :restaurantsList="restaurantsList" />
+      <yfRestaurantsListPagination />
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@ import yfRestaurantsListTagLine from '@/components/restaurantsList/yfRestaurants
 import yfRestaurantsListOptions from '@/components/restaurantsList/yfRestaurantsListOptions.vue'
 import yfRestaurantsListCategories from '@/components/restaurantsList/yfRestaurantsListCategories.vue'
 import yfRestaurantsListContainerCardsRestaurants from '@/components/restaurantsList/yfRestaurantsListContainerCardsRestaurants.vue'
+import yfRestaurantsListPagination from '@/components/restaurantsList/yfRestaurantsListPagination.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
@@ -29,6 +31,7 @@ export default {
     yfRestaurantsListOptions,
     yfRestaurantsListCategories,
     yfRestaurantsListContainerCardsRestaurants,
+    yfRestaurantsListPagination,
   },
   data() {
     return {

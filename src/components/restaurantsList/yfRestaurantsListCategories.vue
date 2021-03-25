@@ -16,6 +16,7 @@
 
 <script>
 /** Import */
+import { mapActions } from 'vuex'
 import yfRestaurantsListCardCategory from '@/components/restaurantsList/yfRestaurantsListCardCategory.vue'
 
 export default {
@@ -70,6 +71,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['updateTerm']),
     /**
      * @computed setSelected
      * @desc This method set category selected
@@ -88,11 +90,9 @@ export default {
         const foodName =
           this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
 
-        console.log(foodName)
-
-        // this.updateTerm(foodName)
+        this.updateTerm(foodName)
       } else {
-        // this.updateTerm(food_name)
+        this.updateTerm(food_name)
       }
     },
   },
