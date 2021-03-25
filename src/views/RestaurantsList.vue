@@ -1,5 +1,5 @@
 <template>
-  <section class="d-flex flex-column align-items-center restaurants-list">
+  <div class="d-flex flex-column align-items-center restaurants-list">
     <div class="top flex-column">
       <yfRestaurantsListTagLine />
       <yfRestaurantsListOptions />
@@ -7,16 +7,10 @@
     <div class="middle flex-column">
       <yfRestaurantsListCategories />
     </div>
-    <div class="bottom d-flex">
-      <div class="container d-flex flex-wrap justify-content-around">
-        <yfRestaurantsListCardRestaurant
-          v-for="item in restaurantsList"
-          :key="item.id"
-          :restaurant="item"
-        />
-      </div>
+    <div class="bottom d-flex justify-content-center">
+      <yfRestaurantsListContainerCardsRestaurants :restaurantsList="restaurantsList" />
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -25,7 +19,7 @@ import { mapActions, mapState } from 'vuex'
 import yfRestaurantsListTagLine from '@/components/restaurantsList/yfRestaurantsListTagLine.vue'
 import yfRestaurantsListOptions from '@/components/restaurantsList/yfRestaurantsListOptions.vue'
 import yfRestaurantsListCategories from '@/components/restaurantsList/yfRestaurantsListCategories.vue'
-import yfRestaurantsListCardRestaurant from '@/components/restaurantsList/yfRestaurantsListCardRestaurant.vue'
+import yfRestaurantsListContainerCardsRestaurants from '@/components/restaurantsList/yfRestaurantsListContainerCardsRestaurants.vue'
 import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
@@ -34,7 +28,7 @@ export default {
     yfRestaurantsListTagLine,
     yfRestaurantsListOptions,
     yfRestaurantsListCategories,
-    yfRestaurantsListCardRestaurant,
+    yfRestaurantsListContainerCardsRestaurants,
   },
   data() {
     return {
@@ -68,16 +62,5 @@ export default {
 
 .restaurants-list .bottom {
   width: 95%;
-}
-
-.restaurants-list .bottom .container {
-  width: 100%;
-  margin-top: 25px;
-}
-
-@media screen and (min-width: 1800px) {
-  .restaurants-list .container-restaurants {
-    width: 1700px;
-  }
 }
 </style>

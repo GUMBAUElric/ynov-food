@@ -3,7 +3,7 @@
     <div class="title">
       <h1>Catégories</h1>
     </div>
-    <div class="d-flex flex-wrap justify-content-evenly align-items-center container">
+    <div class="d-flex flex-wrap justify-content-around align-items-center container">
       <yfRestaurantsListCardCategory
         v-for="(item, idx) in categories"
         :key="idx"
@@ -104,13 +104,9 @@ export default {
   width: 100%;
 }
 
-.categories .container {
-  width: 100%;
-}
-
 .categories .title {
   position: relative;
-  margin-left: 20px;
+  margin: 50px;
 }
 
 .categories .title::before {
@@ -130,15 +126,12 @@ export default {
 }
 
 .categories .container {
-  margin-top: 50px;
+  width: 100%;
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1800px) {
   .categories {
-    width: auto;
-  }
-  .categories .container {
-    justify-content: center !important;
+    width: 1700px;
   }
 }
 </style>

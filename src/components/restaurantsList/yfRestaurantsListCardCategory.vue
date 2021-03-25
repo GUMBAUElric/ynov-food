@@ -1,11 +1,13 @@
 <template>
   <div class="card-material" :class="category.isSelected ? 'card-selected' : ''">
     <div class="card-material-content">
-      <img
-        :src="require(`../../assets/img/food/${category.food_logo}`)"
-        :alt="category.food_logo"
-      />
-      <p>{{ category.food_name }}</p>
+      <div class="card-material-body">
+        <img
+          :src="require(`../../assets/img/food/${category.food_logo}`)"
+          :alt="category.food_logo"
+        />
+        <p>{{ category.food_name }}</p>
+      </div>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card-material-content justify-content-center slider">
+  <div class="d-flex slider">
     <h3>{{ range }}</h3>
     <input
       type="range"

@@ -1,13 +1,13 @@
 <template>
   <div class="card-material">
-    <div class="card-material-content flex-column">
-      <div class="top">
+    <div class="card-material-content">
+      <div class="card-material-header">
         <img :src="restaurant.image_url" alt="restaurant-image" />
-        <div class="favorite">
+        <button class="btn btn-primary">
           <i class="fas fa-heart"></i>
-        </div>
+        </button>
       </div>
-      <div class="bottom">
+      <div class="card-material-body flex-column justify-content-evenly">
         <div class="d-flex flex-column justify-content-center restaurant-infos">
           <div class="container">
             <div class="name">
@@ -89,80 +89,86 @@ export default {
 .card-material {
   margin: 20px;
   border-radius: 5px;
+  width: 270px;
+  height: 360px;
 }
 
 .card-material .card-material-content {
   margin: 0;
-  width: 270px;
-  height: 360px;
   position: relative;
 }
 
-.card-material .card-material-content .top {
-  width: 100%;
+.card-material .card-material-content .card-material-header {
   height: 50%;
 }
 
-.card-material .card-material-content .top img {
+.card-material .card-material-content .card-material-header img {
   width: 100%;
   height: 100%;
   border-radius: 5px 5px 0 0;
 }
 
-.card-material .card-material-content .top .favorite {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card-material .card-material-content .card-material-header .btn {
   position: absolute;
   top: 10px;
   right: 10px;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  background-color: var(--text-color);
 }
-.card-material .card-material-content .top .favorite i {
-  color: var(--background-color);
+
+.card-material .card-material-content .card-material-header .btn:hover {
+  background-color: #fff;
+}
+
+.card-material .card-material-content .card-material-header .btn i {
+  color: var(--text-color);
   transform: translateY(5%);
+  transition: 200ms ease;
 }
 
-.card-material .card-material-content .bottom {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  height: 50%;
+.card-material .card-material-content .card-material-header .btn:hover i {
+  color: var(--primary-color);
 }
 
-.card-material .card-material-content .bottom .restaurant-infos {
+.card-material .card-material-content .card-material-body .restaurant-infos {
   width: 100%;
   height: 60%;
 }
 
-.card-material .card-material-content .bottom .restaurant-infos .container {
+.card-material .card-material-content .card-material-body .restaurant-infos .container {
   margin: 0 20px;
 }
 
-.card-material .card-material-content .bottom .restaurant-infos .container .name h3 {
+.card-material .card-material-content .card-material-body .restaurant-infos .container .name h3 {
   text-align: center;
 }
 
-.card-material .card-material-content .bottom .restaurant-infos .container .rating-city {
+.card-material
+  .card-material-content
+  .card-material-body
+  .restaurant-infos
+  .container
+  .rating-city {
   margin-top: 30px;
 }
 
-.card-material .card-material-content .bottom .restaurant-infos .container .rating-city i {
+.card-material
+  .card-material-content
+  .card-material-body
+  .restaurant-infos
+  .container
+  .rating-city
+  i {
   margin-right: 5px;
 }
 
-.card-material .card-material-content .bottom .restaurant-categories {
+.card-material .card-material-content .card-material-body .restaurant-categories {
   width: 100%;
   height: 40%;
   position: relative;
 }
 
-.card-material .card-material-content .bottom .restaurant-categories::before {
+.card-material .card-material-content .card-material-body .restaurant-categories::before {
   content: '';
   position: absolute;
   width: 100%;
@@ -171,12 +177,12 @@ export default {
   background-color: #c4cbd9;
 }
 
-.card-material .card-material-content .bottom .restaurant-categories .container {
+.card-material .card-material-content .card-material-body .restaurant-categories .container {
   width: 100%;
   margin: 0 10px;
 }
 
-.card-material .card-material-content .bottom .restaurant-categories .container p {
+.card-material .card-material-content .card-material-body .restaurant-categories .container p {
   text-align: center;
 }
 </style>

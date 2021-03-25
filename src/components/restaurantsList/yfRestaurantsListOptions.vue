@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex  justify-content-around container-options">
+  <div class="d-flex justify-content-around container-options">
     <div class="d-flex align-items-center options">
       <v-select
         class="search-bar"
@@ -40,7 +40,9 @@
     </div>
     <div class="options card-material">
       <div class="card-material-content">
-        <yfRestaurantsListOptionsSlider icon="fas fa-star" @rangeValue="range" />
+        <div class="card-material-body">
+          <yfRestaurantsListOptionsSlider icon="fas fa-star" @rangeValue="range" />
+        </div>
       </div>
     </div>
   </div>
@@ -80,7 +82,7 @@ export default {
 <style scoped>
 .container-options {
   width: 100%;
-  margin: 70px 0;
+  margin-top: 70px;
 }
 
 .container-options .card-material .card-material-content {

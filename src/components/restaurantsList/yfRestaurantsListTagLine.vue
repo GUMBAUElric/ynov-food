@@ -1,8 +1,10 @@
 <template>
   <div class="card">
-    <div class="card-content justify-content-evenly">
-      <img :src="require(`../../assets/img/icon/booking.svg`)" alt="booking.svg" />
-      <h3>Réserver en un clique !</h3>
+    <div class="card-content">
+      <div class="card-body justify-content-evenly">
+        <img :src="require(`../../assets/img/icon/booking.svg`)" alt="booking.svg" />
+        <h3>Réserver en un clique !</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -43,8 +45,8 @@ export default {
   border-radius: 0 0 0 20px;
 }
 
-.card .card-content {
-  margin: 30px 0px;
+.card .card-content .card-body {
+  margin: 30px 15px;
 }
 
 .card .card-content img {
