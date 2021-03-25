@@ -42,6 +42,20 @@ Here are the prerequisites necessary for this project
 VUE_APP_TOKEN_API="YOUR_TOKEN_API"
 ```
 
+To slove cors problem, you have two choices :
+
+#### Add url herokuapp cors anywhere in .env (Requests are limited !)
+
+```
+VUE_APP_URL_CORS="https://cors-anywhere.herokuapp.com"
+```
+
+#### Or install herokuapp cors anywhere locally (https://github.com/Rob--W/cors-anywhere) and add url in .env
+
+```
+VUE_APP_URL_CORS="http://localhost:{PORT_HEROKU_APP_CORS_ANYWHERE}"
+```
+
 ### Install node_modules
 
 ```
