@@ -9,6 +9,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Request from '@/assets/modules/Request'
+import { vuexfireMutations } from 'vuexfire'
 
 /** @constant {function} getYelp Send HTTP GET Request to yelp API */
 const { getYelp } = Request()
@@ -19,6 +20,7 @@ export default new Vuex.Store({
   state: {
     restaurants_list: [],
     auto_complete: [],
+    favorites: [],
     rating: '0',
     params: {
       latitude: '45.764042',
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    ...vuexfireMutations,
     UPDATE_RESTAURANTS_LIST(state, newList) {
       state.restaurants_list = newList
     },
@@ -60,6 +63,9 @@ export default new Vuex.Store({
     },
     UPDATE_AUTO_COMPLETE(state, autoComplete) {
       state.auto_complete = autoComplete
+    },
+    UPDATE_FAVORITES(state, favorites) {
+      state.favorites = favorites
     },
   },
   actions: {
@@ -133,6 +139,10 @@ export default new Vuex.Store({
     resetSearching({ commit }) {
       commit('UPDATE_AUTO_COMPLETE', [])
       commit('UPDATE_TERM', '')
+    },
+    /** FireBase */
+    updateFavorites({ commit }, favorites) {
+      commit('UPDATE_FAVORITES', favorites)
     },
   },
 })
