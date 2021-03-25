@@ -10,7 +10,7 @@ import axios from 'axios'
 
 export default function Request() {
   /** @desc Use cors with herokuapp */
-  const PREFIX_URL_CORS = 'https://cors-anywhere.herokuapp.com'
+  const PREFIX_URL_CORS = process.env.VUE_APP_URL_CORS
 
   /** @desc The endpoint of yelp api */
   const ENDPOINT_YELP_API = `${PREFIX_URL_CORS}/https://api.yelp.com/v3`
