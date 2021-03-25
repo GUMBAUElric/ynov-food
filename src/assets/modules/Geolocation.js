@@ -1,9 +1,9 @@
-/** ==============================================
+/**----------------------------------------------
  * ?                    ABOUT
  * @author      : ElricGUMBAU
  * @email       : elric.gumbau@ynov.com
  * @description : Module to get geolocation
- *=============================================* */
+ *---------------------------------------------* */
 
 export default function Geolocation() {
   const getPermissionStatus = async () => {

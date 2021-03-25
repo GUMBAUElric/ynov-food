@@ -9,6 +9,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Request from '@/assets/modules/Request'
+import { vuexfireMutations } from 'vuexfire'
 
 /** @constant {function} getYelp Send HTTP GET Request to yelp API */
 const { getYelp } = Request()
@@ -19,11 +20,12 @@ export default new Vuex.Store({
   state: {
     restaurants_list: [],
     auto_complete: [],
+    favorites: [],
     rating: '0',
     params: {
       latitude: '45.764042',
       longitude: '4.835659',
-      limit: 12,
+      limit: 20,
       offset: 0,
       open_now: false,
       radius: 0,
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    ...vuexfireMutations,
     UPDATE_RESTAURANTS_LIST(state, newList) {
       state.restaurants_list = newList
     },
@@ -61,6 +64,9 @@ export default new Vuex.Store({
     UPDATE_AUTO_COMPLETE(state, autoComplete) {
       state.auto_complete = autoComplete
     },
+    UPDATE_FAVORITES(state, favorites) {
+      state.favorites = favorites
+    },
   },
   actions: {
     async fetchRestaurants({ commit, state }) {
@@ -76,7 +82,7 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async fetchAutoComplete({ commit, dispatch, state }, text) {
+    async fetchAutoComplete({ commit, state }, text) {
       try {
         const { latitude, longitude } = state.params
 
@@ -92,8 +98,6 @@ export default new Vuex.Store({
 
         const autoComplete = [...categories, ...businesses, ...terms]
         commit('UPDATE_AUTO_COMPLETE', autoComplete)
-        commit('UPDATE_TERM', text)
-        dispatch('fetchRestaurants')
       } catch (error) {
         console.error(error)
       }
@@ -135,6 +139,10 @@ export default new Vuex.Store({
     resetSearching({ commit }) {
       commit('UPDATE_AUTO_COMPLETE', [])
       commit('UPDATE_TERM', '')
+    },
+    /** FireBase */
+    updateFavorites({ commit }, favorites) {
+      commit('UPDATE_FAVORITES', favorites)
     },
   },
 })
