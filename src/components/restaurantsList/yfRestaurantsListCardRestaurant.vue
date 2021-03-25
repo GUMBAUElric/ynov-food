@@ -28,6 +28,9 @@
         <div class="d-flex align-items-center restaurant-categories">
           <div class="container">
             <p>{{ fetchCategories }}</p>
+            <div class="d-flex justify-content-center more-details">
+              <button class="btn btn-secondary">Voir en details</button>
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +93,7 @@ export default {
   margin: 20px;
   border-radius: 5px;
   width: 270px;
-  height: 360px;
+  height: 400px;
 }
 
 .card-material .card-material-content {
@@ -99,7 +102,7 @@ export default {
 }
 
 .card-material .card-material-content .card-material-header {
-  height: 50%;
+  height: 45%;
 }
 
 .card-material .card-material-content .card-material-header img {
@@ -132,7 +135,7 @@ export default {
 
 .card-material .card-material-content .card-material-body .restaurant-infos {
   width: 100%;
-  height: 60%;
+  height: 45%;
 }
 
 .card-material .card-material-content .card-material-body .restaurant-infos .container {
@@ -141,6 +144,7 @@ export default {
 
 .card-material .card-material-content .card-material-body .restaurant-infos .container .name h3 {
   text-align: center;
+  margin-top: 10px;
 }
 
 .card-material
@@ -164,17 +168,8 @@ export default {
 
 .card-material .card-material-content .card-material-body .restaurant-categories {
   width: 100%;
-  height: 40%;
+  height: 55%;
   position: relative;
-}
-
-.card-material .card-material-content .card-material-body .restaurant-categories::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  top: 5px;
-  background-color: #c4cbd9;
 }
 
 .card-material .card-material-content .card-material-body .restaurant-categories .container {
@@ -184,5 +179,25 @@ export default {
 
 .card-material .card-material-content .card-material-body .restaurant-categories .container p {
   text-align: center;
+}
+
+.card-material
+  .card-material-content
+  .card-material-body
+  .restaurant-categories
+  .container
+  .more-details {
+  margin-top: 20px;
+}
+
+.card-material
+  .card-material-content
+  .card-material-body
+  .restaurant-categories
+  .container
+  .more-details
+  button {
+  width: 130px;
+  height: 40px;
 }
 </style>

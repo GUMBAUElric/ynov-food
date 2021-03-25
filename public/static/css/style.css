@@ -314,6 +314,16 @@ input::placeholder {
   background-color: #fff;
 }
 
+.btn.btn-secondary {
+  background-color: var(--text-color);
+  color: #fff;
+  opacity: 0.9;
+}
+
+.btn.btn-secondary:hover {
+  opacity: 1;
+}
+
 .btn.btn-primary:hover {
   background-color: var(--primary-color);
   color: #fff;
