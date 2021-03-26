@@ -164,6 +164,8 @@ input::placeholder {
 
 textarea {
   resize: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9em;
 }
 
 /***** Font *****/
@@ -200,12 +202,24 @@ textarea {
   justify-content: space-around;
 }
 
+.justify-content-between {
+  justify-content: space-between;
+}
+
 .justify-content-evenly {
   justify-content: space-evenly;
 }
 
+.justify-content-flex-start {
+  justify-content: flex-start;
+}
+
 .align-items-center {
   align-items: center;
+}
+
+.align-items-flex-start {
+  align-items: flex-start;
 }
 
 /***** ALIGNMENT *****/
@@ -328,16 +342,6 @@ textarea {
   background-color: #fff;
 }
 
-.btn.btn-secondary {
-  background-color: var(--text-color);
-  color: #fff;
-  opacity: 0.9;
-}
-
-.btn.btn-secondary:hover {
-  opacity: 1;
-}
-
 .btn.btn-primary:hover {
   background-color: var(--primary-color);
   color: #fff;
@@ -346,6 +350,16 @@ textarea {
 .btn.btn-primary-selected {
   background-color: var(--primary-color);
   color: #fff;
+}
+
+.btn.btn-secondary {
+  background-color: var(--text-color);
+  color: #fff;
+  opacity: 0.9;
+}
+
+.btn.btn-secondary:hover {
+  opacity: 1;
 }
 
 /***** SEARCH *****/
@@ -374,4 +388,27 @@ textarea {
 .search-bar .vs__clear,
 .search-bar .vs__open-indicator {
   fill: var(--text-color);
+}
+
+/***** TITLE *****/
+
+.title {
+  position: relative;
+  margin: 50px;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  bottom: 5px;
+  border-radius: 50%;
+  left: -10px;
+  background-color: var(--primary-color);
+}
+
+.title h1 {
+  font-size: 1.8em;
+  font-weight: 300;
 }
