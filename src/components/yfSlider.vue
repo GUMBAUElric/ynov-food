@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'yfRestaurantsListOptionsSlider',
+  name: 'yfSlider',
   data() {
     return {
       range: 0,
