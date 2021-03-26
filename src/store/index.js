@@ -9,7 +9,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Request from '@/assets/modules/Request'
-import { vuexfireMutations } from 'vuexfire'
+import 'firebase/database'
+import { vuexfireMutations, firebaseAction } from 'vuexfire'
+import db from '@/assets/modules/FireBase'
 
 /** @constant {function} getYelp Send HTTP GET Request to yelp API */
 const { getYelp } = Request()
@@ -19,6 +21,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     restaurants_list: [],
+    restaurant_details: {},
     auto_complete: [],
     favorites: [],
     rating: '0',
@@ -67,6 +70,9 @@ export default new Vuex.Store({
     UPDATE_FAVORITES(state, favorites) {
       state.favorites = favorites
     },
+    UPDATE_RESTAURANT_DETAILS(state, restaurant) {
+      state.restaurant_details = restaurant
+    },
   },
   actions: {
     async fetchRestaurants({ commit, state }) {
@@ -78,6 +84,14 @@ export default new Vuex.Store({
         }
 
         commit('UPDATE_RESTAURANTS_LIST', businesses)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async fetchRestaurantsDetails({ commit }, idRestaurant) {
+      try {
+        const restaurantDetails = await getYelp(`/businesses/${idRestaurant}`)
+        commit('UPDATE_RESTAURANT_DETAILS', restaurantDetails)
       } catch (error) {
         console.error(error)
       }
@@ -102,6 +116,29 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    bindFavorites: firebaseAction(async ({ bindFirebaseRef }) => {
+      return bindFirebaseRef('favorites', db.ref('favorites'))
+    }),
+    addToFavorite: firebaseAction(async (context, idRestaurant) => {
+      try {
+        await db
+          .ref(`favorites`)
+          .child(idRestaurant)
+          .set({ favorite: true })
+      } catch (error) {
+        console.error(error)
+      }
+    }),
+    removeFavorite: firebaseAction(async (context, idRestaurant) => {
+      try {
+        await db
+          .ref('favorites')
+          .child(idRestaurant)
+          .remove()
+      } catch (error) {
+        console.error(error)
+      }
+    }),
     incrementOffset({ commit, dispatch }, offset) {
       commit('INCREMENT_OFFSET', offset)
       dispatch('fetchRestaurants')
@@ -140,7 +177,6 @@ export default new Vuex.Store({
       commit('UPDATE_AUTO_COMPLETE', [])
       commit('UPDATE_TERM', '')
     },
-    /** FireBase */
     updateFavorites({ commit }, favorites) {
       commit('UPDATE_FAVORITES', favorites)
     },

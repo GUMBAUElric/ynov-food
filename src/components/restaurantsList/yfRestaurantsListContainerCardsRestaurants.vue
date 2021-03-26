@@ -16,7 +16,7 @@
 
 <script>
 /** Import */
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import yfRestaurantsListCardRestaurant from '@/components/restaurantsList/yfRestaurantsListCardRestaurant.vue'
 
 export default {
@@ -36,6 +36,12 @@ export default {
   },
   computed: {
     ...mapState(['favorites']),
+  },
+  methods: {
+    ...mapActions(['bindFavorites']),
+  },
+  created() {
+    this.bindFavorites()
   },
 }
 </script>
