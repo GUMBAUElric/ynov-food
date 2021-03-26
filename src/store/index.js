@@ -9,8 +9,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Request from '@/assets/modules/Request'
-import 'firebase/database'
 import { vuexfireMutations, firebaseAction } from 'vuexfire'
+import 'firebase/database'
 import db from '@/assets/modules/FireBase'
 
 /** @constant {function} getYelp Send HTTP GET Request to yelp API */
