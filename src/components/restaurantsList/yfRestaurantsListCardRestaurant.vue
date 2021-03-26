@@ -29,7 +29,7 @@
           <div class="container">
             <p>{{ fetchCategories }}</p>
             <div class="d-flex justify-content-center more-details">
-              <button class="btn btn-secondary">Voir en details</button>
+              <button class="btn btn-secondary" @click="pushToDetails">Voir en details</button>
             </div>
           </div>
         </div>
@@ -99,6 +99,14 @@ export default {
         console.error(error)
         this.notyf.error('Désolé. Une erreur est survenue')
       }
+    },
+    /**
+     * @function pushToDetails
+     * @desc Push router to view restaurant list
+     * @returns {void}
+     */
+    pushToDetails() {
+      this.$router.push({ name: 'RestaurantDetails', params: { id: this.restaurant.id } })
     },
   },
 }
