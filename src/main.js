@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import 'notyf/notyf.min.css'
 import 'vue-select/dist/vue-select.css'
+import 'flatpickr/dist/flatpickr.min.css'
 
 Vue.component('v-select', vSelect)
 
