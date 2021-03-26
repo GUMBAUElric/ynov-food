@@ -8,7 +8,7 @@
       <yfRestaurantsListCategories />
     </div>
     <div class="bottom d-flex flex-column justify-content-center">
-      <yfRestaurantsListContainerCardsRestaurants :restaurantsList="restaurants_list" />
+      <yfRestaurantsListContainerCardsRestaurants :restaurantsList="restaurantsList" />
       <yfRestaurantsListPagination />
     </div>
   </div>
@@ -45,7 +45,7 @@ export default {
     ...mapActions(['fetchRestaurants', 'updateTerm']),
   },
   mounted() {
-    this.fetchRestaurants()
+    // this.fetchRestaurants()
   },
 }
 </script>
