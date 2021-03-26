@@ -180,5 +180,8 @@ export default new Vuex.Store({
     updateFavorites({ commit }, favorites) {
       commit('UPDATE_FAVORITES', favorites)
     },
+    updateRestaurantDetails({ commit }, details) {
+      commit('UPDATE_RESTAURANT_DETAILS', details)
+    },
   },
 })
