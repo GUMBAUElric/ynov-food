@@ -7,16 +7,17 @@
     <div class="middle flex-column">
       <yfRestaurantsListCategories />
     </div>
-    <div class="bottom d-flex flex-column justify-content-center">
-      <yfRestaurantsListContainerCardsRestaurants :restaurantsList="restaurantsList" />
+    <div class="bottom d-flex flex-column justify-content-center" v-if="display">
+      <yfRestaurantsListContainerCardsRestaurants />
       <yfRestaurantsListPagination />
     </div>
+    <div v-else>Veuillez attendre svp</div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import yfRestaurantsListTagLine from '@/components/restaurantsList/yfRestaurantsListTagLine.vue'
 import yfRestaurantsListOptions from '@/components/restaurantsList/yfRestaurantsListOptions.vue'
 import yfRestaurantsListCategories from '@/components/restaurantsList/yfRestaurantsListCategories.vue'
@@ -36,16 +37,15 @@ export default {
   data() {
     return {
       restaurantsList,
+      display: false,
     }
-  },
-  computed: {
-    ...mapState(['restaurants_list']),
   },
   methods: {
     ...mapActions(['fetchRestaurants', 'updateTerm']),
   },
-  mounted() {
-    // this.fetchRestaurants()
+  async created() {
+    await this.fetchRestaurants()
+    this.display = true
   },
 }
 </script>

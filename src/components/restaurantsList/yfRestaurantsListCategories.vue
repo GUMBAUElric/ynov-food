@@ -104,27 +104,6 @@ export default {
   width: 100%;
 }
 
-.categories .title {
-  position: relative;
-  margin: 50px;
-}
-
-.categories .title::before {
-  content: '';
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  bottom: 5px;
-  border-radius: 50%;
-  left: -10px;
-  background-color: var(--primary-color);
-}
-
-.categories .title h1 {
-  font-size: 1.8em;
-  font-weight: 300;
-}
-
 .categories .container {
   width: 100%;
 }

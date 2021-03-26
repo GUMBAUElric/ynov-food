@@ -64,7 +64,7 @@ export default {
     /**
      * @computed fetchCategories
      * @desc Join categories by ', '
-     * @returns {object[]}
+     * @returns {string}
      */
     fetchCategories() {
       return this.restaurant.categories.map(item => item.title).join(', ')

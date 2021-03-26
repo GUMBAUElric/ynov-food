@@ -26,7 +26,7 @@
     <div class="options card-material">
       <div class="card-material-content">
         <div class="card-material-body">
-          <yfRestaurantsListOptionsSlider icon="fas fa-star" @rangeValue="filterByRating" />
+          <yfSlider icon="fas fa-star" @rangeValue="filterByRating" />
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
 <script>
 /** Import */
 import { mapActions } from 'vuex'
-import yfRestaurantsListOptionsSlider from '@/components/restaurantsList/yfRestaurantsListOptionsSlider.vue'
+import yfSlider from '@/components/yfSlider.vue'
 import yfRestaurantsListOptionsSearch from '@/components/restaurantsList/yfRestaurantsListOptionsSearch.vue'
 import Geolocation from '@/assets/modules/Geolocation'
 
@@ -45,7 +45,7 @@ const { getPermissionStatus, getGeolocation } = Geolocation()
 export default {
   name: 'yfRestaurantsListOptions',
   components: {
-    yfRestaurantsListOptionsSlider,
+    yfSlider,
     yfRestaurantsListOptionsSearch,
   },
   data() {
