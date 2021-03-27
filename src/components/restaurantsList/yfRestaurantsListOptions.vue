@@ -6,8 +6,8 @@
     <div class="options">
       <button
         class="btn btn-primary"
-        :class="isSelected.aroundMe ? 'btn-primary-selected' : ''"
-        @click="filterByGeoLocation"
+        :class="geolocationIsEnable ? 'btn-primary-selected' : ''"
+        @click="updateGeolocationIsEnable"
       >
         <i class="far fa-compass"></i>
         <span>Autour de moi</span>
@@ -16,8 +16,8 @@
     <div class="options">
       <button
         class="btn btn-primary"
-        :class="isSelected.isOpen ? 'btn-primary-selected' : ''"
-        @click="filterByOpening"
+        :class="params.open_now ? 'btn-primary-selected' : ''"
+        @click="updateOpenNow"
       >
         <i class="far fa-door-open"></i>
         <span>Restaurant ouvert</span>
@@ -26,7 +26,7 @@
     <div class="options card-material">
       <div class="card-material-content">
         <div class="card-material-body">
-          <yfSlider icon="fas fa-star" @rangeValue="filterByRating" />
+          <yfSlider icon="fas fa-star" :range="rating" @rangeValue="updateRating" />
         </div>
       </div>
     </div>
@@ -35,79 +35,51 @@
 
 <script>
 /** Import */
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import yfSlider from '@/components/yfSlider.vue'
 import yfRestaurantsListOptionsSearch from '@/components/restaurantsList/yfRestaurantsListOptionsSearch.vue'
-import Geolocation from '@/assets/modules/Geolocation'
-
-const { getPermissionStatus, getGeolocation } = Geolocation()
+import Geolocation from '@/assets/utils/Geolocation'
 
 export default {
   name: 'yfRestaurantsListOptions',
+  inject: ['notyf'],
   components: {
     yfSlider,
     yfRestaurantsListOptionsSearch,
   },
   data() {
     return {
-      isSelected: {
-        aroundMe: false,
-        isOpen: false,
-      },
+      geolocation: Geolocation(),
     }
+  },
+  computed: {
+    ...mapState(['params', 'geolocationIsEnable', 'rating']),
+  },
+  watch: {
+    async geolocationIsEnable(newValue) {
+      if (newValue) {
+        try {
+          const { latitude, longitude } = await this.geolocation.findMe()
+          this.enableGeolocation({ latitude, longitude, radius: 40000 })
+        } catch (error) {
+          console.error(error)
+          this.notyf.error('Géolocalisation impossible')
+          this.updateGeolocationIsEnable(false)
+        }
+      } else {
+        this.disableGeolocation()
+      }
+    },
   },
   methods: {
     ...mapActions([
       'fetchRestaurants',
       'enableGeolocation',
       'disableGeolocation',
+      'updateGeolocationIsEnable',
       'updateOpenNow',
       'updateRating',
     ]),
-    /**
-     * @function filterByGeoLocation
-     * @desc This method filter restaurant by latitute and longitude
-     * @returns {void}
-     */
-    async filterByGeoLocation() {
-      this.isSelected.aroundMe = !this.isSelected.aroundMe
-
-      if (this.isSelected.aroundMe) {
-        try {
-          const { latitude, longitude } = await getGeolocation()
-          const permission = await getPermissionStatus()
-
-          if (permission === 'granted') {
-            this.enableGeolocation({ latitude, longitude, radius: 40000 })
-          }
-        } catch (error) {
-          console.error(error)
-        }
-      } else {
-        this.disableGeolocation()
-      }
-    },
-    /**
-     * @function filterByOpening
-     * @desc This method filter open restaurant
-     * @returns {void}
-     */
-    filterByOpening() {
-      this.isSelected.isOpen = !this.isSelected.isOpen
-
-      if (this.isSelected.isOpen) this.updateOpenNow(true)
-      else this.updateOpenNow(false)
-    },
-    /**
-     * @function filterByRating
-     * @desc Ths method filter restaurant by rating
-     * @param {event} value Value of range slider
-     * @returns {void}
-     */
-    filterByRating(value) {
-      this.updateRating(value)
-      this.fetchRestaurants()
-    },
   },
 }
 </script>
