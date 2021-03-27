@@ -8,10 +8,10 @@
 /** Import */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Request from '@/assets/modules/Request'
-import { vuexfireMutations, firebaseAction } from 'vuexfire'
 import 'firebase/database'
-import db from '@/assets/modules/FireBase'
+import { vuexfireMutations, firebaseAction } from 'vuexfire'
+import Request from '@/assets/utils/Request'
+import db from '@/assets/utils/FireBase'
 
 /** @constant {function} getYelp Send HTTP GET Request to yelp API */
 const { getYelp } = Request()
@@ -25,6 +25,7 @@ export default new Vuex.Store({
     auto_complete: [],
     favorites: [],
     rating: '0',
+    geolocationIsEnable: false,
     params: {
       latitude: '45.764042',
       longitude: '4.835659',
@@ -57,6 +58,9 @@ export default new Vuex.Store({
     },
     UPDATE_RADIUS(state, radius) {
       state.params.radius = radius
+    },
+    UPDATE_GEOLOCATION_IS_ENABLE(state, geolocationIsEnable) {
+      state.geolocationIsEnable = geolocationIsEnable
     },
     UPDATE_OPEN_NOW(state, openNow) {
       state.params.open_now = openNow
@@ -161,14 +165,19 @@ export default new Vuex.Store({
       commit('UPDATE_LATITUDE', '45.764042')
       commit('UPDATE_LONGITUDE', '4.835659')
       commit('UPDATE_RADIUS', 0)
+      commit('UPDATE_GEOLOCATION_IS_ENABLE', false)
       dispatch('fetchRestaurants')
     },
-    updateOpenNow({ commit, dispatch }, openNow) {
-      commit('UPDATE_OPEN_NOW', openNow)
+    updateGeolocationIsEnable({ commit, state }) {
+      commit('UPDATE_GEOLOCATION_IS_ENABLE', !state.geolocationIsEnable)
+    },
+    updateOpenNow({ commit, dispatch, state }) {
+      commit('UPDATE_OPEN_NOW', !state.params.open_now)
       dispatch('fetchRestaurants')
     },
-    updateRating({ commit }, rating) {
+    updateRating({ commit, dispatch }, rating) {
       commit('UPDATE_RATING', rating)
+      dispatch('fetchRestaurants')
     },
     updateAutoComplete({ commit }, text) {
       commit('UPDATE_AUTO_COMPLETE', text)
