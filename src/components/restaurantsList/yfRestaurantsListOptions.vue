@@ -26,7 +26,7 @@
     <div class="options card-material">
       <div class="card-material-content">
         <div class="card-material-body">
-          <yfSlider icon="fas fa-star" :range="rating" @rangeValue="updateRating" />
+          <yfSlider icon="fas fa-star" :initialRange="rating" @rangeValue="updateRating" />
         </div>
       </div>
     </div>
