@@ -19,6 +19,7 @@ export default {
     ...mapActions(['bindFavorites']),
   },
   created() {
+    sessionStorage.clear()
     // this.bindFavorites()
   },
 }

@@ -58,16 +58,17 @@ export default {
           isSelected: false,
         },
       ],
+      idxSelectedCategory: sessionStorage.getItem('indexOfSelectedCategory') || -1,
     }
   },
   computed: {
     /**
-     * @computed getIndexSelectedCategory
-     * @desc Find index selected category
-     * @returns {number}
+     * @computed
+     * @desc Check if category is selected
+     * @returns {boolean}
      */
-    getIndexSelectedCategory() {
-      return this.categories.findIndex(category => category.isSelected === true)
+    categoryIsSelected() {
+      return this.idxSelectedCategory !== -1
     },
   },
   methods: {
@@ -80,21 +81,25 @@ export default {
      */
     setSelected(idx) {
       const { food_name } = this.categories[idx]
-      const idxSelectedCategory = this.getIndexSelectedCategory
 
-      this.categories[idx].isSelected = !this.categories[idx].isSelected
+      if (this.idxSelectedCategory !== -1)
+        this.categories[this.idxSelectedCategory].isSelected = false
 
-      if (idxSelectedCategory !== -1) {
-        this.categories[idxSelectedCategory].isSelected = false
-
-        const foodName =
-          this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
-
-        this.updateTerm(foodName)
-      } else {
+      if (this.idxSelectedCategory !== idx.toString()) {
+        sessionStorage.setItem('indexOfSelectedCategory', idx)
+        this.idxSelectedCategory = sessionStorage.getItem('indexOfSelectedCategory')
+        this.categories[idx].isSelected = true
         this.updateTerm(food_name)
+      } else {
+        sessionStorage.removeItem('indexOfSelectedCategory')
+        this.updateTerm('')
       }
     },
+  },
+  created() {
+    if (this.categoryIsSelected) {
+      this.categories[this.idxSelectedCategory].isSelected = true
+    }
   },
 }
 </script>
