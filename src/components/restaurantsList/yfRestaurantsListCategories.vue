@@ -58,7 +58,7 @@ export default {
           isSelected: false,
         },
       ],
-      idxSelectedCategory: sessionStorage.getItem('indexOfSelectedCategory') || -1,
+      idxSelectedCategory: sessionStorage.getItem('indexOfSelectedCategory') || '-1',
     }
   },
   computed: {
@@ -68,7 +68,7 @@ export default {
      * @returns {boolean}
      */
     categoryIsSelected() {
-      return this.idxSelectedCategory !== -1
+      return this.idxSelectedCategory !== '-1'
     },
   },
   methods: {
@@ -77,29 +77,35 @@ export default {
      * @computed setSelected
      * @desc This method set category selected
      * @param {number} idx The index of selected category
-     * @returns {void}
      */
     setSelected(idx) {
       const { food_name } = this.categories[idx]
 
-      if (this.idxSelectedCategory !== -1)
-        this.categories[this.idxSelectedCategory].isSelected = false
+      if (this.categoryIsSelected) this.categories[this.idxSelectedCategory].isSelected = false
 
       if (this.idxSelectedCategory !== idx.toString()) {
         sessionStorage.setItem('indexOfSelectedCategory', idx)
-        this.idxSelectedCategory = sessionStorage.getItem('indexOfSelectedCategory')
+        this.idxSelectedCategory = idx.toString()
         this.categories[idx].isSelected = true
         this.updateTerm(food_name)
       } else {
-        sessionStorage.removeItem('indexOfSelectedCategory')
+        sessionStorage.setItem('indexOfSelectedCategory', -1)
+        this.idxSelectedCategory = '-1'
         this.updateTerm('')
+      }
+    },
+    /**
+     * @computed checkIfCategoryIsSelected
+     * @desc Check if a category is selected
+     */
+    checkIfCategoryIsSelected() {
+      if (this.categoryIsSelected) {
+        this.categories[this.idxSelectedCategory].isSelected = true
       }
     },
   },
   created() {
-    if (this.categoryIsSelected) {
-      this.categories[this.idxSelectedCategory].isSelected = true
-    }
+    this.checkIfCategoryIsSelected()
   },
 }
 </script>

@@ -7,7 +7,7 @@
       <button
         class="btn btn-primary"
         :class="geolocationIsEnable ? 'btn-primary-selected' : ''"
-        @click="updateGeolocationIsEnable"
+        @click="handleGeolocation"
       >
         <i class="far fa-compass"></i>
         <span>Autour de moi</span>
@@ -26,7 +26,7 @@
     <div class="options card-material">
       <div class="card-material-content">
         <div class="card-material-body">
-          <yfSlider icon="fas fa-star" :initialRange="rating" @rangeValue="updateRating" />
+          <yfSlider icon="fas fa-star" :initialRange="rating" @rangeValue="handleRating" />
         </div>
       </div>
     </div>
@@ -35,6 +35,7 @@
 
 <script>
 /** Import */
+
 import { mapActions, mapState } from 'vuex'
 import yfSlider from '@/components/yfSlider.vue'
 import yfRestaurantsListOptionsSearch from '@/components/restaurantsList/yfRestaurantsListOptionsSearch.vue'
@@ -50,36 +51,65 @@ export default {
   data() {
     return {
       geolocation: Geolocation(),
+      geolocationIsEnable: sessionStorage.getItem('geolocationIsEnable') === 'true',
+      rating: sessionStorage.getItem('rating') || '0',
     }
   },
   computed: {
-    ...mapState(['params', 'geolocationIsEnable', 'rating']),
+    ...mapState(['params']),
   },
-  watch: {
-    async geolocationIsEnable(newValue) {
-      if (newValue) {
+  methods: {
+    ...mapActions(['fetchRestaurants', 'enableGeolocation', 'disableGeolocation', 'updateOpenNow']),
+    /**
+     * @function handleGeolocation
+     * @desc Handle the user geolocation
+     */
+    async handleGeolocation() {
+      if (!this.geolocationIsEnable) {
+        sessionStorage.setItem('geolocationIsEnable', true)
+        this.geolocationIsEnable = true
         try {
           const { latitude, longitude } = await this.geolocation.findMe()
           this.enableGeolocation({ latitude, longitude, radius: 40000 })
         } catch (error) {
           console.error(error)
           this.notyf.error('Géolocalisation impossible')
-          this.updateGeolocationIsEnable(false)
+          sessionStorage.setItem('geolocationIsEnable', false)
+          this.geolocationIsEnable = false
         }
       } else {
+        sessionStorage.setItem('geolocationIsEnable', false)
+        this.geolocationIsEnable = false
         this.disableGeolocation()
       }
     },
+    /**
+     * @function checkIfGeolocationNeedToBeTrigger
+     * @desc Trigger geolocation if needed
+     */
+    async checkIfGeolocationNeedToBeTrigger() {
+      if (this.geolocationIsEnable) {
+        try {
+          const { latitude, longitude } = await this.geolocation.findMe()
+          this.enableGeolocation({ latitude, longitude, radius: 40000 })
+        } catch (error) {
+          console.error(error)
+          this.notyf.error('Géolocalisation impossible')
+        }
+      }
+    },
+    /**
+     * @function handleRating
+     * @desc Handle rating restaurant
+     */
+    handleRating(value) {
+      this.rating = value
+      sessionStorage.setItem('rating', value)
+      this.fetchRestaurants()
+    },
   },
-  methods: {
-    ...mapActions([
-      'fetchRestaurants',
-      'enableGeolocation',
-      'disableGeolocation',
-      'updateGeolocationIsEnable',
-      'updateOpenNow',
-      'updateRating',
-    ]),
+  created() {
+    this.checkIfGeolocationNeedToBeTrigger()
   },
 }
 </script>

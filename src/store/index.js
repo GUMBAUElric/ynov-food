@@ -24,8 +24,6 @@ export default new Vuex.Store({
     restaurant_details: {},
     auto_complete: [],
     favorites: [],
-    rating: '0',
-    geolocationIsEnable: false,
     params: {
       latitude: '45.764042',
       longitude: '4.835659',
@@ -59,14 +57,8 @@ export default new Vuex.Store({
     UPDATE_RADIUS(state, radius) {
       state.params.radius = radius
     },
-    UPDATE_GEOLOCATION_IS_ENABLE(state, geolocationIsEnable) {
-      state.geolocationIsEnable = geolocationIsEnable
-    },
     UPDATE_OPEN_NOW(state, openNow) {
       state.params.open_now = openNow
-    },
-    UPDATE_RATING(state, rating) {
-      state.rating = rating
     },
     UPDATE_AUTO_COMPLETE(state, autoComplete) {
       state.auto_complete = autoComplete
@@ -82,9 +74,10 @@ export default new Vuex.Store({
     async fetchRestaurants({ commit, state }) {
       try {
         let { businesses } = await getYelp('/businesses/search', state.params)
+        const rating = sessionStorage.getItem('rating')
 
-        if (state.rating !== '0') {
-          businesses = businesses.filter(item => state.rating === item.rating.toString())
+        if (rating && rating !== '0') {
+          businesses = businesses.filter(item => rating === item.rating.toString())
         }
 
         commit('UPDATE_RESTAURANTS_LIST', businesses)
@@ -165,18 +158,10 @@ export default new Vuex.Store({
       commit('UPDATE_LATITUDE', '45.764042')
       commit('UPDATE_LONGITUDE', '4.835659')
       commit('UPDATE_RADIUS', 0)
-      commit('UPDATE_GEOLOCATION_IS_ENABLE', false)
       dispatch('fetchRestaurants')
-    },
-    updateGeolocationIsEnable({ commit, state }) {
-      commit('UPDATE_GEOLOCATION_IS_ENABLE', !state.geolocationIsEnable)
     },
     updateOpenNow({ commit, dispatch, state }) {
       commit('UPDATE_OPEN_NOW', !state.params.open_now)
-      dispatch('fetchRestaurants')
-    },
-    updateRating({ commit, dispatch }, rating) {
-      commit('UPDATE_RATING', rating)
       dispatch('fetchRestaurants')
     },
     updateAutoComplete({ commit }, text) {
