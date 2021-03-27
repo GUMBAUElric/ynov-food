@@ -1,7 +1,12 @@
 <template>
   <div class="d-flex justify-content-around container-options">
     <div class="d-flex align-items-center options">
-      <yfRestaurantsListOptionsSearch />
+      <yfRestaurantsListOptionsSearch
+        :auto_complete="auto_complete"
+        :defaultValue="search"
+        @searchValue="handleValue"
+        @searchValueAtClick="handleValueAtClick"
+      />
     </div>
     <div class="options">
       <button
@@ -53,13 +58,23 @@ export default {
       geolocation: Geolocation(),
       geolocationIsEnable: sessionStorage.getItem('geolocationIsEnable') === 'true',
       rating: sessionStorage.getItem('rating') || '0',
+      search: sessionStorage.getItem('search') || '',
     }
   },
   computed: {
-    ...mapState(['params']),
+    ...mapState(['params', 'auto_complete']),
   },
   methods: {
-    ...mapActions(['fetchRestaurants', 'enableGeolocation', 'disableGeolocation', 'updateOpenNow']),
+    ...mapActions([
+      'fetchRestaurants',
+      'fetchAutoComplete',
+      'enableGeolocation',
+      'disableGeolocation',
+      'updateOpenNow',
+      'updateAutoComplete',
+      'resetSearching',
+      'updateTerm',
+    ]),
     /**
      * @function handleGeolocation
      * @desc Handle the user geolocation
@@ -107,9 +122,40 @@ export default {
       sessionStorage.setItem('rating', value)
       this.fetchRestaurants()
     },
+    /**
+     * @function handleValue
+     * @desc Set autocomplete when typing
+     */
+    handleValue(value) {
+      this.search = value
+
+      if (value === '') {
+        this.updateAutoComplete([])
+        return
+      }
+
+      this.fetchAutoComplete(value)
+    },
+    /**
+     * @function handleValueAtClick
+     * @desc Filter restaurant with search
+     */
+    handleValueAtClick(value) {
+      if (value === null || value === '') {
+        sessionStorage.removeItem('search')
+        this.resetSearching()
+        return
+      }
+
+      this.updateTerm(value)
+      this.search = value
+
+      sessionStorage.setItem('search', value)
+    },
   },
   created() {
     this.checkIfGeolocationNeedToBeTrigger()
+    if (this.search !== '') this.updateTerm(this.search)
   },
 }
 </script>

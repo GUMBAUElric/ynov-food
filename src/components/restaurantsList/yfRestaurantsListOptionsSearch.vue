@@ -3,67 +3,61 @@
     class="search-bar"
     :options="auto_complete"
     v-model="search"
-    @input="setSearch"
-    @keyup.enter.native="setSearch"
+    @input="$emit('searchValueAtClick', search)"
     @input.native="setAutoComplete"
   >
     <template v-slot:no-options="{ search, searching }">
       <template v-if="searching">
-        No results found for <em>{{ search }}</em
+        Aucun résultat pour <em>{{ search }}</em
         >.
       </template>
-      <em style="opacity: 0.5;" v-else>Start typing </em>
+      <em style="opacity: 0.5;" v-else>Commencer la recherche </em>
     </template>
   </v-select>
 </template>
 
 <script>
-/** Import */
-import { mapActions, mapState } from 'vuex'
-
 export default {
   name: 'yfRestaurantsListSearch',
   data() {
     return {
-      search: '',
+      search: this.defaultValue,
       timer: null,
     }
   },
-  watch: {
-    search(newValue) {
-      if (newValue === '' || newValue === null) this.resetSearching()
+  props: {
+    /** Array of auto complete value */
+    auto_complete: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
+    /** The default value */
+    defaultValue: {
+      type: String,
+      default: '',
     },
   },
-  computed: {
-    ...mapState(['auto_complete']),
+  watch: {
+    defaultValue(newValue) {
+      this.search = newValue
+    },
   },
   methods: {
-    ...mapActions(['fetchAutoComplete', 'resetSearching', 'updateTerm']),
     /**
      * @function setAtTyping
-     * @desc Set autocomplete when typing
-     * @returns {void}
+     * @desc Emit value after 1 second
      */
     setAutoComplete(e) {
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
       }
-
       this.timer = setTimeout(() => {
         const { value } = e.target
-        this.search = value
-        if (this.search !== '') this.fetchAutoComplete(this.search)
+        this.$emit('searchValue', value)
       }, 1000)
-    },
-    /**
-     * @function setAtClick
-     * @desc Set autocomplete when click on suggestion
-     * @returns {void}
-     */
-    setSearch(value) {
-      this.search = value
-      if (this.search !== '') this.updateTerm(this.search)
     },
   },
 }

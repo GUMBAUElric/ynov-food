@@ -167,9 +167,10 @@ export default new Vuex.Store({
     updateAutoComplete({ commit }, text) {
       commit('UPDATE_AUTO_COMPLETE', text)
     },
-    resetSearching({ commit }) {
+    resetSearching({ commit, dispatch }) {
       commit('UPDATE_AUTO_COMPLETE', [])
       commit('UPDATE_TERM', '')
+      dispatch('fetchRestaurants')
     },
     updateFavorites({ commit }, favorites) {
       commit('UPDATE_FAVORITES', favorites)
