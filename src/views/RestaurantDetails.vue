@@ -4,7 +4,9 @@
       <div class="top">
         <yfRestaurantDetailsInfos />
       </div>
-      <div class="middle"></div>
+      <div class="middle">
+        <yfRestaurantDetailsMap />
+      </div>
       <div class="bottom"></div>
     </div>
     <div v-else>Veuillez attendre svp</div>
@@ -15,11 +17,13 @@
 /** Import */
 import { mapActions } from 'vuex'
 import yfRestaurantDetailsInfos from '@/components/restaurantDetails/yfRestaurantDetailsInfos.vue'
+import yfRestaurantDetailsMap from '@/components/restaurantDetails/yfRestaurantDetailsMap.vue'
 
 export default {
   name: 'RestaurantDetails',
   components: {
     yfRestaurantDetailsInfos,
+    yfRestaurantDetailsMap,
   },
   data() {
     return {
