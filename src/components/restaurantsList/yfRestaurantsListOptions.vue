@@ -1,11 +1,10 @@
 <template>
   <div class="d-flex justify-content-around container-options">
     <div class="d-flex align-items-center options">
-      <yfRestaurantsListOptionsSearch
+      <yfSearchBar
+        keySessionStorage="search"
         :auto_complete="auto_complete"
-        :defaultValue="search"
         @searchValue="handleValue"
-        @searchValueAtClick="handleValueAtClick"
       />
     </div>
     <div class="options">
@@ -40,10 +39,9 @@
 
 <script>
 /** Import */
-
 import { mapActions, mapState } from 'vuex'
 import yfSlider from '@/components/yfSlider.vue'
-import yfRestaurantsListOptionsSearch from '@/components/restaurantsList/yfRestaurantsListOptionsSearch.vue'
+import yfSearchBar from '@/components/yfSearchBar.vue'
 import Geolocation from '@/assets/utils/Geolocation'
 
 export default {
@@ -51,14 +49,13 @@ export default {
   inject: ['notyf'],
   components: {
     yfSlider,
-    yfRestaurantsListOptionsSearch,
+    yfSearchBar,
   },
   data() {
     return {
       geolocation: Geolocation(),
       geolocationIsEnable: sessionStorage.getItem('geolocationIsEnable') === 'true',
       rating: sessionStorage.getItem('rating') || '0',
-      search: sessionStorage.getItem('search') || '',
     }
   },
   computed: {
@@ -71,7 +68,6 @@ export default {
       'enableGeolocation',
       'disableGeolocation',
       'updateOpenNow',
-      'updateAutoComplete',
       'resetSearching',
       'updateTerm',
     ]),
@@ -124,38 +120,25 @@ export default {
     },
     /**
      * @function handleValue
-     * @desc Set autocomplete when typing
-     */
-    handleValue(value) {
-      this.search = value
-
-      if (value === '') {
-        this.updateAutoComplete([])
-        return
-      }
-
-      this.fetchAutoComplete(value)
-    },
-    /**
-     * @function handleValueAtClick
      * @desc Filter restaurant with search
      */
-    handleValueAtClick(value) {
-      if (value === null || value === '') {
+    handleValue(payload) {
+      const { value, typingDelay } = payload
+
+      if (value === null) {
         sessionStorage.removeItem('search')
         this.resetSearching()
         return
       }
 
-      this.updateTerm(value)
-      this.search = value
+      if (typingDelay) this.fetchAutoComplete(value)
+      else this.updateTerm(value)
 
       sessionStorage.setItem('search', value)
     },
   },
   created() {
     this.checkIfGeolocationNeedToBeTrigger()
-    if (this.search !== '') this.updateTerm(this.search)
   },
 }
 </script>

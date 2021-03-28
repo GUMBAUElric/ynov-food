@@ -3,7 +3,7 @@
     class="search-bar"
     :options="auto_complete"
     v-model="search"
-    @input="$emit('searchValueAtClick', search)"
+    @input="$emit('searchValue', { value: search, isTyping: false })"
     @input.native="setAutoComplete"
   >
     <template v-slot:no-options="{ search, searching }">
@@ -18,10 +18,10 @@
 
 <script>
 export default {
-  name: 'yfRestaurantsListSearch',
+  name: 'yfSearchBar',
   data() {
     return {
-      search: this.defaultValue,
+      search: sessionStorage.getItem(this.keySessionStorage) || '',
       timer: null,
     }
   },
@@ -34,14 +34,9 @@ export default {
       },
     },
     /** The default value */
-    defaultValue: {
+    keySessionStorage: {
       type: String,
       default: '',
-    },
-  },
-  watch: {
-    defaultValue(newValue) {
-      this.search = newValue
     },
   },
   methods: {
@@ -56,7 +51,8 @@ export default {
       }
       this.timer = setTimeout(() => {
         const { value } = e.target
-        this.$emit('searchValue', value)
+        this.$emit('searchValue', { value, typingDelay: true })
+        this.search = value
       }, 1000)
     },
   },
