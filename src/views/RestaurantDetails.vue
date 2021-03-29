@@ -7,7 +7,9 @@
       <div class="middle">
         <yfRestaurantDetailsMap />
       </div>
-      <div class="bottom"></div>
+      <div class="bottom">
+        <yfRestaurantDetailsReservation />
+      </div>
     </div>
     <div v-else>Veuillez attendre svp</div>
   </div>
@@ -18,12 +20,14 @@
 import { mapActions } from 'vuex'
 import yfRestaurantDetailsInfos from '@/components/restaurantDetails/yfRestaurantDetailsInfos.vue'
 import yfRestaurantDetailsMap from '@/components/restaurantDetails/yfRestaurantDetailsMap.vue'
+import yfRestaurantDetailsReservation from '@/components/restaurantDetails/yfRestaurantDetailsReservation.vue'
 
 export default {
   name: 'RestaurantDetails',
   components: {
     yfRestaurantDetailsInfos,
     yfRestaurantDetailsMap,
+    yfRestaurantDetailsReservation,
   },
   data() {
     return {
@@ -63,6 +67,11 @@ export default {
 }
 
 .restaurant-details .container .middle {
+  width: 100%;
+  margin: 40px 0;
+}
+
+.restaurant-details .container .bottom {
   width: 100%;
   margin: 40px 0;
 }
