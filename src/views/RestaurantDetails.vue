@@ -62,6 +62,11 @@ export default {
   margin: 40px 0;
 }
 
+.restaurant-details .container .middle {
+  width: 100%;
+  margin: 40px 0;
+}
+
 @media screen and (min-width: 1600px) {
   .restaurant-details .container {
     width: 1700px;

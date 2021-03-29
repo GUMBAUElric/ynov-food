@@ -92,7 +92,7 @@ export default {
 }
 
 .restaurant-infos .container .title {
-  margin: 60px 50px;
+  margin: 80px 0;
   width: 100%;
 }
 
