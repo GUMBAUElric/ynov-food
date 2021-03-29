@@ -32,7 +32,12 @@
       </div>
     </div>
     <div class="d-flex justify-content-evenly gallery">
-      <img v-for="(item, idx) in restaurant_details.photos" :key="idx" :src="item" alt="image" />
+      <img
+        v-for="(item, idx) in restaurant_details.photos"
+        :key="idx"
+        :src="item"
+        :alt="`image-${idx}`"
+      />
     </div>
   </div>
 </template>

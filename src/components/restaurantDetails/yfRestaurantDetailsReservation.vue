@@ -3,14 +3,12 @@
     <div class="title">
       <h1>Réservation</h1>
     </div>
-    <div class="d-flex justify-content-around content">
+    <div class="d-flex justify-content-between content">
       <yfRestaurantDetailsTableOpening
         :openingTime="openingTime"
         :includesMiddayAndEvening="includesMiddayAndEvening"
       />
-      <div>
-        oui
-      </div>
+      <yfRestaurantDetailsBooking />
     </div>
   </div>
 </template>
@@ -19,11 +17,13 @@
 /** Import */
 import { mapState } from 'vuex'
 import yfRestaurantDetailsTableOpening from '@/components/restaurantDetails/yfRestaurantDetailsTableOpening.vue'
+import yfRestaurantDetailsBooking from '@/components/restaurantDetails/yfRestaurantDetailsBooking.vue'
 
 export default {
   name: 'yfRestaurantDetailsReservation',
   components: {
     yfRestaurantDetailsTableOpening,
+    yfRestaurantDetailsBooking,
   },
   data() {
     return {
@@ -105,7 +105,14 @@ export default {
 }
 
 .container-reservation .content {
-  width: 90%;
+  width: 100%;
   margin-top: 20px;
+}
+
+@media screen and (min-width: 1600px) {
+  .container-reservation .content {
+    width: 90%;
+    justify-content: space-around !important;
+  }
 }
 </style>

@@ -23,10 +23,12 @@ export default {
 
 <style scoped>
 .date-picker {
-  width: 220px;
+  border-radius: 10px;
+  margin: 33px 0;
   height: 25px;
-  border-radius: 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  width: 190px;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  font-size: 1em;
 }
 
 .date-picker input {

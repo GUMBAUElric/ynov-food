@@ -109,10 +109,6 @@ export default {
   align-items: center;
 }
 
-.container-map .content .map:hover {
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-}
-
 @media screen and (max-width: 1100px) {
   .container-map .content .map {
     width: 100%;
