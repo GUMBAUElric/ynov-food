@@ -103,7 +103,6 @@ export default {
     /**
      * @function pushToDetails
      * @desc Push router to view restaurant list
-     * @returns {void}
      */
     pushToDetails() {
       this.$router.push({ name: 'RestaurantDetails', params: { id: this.restaurant.id } })
