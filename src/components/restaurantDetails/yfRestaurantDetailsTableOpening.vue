@@ -1,5 +1,5 @@
 <template>
-  <div class="table-opening">
+  <div class="d-flex align-items-center table-opening">
     <table class="styled-table" v-if="includesMiddayAndEvening">
       <thead>
         <tr>

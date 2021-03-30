@@ -76,7 +76,7 @@ export default {
   margin: 40px 0;
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1800px) {
   .restaurant-details .container {
     width: 1700px;
   }

@@ -3,7 +3,7 @@
     <div class="title">
       <h1>Réservation</h1>
     </div>
-    <div class="d-flex justify-content-between content">
+    <div class="d-flex justify-content-around content">
       <yfRestaurantDetailsTableOpening
         :openingTime="openingTime"
         :includesMiddayAndEvening="includesMiddayAndEvening"
@@ -109,10 +109,16 @@ export default {
   margin-top: 20px;
 }
 
+@media screen and (max-width: 1280px) {
+  .container-reservation .content {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 @media screen and (min-width: 1600px) {
   .container-reservation .content {
     width: 90%;
-    justify-content: space-around !important;
   }
 }
 </style>
