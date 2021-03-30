@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-center justify-content-center date-picker">
-    <input id="bookingDay" type="text" />
+    <input id="bookingDay" type="text" v-model="date" @input="$emit('dateSelected', date)" />
     <i class="far fa-calendar-alt"></i>
   </div>
 </template>
@@ -12,6 +12,11 @@ import { French } from 'flatpickr/dist/l10n/fr'
 
 export default {
   name: 'yfDatePicker',
+  data() {
+    return {
+      date: '',
+    }
+  },
   mounted() {
     flatpickr('#bookingDay', {
       locale: French,
