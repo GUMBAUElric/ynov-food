@@ -34,17 +34,17 @@
             <div class="d-flex content-form">
               <div class="d-flex flex-column form">
                 <h3>Nom</h3>
-                <input type="text" />
+                <input type="text" v-model="booking.name" />
               </div>
               <div class="d-flex flex-column form">
                 <h3>E-mail</h3>
-                <input type="email" />
+                <input type="email" v-model="booking.email" />
               </div>
             </div>
             <div class="d-flex content-form">
               <div class="d-flex flex-column form">
                 <h3>Nombre de personne</h3>
-                <select>
+                <select v-model="booking.nb_of_persons">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -54,8 +54,8 @@
                 </select>
               </div>
               <div class="d-flex flex-column form">
-                <h3>Horaire</h3>
-                <select>
+                <h3>Heure de réservation</h3>
+                <select v-model="booking.reservation.time">
                   <option>20:30</option>
                   <option>21:00</option>
                   <option>21:30</option>
@@ -69,17 +69,17 @@
         <div class="middle">
           <div class="d-flex align-items-center content-form">
             <div class="d-flex flex-column form">
-              <h3>Date</h3>
-              <yfDatePicker />
+              <h3>Jour de réservation</h3>
+              <yfDatePicker @dateSelected="handleReservationDay" />
             </div>
             <div class="d-flex flex-column form">
               <h3>Message (falcutatif)</h3>
-              <textarea cols="24" rows="6"></textarea>
+              <textarea cols="24" rows="6" v-model="booking.message"></textarea>
             </div>
           </div>
         </div>
         <div class="bottom">
-          <button class="btn btn-secondary">Suivant</button>
+          <button class="btn btn-secondary" @click="goToStepPayment">Suivant</button>
         </div>
       </div>
     </div>
@@ -92,8 +92,55 @@ import yfDatePicker from '@/components/yfDatePicker.vue'
 
 export default {
   name: 'yfRestaurantDetailsBooking',
+  inject: ['notyf'],
   components: {
     yfDatePicker,
+  },
+  data() {
+    return {
+      booking: {
+        name: '',
+        email: '',
+        nb_of_persons: '1',
+        reservation: {
+          day: '',
+          time: '20:30',
+        },
+        message: '',
+      },
+    }
+  },
+  methods: {
+    handleReservationDay(day) {
+      this.booking.reservation.day = day
+    },
+    checkBookingData() {
+      return new Promise((resolve, reject) => {
+        const { name, email, reservation, message } = this.booking
+        const REGEX_NUMBER = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+        /* ------------------ NAME ----------------- */
+        if (name === '') reject(new Error('Le nom est invalide'))
+
+        /* ------------------ EMAIL ----------------- */
+        if (!REGEX_NUMBER.test(email)) reject(new Error("L'email est invalide"))
+
+        /* ------------------ RESERVATION DAY ----------------- */
+        if (reservation.day === '') reject(new Error('Jour de réservation vide'))
+
+        /* ------------------ MESSAGE ----------------- */
+        if (message === '') reject(new Error('Le message est vide'))
+
+        resolve()
+      })
+    },
+    async goToStepPayment() {
+      try {
+        await this.checkBookingData()
+      } catch (error) {
+        this.notyf.error(error.message)
+      }
+    },
   },
 }
 </script>
