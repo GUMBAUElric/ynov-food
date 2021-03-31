@@ -152,6 +152,7 @@ input {
 }
 
 textarea:focus,
+select:focus,
 input:focus,
 button:focus {
   outline: none;
