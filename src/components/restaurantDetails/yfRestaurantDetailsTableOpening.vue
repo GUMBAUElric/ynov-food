@@ -131,6 +131,6 @@ export default {
 
 .table-opening .styled-table tbody tr td i {
   position: absolute;
-  left: 15px;
+  left: 10px;
 }
 </style>

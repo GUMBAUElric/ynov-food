@@ -16,11 +16,12 @@ export default {
     yfNavBar,
   },
   methods: {
-    ...mapActions(['bindFavorites']),
+    ...mapActions(['bindFavorites', 'bindBookings']),
   },
   created() {
     sessionStorage.clear()
     // this.bindFavorites()
+    this.bindBookings()
   },
 }
 </script>

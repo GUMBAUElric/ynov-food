@@ -24,6 +24,7 @@ export default new Vuex.Store({
     restaurant_details: {},
     auto_complete: [],
     favorites: [],
+    bookings: [],
     params: {
       latitude: '45.764042',
       longitude: '4.835659',
@@ -115,6 +116,20 @@ export default new Vuex.Store({
     },
     bindFavorites: firebaseAction(async ({ bindFirebaseRef }) => {
       return bindFirebaseRef('favorites', db.ref('favorites'))
+    }),
+    bindBookings: firebaseAction(async ({ bindFirebaseRef }) => {
+      return bindFirebaseRef('bookings', db.ref('bookings'))
+    }),
+    addToBookings: firebaseAction(async (context, payload) => {
+      const { idRestaurant, booking } = payload
+      try {
+        await db
+          .ref(`bookings`)
+          .child(idRestaurant)
+          .set(booking)
+      } catch (error) {
+        console.error(error)
+      }
     }),
     addToFavorite: firebaseAction(async (context, idRestaurant) => {
       try {

@@ -88,6 +88,7 @@
 
 <script>
 /** Import */
+import { mapActions, mapState } from 'vuex'
 import yfDatePicker from '@/components/yfDatePicker.vue'
 
 export default {
@@ -107,16 +108,21 @@ export default {
           time: '20:30',
         },
         message: '',
+        is_checkout: false,
       },
     }
   },
+  computed: {
+    ...mapState(['restaurant_details']),
+  },
   methods: {
+    ...mapActions(['addToBookings']),
     handleReservationDay(day) {
       this.booking.reservation.day = day
     },
     checkBookingData() {
       return new Promise((resolve, reject) => {
-        const { name, email, reservation, message } = this.booking
+        const { name, email, reservation } = this.booking
         const REGEX_NUMBER = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
         /* ------------------ NAME ----------------- */
@@ -128,15 +134,30 @@ export default {
         /* ------------------ RESERVATION DAY ----------------- */
         if (reservation.day === '') reject(new Error('Jour de réservation vide'))
 
-        /* ------------------ MESSAGE ----------------- */
-        if (message === '') reject(new Error('Le message est vide'))
-
         resolve()
       })
     },
     async goToStepPayment() {
+      const { id } = this.restaurant_details
+
       try {
         await this.checkBookingData()
+
+        await this.addToBookings({ idRestaurant: id, booking: this.booking })
+
+        this.notyf.success('Réservation ajoutée')
+
+        this.booking = {
+          name: '',
+          email: '',
+          nb_of_persons: '1',
+          reservation: {
+            day: '',
+            time: '20:30',
+          },
+          message: '',
+          is_checkout: false,
+        }
       } catch (error) {
         this.notyf.error(error.message)
       }
