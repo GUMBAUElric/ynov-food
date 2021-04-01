@@ -3,7 +3,7 @@
     <div class="container-navbar">
       <ul class="d-flex justify-content-around align-items-center">
         <li class="logo-app" @click="pushToRestaurantList">
-          <img src="../assets/img/icon/logo_yf.svg" alt="logo-yf" />
+          <img :src="require(`../assets/img/icon/logo-yf.svg`)" alt="logo-yf" />
         </li>
         <li class="title-app"><h1>Ynov Food</h1></li>
         <li class="d-flex favorite">
