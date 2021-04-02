@@ -2,7 +2,11 @@
   <div class="ticket" :class="showBoxShadow ? 'box-shadow' : ''">
     <div class="ticket-header">
       <div class="ticket-logo-wrapper">
-        <img :src="require('../../assets/img/icon/logo-yf.svg')" alt="ticket" class="ticket-logo" />
+        <img
+          :src="require('../../../assets/img/icon/logo-yf.svg')"
+          alt="ticket"
+          class="ticket-logo"
+        />
       </div>
 
       <div class="ticket-header-info">

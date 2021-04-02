@@ -17,7 +17,7 @@
 /** Import */
 import { mapState } from 'vuex'
 import yfRestaurantDetailsTableOpening from '@/components/restaurantDetails/yfRestaurantDetailsTableOpening.vue'
-import yfRestaurantDetailsBooking from '@/components/restaurantDetails/yfRestaurantDetailsBooking.vue'
+import yfRestaurantDetailsBooking from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBooking.vue'
 
 export default {
   name: 'yfRestaurantDetailsReservation',
