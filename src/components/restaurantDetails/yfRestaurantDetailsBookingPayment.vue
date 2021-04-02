@@ -1,65 +1,80 @@
 <template>
-  <div class="paypal">
-    <div class="paypal__header">
-      <div class="paypal__logo-wrapper">
-        <img src="https://i.ibb.co/DrvmW5y/paypal.png" alt="Paypal" class="paypal__logo" />
+  <div class="ticket">
+    <div class="ticket-header">
+      <div class="ticket-logo-wrapper">
+        <img :src="require('../../assets/img/icon/logo-yf.svg')" alt="ticket" class="ticket-logo" />
       </div>
 
-      <div class="paypal__header-info">
-        <span class="paypal__date">25.04.2016</span>
-        <span class="paypal__ref">0f-113</span>
+      <div class="ticket-header-info">
+        <span class="ticket-date">{{ date.day }}</span>
+        <span class="ticket-ref">{{ date.hour }}</span>
+      </div>
+      <img
+        class="img-mask"
+        src="https://lh3.googleusercontent.com/proxy/n4vVGiQy9MnA6KeEaWchFClgOQShI9oGOIKZIo0BJ5w7deVeIQbNxKkCp6qSGjyIco-9R8m7xE2gJCbkCC3lIL83TLQ-mGJ9Hho0osF87v_8Q-aLvIE5TJNWsQAQO8ufnyRr5GScoc3F3t0l0Dnlh-TTKnT45LJnnZh4wdWarEl0keGwFKeBd5Sdm4csaYUtKvySZ-UHK-mDN3l7"
+        alt=""
+      />
+    </div>
+
+    <div class="ticket-subheader-wrapper">
+      <div class="ticket-subheader">
+        <h1 class="ticket-username">Mozzato</h1>
+        <span class="ticket-help-text">Nom de la réservation : GUMBAU</span>
       </div>
     </div>
 
-    <div class="paypal__subheader-wrapper">
-      <div class="paypal__subheader">
-        <h1 class="paypal__username">VladysLav, Hi</h1>
-        <span class="paypal__help-text">you've purchased three (3) items in our store:</span>
-      </div>
-    </div>
+    <div class="ticket-cart">
+      <h2 class="ticket-cart-title">Votre réservation :</h2>
 
-    <div class="paypal__cart">
-      <h2 class="paypal__cart-title">Cart:</h2>
-
-      <ul class="paypal__cart-list">
-        <li class="paypal__cart-item">
-          <span class="paypal__index">1</span>
-          <span class="paypal__item-name">t-Shirt Lacoste</span>
-          <span class="paypal__item-price">$48.00</span>
+      <ul class="ticket-cart-list">
+        <li class="ticket-cart-item">
+          <span class="ticket-index">Le</span>
+          <span class="ticket-item-name">10/04/2021</span>
+          <span class="ticket-item-price">0 €</span>
         </li>
 
-        <li class="paypal__cart-item">
-          <span class="paypal__index">2</span>
-          <span class="paypal__item-name">Snickers Nike</span>
-          <span class="paypal__item-price">$125.00</span>
+        <li class="ticket-cart-item">
+          <span class="ticket-index">À</span>
+          <span class="ticket-item-name">21:00</span>
+          <span class="ticket-item-price">0 €</span>
         </li>
 
-        <li class="paypal__cart-item">
-          <span class="paypal__index">3</span>
-          <span class="paypal__item-name">All Stars</span>
-          <span class="paypal__item-price">$95.00</span>
+        <li class="ticket-cart-item">
+          <span class="ticket-index">Pour</span>
+          <span class="ticket-item-name">4 personnes</span>
+          <span class="ticket-item-price">0 €</span>
         </li>
 
-        <li class="paypal__cart-item">
-          <span class="paypal__cart-total">Total</span>
-          <span class="paypal__item-price">$268.00</span>
+        <li class="ticket-cart-item">
+          <span class="ticket-cart-total">Total</span>
+          <div class="d-flex flex-column align-items-flex-end total-price">
+            <span class="ticket-item-price old-price">268.00 €</span>
+            <span class="ticket-item-price new-price"><sup>*</sup>0 €</span>
+          </div>
         </li>
       </ul>
     </div>
-
-    <div class="paypal__footer">
-      <img
-        src="https://i.ibb.co/c8CQvBq/barcode.png"
-        alt="Paypal Barcode"
-        class="paypal__barcode"
-      />
+    <div class="d-flex justify-content-center ticket-footer">
+      <button class="btn btn-secondary">Procéder au paiement</button>
     </div>
   </div>
 </template>
 
 <script>
+/** Import */
+import moment from 'moment'
+
+moment.locale()
 export default {
   name: 'yfRestaurantDetailsBookingPayment',
+  data() {
+    return {
+      date: {
+        day: moment().format('L'),
+        hour: moment().format('HH:mm:ss'),
+      },
+    }
+  },
   props: {
     booking: {
       type: Object,
@@ -68,6 +83,7 @@ export default {
       },
     },
   },
+  mounted() {},
 }
 </script>
 
@@ -81,23 +97,30 @@ export default {
   font-size: 14px;
 }
 
-.paypal {
+.img-mask {
+  width: 80px;
+  margin-top: -15px;
+}
+
+.ticket {
   position: relative;
   left: 50%;
   display: inline-block;
-  /*min-width: 500px;*/
   max-width: 100%;
-  width: auto;
+  width: 400px;
   margin: 20px auto 0;
   clear: both;
-
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
 }
 
-.paypal__header {
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.ticket-header {
   display: flex;
   -ms-align-items: flex-start;
   align-items: flex-start;
@@ -108,73 +131,73 @@ export default {
   border-top-left-radius: 5px;
 }
 
-.paypal__logo-wrapper {
+.ticket-logo-wrapper {
   flex: 1 0 40%;
 }
 
-.paypal__logo {
+.ticket-logo {
   display: block;
   width: 50px;
   height: auto;
   margin-left: 15px;
 }
 
-.paypal__header-info {
-  flex: 1 0 50%;
+.ticket-header-info {
+  flex: 1 0 40%;
 }
 
-.paypal__date,
-.paypal__ref {
+.ticket-date,
+.ticket-ref {
   display: block;
   font-size: 19px;
   color: #aaa;
   font-weight: 300;
 }
 
-.paypal__date {
+.ticket-date {
   margin-bottom: 5px;
 }
 
-.paypal__subheader-wrapper {
+.ticket-subheader-wrapper {
   background: #fff;
   padding-bottom: 20px;
 }
 
-.paypal__subheader {
+.ticket-subheader {
   padding: 0 45px 0 40px;
   border-left: 5px solid #029de0;
 }
 
-.paypal__username {
+.ticket-username {
   margin: 0 0 10px 0;
   font-size: 22px;
   font-weight: 600;
 }
 
-.paypal__help-text {
+.ticket-help-text {
   color: #aaa;
   font-weight: 300;
 }
 
-.paypal__cart {
+.ticket-cart {
   display: block;
   padding: 25px 30px 45px;
 }
 
-.paypal__cart-title {
+.ticket-cart-title {
   display: block;
   margin-top: 0;
   margin-bottom: 25px;
   text-align: center;
 }
 
-.paypal__cart-list {
+.ticket-cart-list {
   margin: 0;
   padding: 0 15px;
   list-style: none;
 }
 
-.paypal__cart-item {
+.ticket-cart-item {
   display: block;
   padding-top: 20px;
   margin-bottom: 20px;
@@ -183,47 +206,69 @@ export default {
   font-size: 18px;
 }
 
-.paypal__cart-item:first-child {
+.ticket-cart-item:first-child {
   border-top: 0;
 }
 
-.paypal__cart-item:last-child {
+.ticket-cart-item:last-child {
   margin-bottom: 0;
   border-top: 2px solid #ffe155;
 }
 
-.paypal__index {
+.ticket-index {
   padding-right: 15px;
   color: #aaa;
   font-weight: 300;
 }
 
-.paypal__item-name {
+.ticket-item-name {
   color: #aaa;
   font-weight: 300;
 }
 
-.paypal__item-price {
+.ticket-item-price {
   float: right;
   letter-spacing: 1px;
+  position: relative;
 }
 
-.paypal__cart-total {
+.old-price::after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  top: 7px;
+  left: 0;
+  animation: strike-out 500ms ease-out forwards;
+  animation-delay: 5s;
+  background-color: var(--primary-color);
+}
+
+.new-price {
+  opacity: 0;
+  animation: fade 500ms ease-out forwards;
+  animation-delay: 5s;
+}
+
+.ticket-cart-total {
   font-size: 20px;
   text-transform: uppercase;
 }
 
-.paypal__footer {
+.total-price {
+  width: 100%;
+  margin-top: -20px;
+}
+
+.ticket-footer {
   position: relative;
   padding: 30px 20px;
   border-top: 2px dashed #ff84a1;
-
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.paypal__footer::before,
-.paypal__footer::after {
+.ticket-footer::before,
+.ticket-footer::after {
   content: '';
   position: absolute;
   top: 0;
@@ -235,17 +280,17 @@ export default {
   transform: translateY(calc(-50% - 1px));
 }
 
-.paypal__footer::before {
+.ticket-footer::before {
   left: 0;
   border-left: 7px solid #ff85a1;
 }
 
-.paypal__footer::after {
+.ticket-footer::after {
   right: 0;
   border-right: 7px solid #ff85a1;
 }
 
-.paypal__barcode {
+.ticket-barcode {
   display: block;
   margin: 0 auto;
   max-width: 300px;
@@ -253,10 +298,26 @@ export default {
 }
 
 /**
- * Paypal Animations
+ * ticket Animations
  */
 
-@keyframes show-paypal {
+@keyframes strike-out {
+  0% {
+    width: 0px;
+  }
+
+  100% {
+    width: 60px;
+  }
+}
+
+@keyframes fade {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes show-ticket {
   0% {
     opacity: 0;
     transform: scale(0) translateX(-50%);
@@ -272,9 +333,17 @@ export default {
   }
 }
 
-.paypal {
+@keyframes show-box-shadow {
+  100% {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+}
+
+.ticket {
   transform-origin: top left;
-  animation: show-paypal 1s ease-out forwards;
+  animation: show-ticket 1s ease-out forwards;
+  animation: show-box-shadow 1s ease-out forwards;
+  animation-delay: 3s;
 }
 
 @keyframes show-subheader {
@@ -293,7 +362,7 @@ export default {
   }
 }
 
-.paypal__subheader {
+.ticket-subheader {
   opacity: 0;
   animation: show-subheader 1s 0.5s ease-out forwards;
 }
@@ -304,7 +373,7 @@ export default {
   }
 }
 
-.paypal__cart {
+.ticket-cart {
   background-color: #fff;
 
   transform-style: preserve-3d;
@@ -314,7 +383,7 @@ export default {
   animation: slide-down 0.4s 2s ease-out forwards;
 }
 
-.paypal__footer {
+.ticket-footer {
   background-color: #fff;
 
   transform-style: preserve-3d;
@@ -331,7 +400,7 @@ export default {
   }
 }
 
-.paypal__cart-title {
+.ticket-cart-title {
   opacity: 0;
   transform: translateY(10px);
 
@@ -345,22 +414,22 @@ export default {
   }
 }
 
-.paypal__cart-item {
+.ticket-cart-item {
   opacity: 0;
   transform: translateX(-30px);
 
   animation: show-cart-item 0.3s 2.75s ease-in forwards;
 }
 
-.paypal__cart-item:nth-child(2) {
+.ticket-cart-item:nth-child(2) {
   animation-delay: 2.9s;
 }
 
-.paypal__cart-item:nth-child(3) {
+.ticket-cart-item:nth-child(3) {
   animation-delay: 3.05s;
 }
 
-.paypal__cart-item:nth-child(4) {
+.ticket-cart-item:nth-child(4) {
   animation-delay: 3.2s;
 }
 </style>

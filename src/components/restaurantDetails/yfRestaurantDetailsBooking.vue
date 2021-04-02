@@ -5,6 +5,9 @@
       <yfRestaurantDetailsBookingInfos v-if="!isStepPayment" @bookingData="goToStepPayment" />
     </transition>
     <yfRestaurantDetailsBookingPayment v-if="isStepPayment" :booking="booking" />
+    <div class="d-flex justify-content-center infos-covid">
+      <p><sup>*</sup> Au vu de la crise sanitaire, toutes vos réservations sont offertes.</p>
+    </div>
   </div>
 </template>
 
@@ -26,7 +29,7 @@ export default {
   },
   data() {
     return {
-      isStepPayment: false,
+      isStepPayment: true,
       payment: Payment(),
       booking: {},
     }
@@ -56,6 +59,29 @@ export default {
 </script>
 
 <style scoped>
+.container-booking .infos-covid {
+  margin-top: 15px;
+  opacity: 0;
+  animation: fade 500ms ease-out forwards;
+  animation-delay: 5s;
+}
+
+.container-booking .infos-covid p {
+  width: 230px;
+  text-align: justify;
+}
+
+.container-booking .infos-covid img {
+  width: 150px;
+}
+
+/** Animations */
+@keyframes fade {
+  100% {
+    opacity: 1;
+  }
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
