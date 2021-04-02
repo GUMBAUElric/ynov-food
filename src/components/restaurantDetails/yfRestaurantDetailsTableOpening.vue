@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-items-center table-opening">
+  <div class="d-flex align-items-flex-start table-opening">
     <table class="styled-table" v-if="includesMiddayAndEvening">
       <thead>
         <tr>
@@ -86,10 +86,10 @@ export default {
 <style scoped>
 .table-opening .styled-table {
   border-collapse: collapse;
-  margin: 25px 0;
   font-size: 0.9em;
-  font-family: sans-serif;
   min-width: 400px;
+  margin-top: 150px;
+  font-family: sans-serif;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   font-size: 1em;
   transition: 300ms ease;
@@ -132,5 +132,11 @@ export default {
 .table-opening .styled-table tbody tr td i {
   position: absolute;
   left: 10px;
+}
+
+@media screen and (max-width: 1280px) {
+  .table-opening .styled-table {
+    margin-top: 0px;
+  }
 }
 </style>
