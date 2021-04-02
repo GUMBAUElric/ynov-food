@@ -1,5 +1,5 @@
 <template>
-  <div class="ticket">
+  <div class="ticket" :class="showBoxShadow ? 'box-shadow' : ''">
     <div class="ticket-header">
       <div class="ticket-logo-wrapper">
         <img :src="require('../../assets/img/icon/logo-yf.svg')" alt="ticket" class="ticket-logo" />
@@ -18,8 +18,10 @@
 
     <div class="ticket-subheader-wrapper">
       <div class="ticket-subheader">
-        <h1 class="ticket-username">Mozzato</h1>
-        <span class="ticket-help-text">Nom de la réservation : GUMBAU</span>
+        <h1 class="ticket-username">{{ restaurant_details.name }}</h1>
+        <span class="ticket-help-text">Nom de la réservation : {{ booking.name }}</span
+        ><br />
+        <span class="ticket-help-text">E-mail : {{ booking.email }}</span>
       </div>
     </div>
 
@@ -29,39 +31,45 @@
       <ul class="ticket-cart-list">
         <li class="ticket-cart-item">
           <span class="ticket-index">Le</span>
-          <span class="ticket-item-name">10/04/2021</span>
-          <span class="ticket-item-price">0 €</span>
+          <span class="ticket-item-name">{{ booking.reservation.day }}</span>
+          <span class="ticket-item-price">2 €</span>
         </li>
 
         <li class="ticket-cart-item">
           <span class="ticket-index">À</span>
-          <span class="ticket-item-name">21:00</span>
-          <span class="ticket-item-price">0 €</span>
+          <span class="ticket-item-name">{{ booking.reservation.time.value }}</span>
+          <span class="ticket-item-price">{{ booking.reservation.time.price }} €</span>
         </li>
 
         <li class="ticket-cart-item">
           <span class="ticket-index">Pour</span>
-          <span class="ticket-item-name">4 personnes</span>
-          <span class="ticket-item-price">0 €</span>
+          <span class="ticket-item-name">{{ numberOfPersons }}</span>
+          <span class="ticket-item-price">{{ booking.nb_of_persons.price }} €</span>
+        </li>
+
+        <li v-if="booking.message" class="ticket-cart-item">
+          <span class="ticket-index">Message :</span>
+          <p class="ticket-item-name">{{ booking.message }}</p>
         </li>
 
         <li class="ticket-cart-item">
           <span class="ticket-cart-total">Total</span>
           <div class="d-flex flex-column align-items-flex-end total-price">
-            <span class="ticket-item-price old-price">268.00 €</span>
+            <span class="ticket-item-price old-price">{{ totalAmount }}.00 €</span>
             <span class="ticket-item-price new-price"><sup>*</sup>0 €</span>
           </div>
         </li>
       </ul>
     </div>
     <div class="d-flex justify-content-center ticket-footer">
-      <button class="btn btn-secondary">Procéder au paiement</button>
+      <button class="btn btn-secondary">Réserver</button>
     </div>
   </div>
 </template>
 
 <script>
 /** Import */
+import { mapState } from 'vuex'
 import moment from 'moment'
 
 moment.locale()
@@ -73,6 +81,7 @@ export default {
         day: moment().format('L'),
         hour: moment().format('HH:mm:ss'),
       },
+      showBoxShadow: false,
     }
   },
   props: {
@@ -83,7 +92,34 @@ export default {
       },
     },
   },
-  mounted() {},
+  computed: {
+    ...mapState(['restaurant_details']),
+    /**
+     * @computed numberOfPersons
+     * @desc Get the number of persons
+     * @returns {string}
+     */
+    numberOfPersons() {
+      const { value } = this.booking.nb_of_persons
+      return value === '1' ? `${value} personne` : `${value} personnes`
+    },
+    /**
+     * @computed totalAmount
+     * @desc Get the total amount of the price
+     * @returns {string}
+     */
+    totalAmount() {
+      const priceReservationTime = parseInt(this.booking.reservation.time.price, 10)
+      const priceNbOfPersons = parseInt(this.booking.nb_of_persons.price, 10)
+
+      return 2 + priceNbOfPersons + priceReservationTime
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showBoxShadow = true
+    }, 4000)
+  },
 }
 </script>
 
@@ -102,6 +138,11 @@ export default {
   margin-top: -15px;
 }
 
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  transition: 300ms ease;
+}
+
 .ticket {
   position: relative;
   left: 50%;
@@ -116,15 +157,10 @@ export default {
   transform: translateX(-50%);
 }
 
-.box-shadow {
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-}
-
 .ticket-header {
   display: flex;
   -ms-align-items: flex-start;
   align-items: flex-start;
-
   padding: 30px 30px 45px;
   background: #fff;
   border-top-right-radius: 5px;
@@ -165,7 +201,7 @@ export default {
 
 .ticket-subheader {
   padding: 0 45px 0 40px;
-  border-left: 5px solid #029de0;
+  border-left: 5px solid var(--primary-color);
 }
 
 .ticket-username {
@@ -290,13 +326,6 @@ export default {
   border-right: 7px solid #ff85a1;
 }
 
-.ticket-barcode {
-  display: block;
-  margin: 0 auto;
-  max-width: 300px;
-  height: auto;
-}
-
 /**
  * ticket Animations
  */
@@ -307,7 +336,7 @@ export default {
   }
 
   100% {
-    width: 60px;
+    width: 66%;
   }
 }
 
@@ -333,17 +362,9 @@ export default {
   }
 }
 
-@keyframes show-box-shadow {
-  100% {
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  }
-}
-
 .ticket {
   transform-origin: top left;
   animation: show-ticket 1s ease-out forwards;
-  animation: show-box-shadow 1s ease-out forwards;
-  animation-delay: 3s;
 }
 
 @keyframes show-subheader {

@@ -5,8 +5,8 @@
       <yfRestaurantDetailsBookingInfos v-if="!isStepPayment" @bookingData="goToStepPayment" />
     </transition>
     <yfRestaurantDetailsBookingPayment v-if="isStepPayment" :booking="booking" />
-    <div class="d-flex justify-content-center infos-covid">
-      <p><sup>*</sup> Au vu de la crise sanitaire, toutes vos réservations sont offertes.</p>
+    <div v-if="isStepPayment" class="d-flex justify-content-center infos-covid">
+      <p><sup>*</sup> Au vu de la situation sanitaire, toutes vos réservations sont offertes.</p>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      isStepPayment: true,
+      isStepPayment: false,
       payment: Payment(),
       booking: {},
     }
@@ -39,20 +39,11 @@ export default {
   },
   methods: {
     ...mapActions(['addToBookings']),
-    async goToStepPayment(booking) {
-      try {
-        // const { id } = this.restaurant_details
+    goToStepPayment(booking) {
+      this.booking = booking
 
-        //  await this.addToBookings({ idRestaurant: id, booking: this.booking })
-
-        this.booking = booking
-
-        this.notyf.success('Réservation ajoutée')
-
-        this.isStepPayment = true
-      } catch (error) {
-        this.notyf.error(error.message)
-      }
+      console.log(this.booking)
+      this.isStepPayment = true
     },
   },
 }

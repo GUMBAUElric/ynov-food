@@ -19,22 +19,20 @@
                 <div class="d-flex flex-column form">
                   <h3>Nombre de personne</h3>
                   <select v-model="booking.nb_of_persons">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
+                    <option v-for="(item, idx) in select.nb_of_persons" :key="idx" :value="item">{{
+                      item.value
+                    }}</option>
                   </select>
                 </div>
                 <div class="d-flex flex-column form">
                   <h3>Heure de réservation</h3>
                   <select v-model="booking.reservation.time">
-                    <option>20:30</option>
-                    <option>21:00</option>
-                    <option>21:30</option>
-                    <option>22:00</option>
-                    <option>22:30</option>
+                    <option
+                      v-for="(item, idx) in select.reservation_time"
+                      :key="idx"
+                      :value="item"
+                      >{{ item.value }}</option
+                    >
                   </select>
                 </div>
               </div>
@@ -47,7 +45,7 @@
                 <yfDatePicker @dateSelected="handleReservationDay" />
               </div>
               <div class="d-flex flex-column form">
-                <h3>Message (falcutatif)</h3>
+                <h3>Message (falcutatif) {{ messageLength }}/30</h3>
                 <textarea cols="24" rows="6" v-model="booking.message"></textarea>
               </div>
             </div>
@@ -76,15 +74,81 @@ export default {
       booking: {
         name: '',
         email: '',
-        nb_of_persons: '1',
+        nb_of_persons: {
+          price: 1,
+          value: '1',
+        },
         reservation: {
           day: '',
-          time: '20:30',
+          time: {
+            price: 2,
+            value: '20:30',
+          },
         },
         message: '',
         is_checkout: false,
       },
+      select: {
+        nb_of_persons: [
+          {
+            price: 1,
+            value: '1',
+          },
+          {
+            price: 3,
+            value: '2',
+          },
+          {
+            price: 6,
+            value: '3',
+          },
+          {
+            price: 8,
+            value: '4',
+          },
+          {
+            price: 12,
+            value: '5',
+          },
+          {
+            price: 14,
+            value: '6',
+          },
+        ],
+        reservation_time: [
+          {
+            price: 2,
+            value: '20:30',
+          },
+          {
+            price: 4,
+            value: '21:00',
+          },
+          {
+            price: 6,
+            value: '21:30',
+          },
+          {
+            price: 9,
+            value: '22:00',
+          },
+          {
+            price: 11,
+            value: '22:30',
+          },
+        ],
+      },
     }
+  },
+  computed: {
+    /**
+     * @computed messageLength
+     * @desc Get the message length
+     * @returns {number}
+     */
+    messageLength() {
+      return this.booking.message.length
+    },
   },
   methods: {
     /**
@@ -100,7 +164,7 @@ export default {
      */
     checkBookingData() {
       return new Promise((resolve, reject) => {
-        const { name, email, reservation } = this.booking
+        const { name, email, reservation, message } = this.booking
         const REGEX_NUMBER = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
         /* ------------------ NAME ----------------- */
@@ -112,6 +176,9 @@ export default {
         /* ------------------ RESERVATION DAY ----------------- */
         if (reservation.day === '') reject(new Error('Jour de réservation vide'))
 
+        /* ------------------ MESSAGE  ----------------- */
+        if (message.length > 30) reject(new Error('Message trop long'))
+
         resolve()
       })
     },
@@ -121,7 +188,7 @@ export default {
      */
     async handleBooking() {
       try {
-        // await this.checkBookingData()
+        await this.checkBookingData()
         this.$emit('bookingData', this.booking)
       } catch (error) {
         this.notyf.error(error.message)
