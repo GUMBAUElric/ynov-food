@@ -14,8 +14,14 @@ export default {
   name: 'yfDatePicker',
   data() {
     return {
-      date: '',
+      date: this.defaultDate,
     }
+  },
+  props: {
+    defaultDate: {
+      type: String,
+      default: '',
+    },
   },
   mounted() {
     flatpickr('#bookingDay', {

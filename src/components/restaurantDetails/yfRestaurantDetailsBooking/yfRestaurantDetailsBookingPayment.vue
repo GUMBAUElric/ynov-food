@@ -1,5 +1,5 @@
 <template>
-  <div class="ticket" :class="showBoxShadow ? 'box-shadow' : ''">
+  <div class="ticket" :class="layout.showBoxShadow ? 'box-shadow' : ''">
     <div class="ticket-header">
       <div class="ticket-logo-wrapper">
         <img
@@ -15,11 +15,10 @@
       </div>
       <img
         class="img-mask"
-        src="https://lh3.googleusercontent.com/proxy/n4vVGiQy9MnA6KeEaWchFClgOQShI9oGOIKZIo0BJ5w7deVeIQbNxKkCp6qSGjyIco-9R8m7xE2gJCbkCC3lIL83TLQ-mGJ9Hho0osF87v_8Q-aLvIE5TJNWsQAQO8ufnyRr5GScoc3F3t0l0Dnlh-TTKnT45LJnnZh4wdWarEl0keGwFKeBd5Sdm4csaYUtKvySZ-UHK-mDN3l7"
-        alt=""
+        :src="require('../../../assets/img/masque-obg-covid.jpeg')"
+        alt="masque-obg-covid"
       />
     </div>
-
     <div class="ticket-subheader-wrapper">
       <div class="ticket-subheader">
         <h1 class="ticket-username">{{ restaurant_details.name }}</h1>
@@ -28,34 +27,28 @@
         <span class="ticket-help-text">E-mail : {{ booking.email }}</span>
       </div>
     </div>
-
     <div class="ticket-cart">
       <h2 class="ticket-cart-title">Votre réservation :</h2>
-
       <ul class="ticket-cart-list">
         <li class="ticket-cart-item">
           <span class="ticket-index">Le</span>
           <span class="ticket-item-name">{{ booking.reservation.day }}</span>
           <span class="ticket-item-price">2 €</span>
         </li>
-
         <li class="ticket-cart-item">
           <span class="ticket-index">À</span>
           <span class="ticket-item-name">{{ booking.reservation.time.value }}</span>
           <span class="ticket-item-price">{{ booking.reservation.time.price }} €</span>
         </li>
-
         <li class="ticket-cart-item">
           <span class="ticket-index">Pour</span>
           <span class="ticket-item-name">{{ numberOfPersons }}</span>
           <span class="ticket-item-price">{{ booking.nb_of_persons.price }} €</span>
         </li>
-
         <li v-if="booking.message" class="ticket-cart-item">
           <span class="ticket-index">Message :</span>
           <p class="ticket-item-name">{{ booking.message }}</p>
         </li>
-
         <li class="ticket-cart-item">
           <span class="ticket-cart-total">Total</span>
           <div class="d-flex flex-column align-items-flex-end total-price">
@@ -66,8 +59,11 @@
       </ul>
     </div>
     <div class="d-flex justify-content-center ticket-footer">
-      <button class="btn btn-secondary" @click="handlePayment" v-if="!confirm">Réserver</button>
-      <div class="loader" v-if="confirm">
+      <button class="btn btn-secondary" @click="handlePayment" v-if="!layout.loading">
+        <span>Réserver</span>
+        <i class="fad fa-credit-card-front"></i>
+      </button>
+      <div class="loader animate__animated animate__fadeIn" v-if="layout.loading">
         <svg viewBox="0 0 80 80">
           <circle id="test" cx="40" cy="40" r="32"></circle>
         </svg>
@@ -90,8 +86,10 @@ export default {
         day: moment().format('L'),
         hour: moment().format('HH:mm:ss'),
       },
-      showBoxShadow: false,
-      confirm: false,
+      layout: {
+        showBoxShadow: false,
+        loading: false,
+      },
     }
   },
   props: {
@@ -127,12 +125,12 @@ export default {
   },
   methods: {
     handlePayment() {
-      this.confirm = true
+      this.layout.loading = true
     },
   },
   mounted() {
     setTimeout(() => {
-      this.showBoxShadow = true
+      this.layout.showBoxShadow = true
     }, 4000)
   },
 }
@@ -309,6 +307,26 @@ export default {
   border-top: 2px dashed #ff84a1;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.ticket-footer .btn {
+  width: 100px;
+}
+
+.ticket-footer .btn i {
+  transform: scale(0);
+  margin-left: -23px;
+  transition: 300ms ease;
+  margin-top: 1px;
+}
+
+.ticket-footer .btn:hover {
+  width: 120px;
+}
+
+.ticket-footer .btn:hover i {
+  transform: scale(1);
+  margin-left: 3px;
 }
 
 .ticket-footer::before,

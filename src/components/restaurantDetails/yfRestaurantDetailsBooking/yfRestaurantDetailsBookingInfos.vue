@@ -42,7 +42,10 @@
             <div class="d-flex align-items-center content-form">
               <div class="d-flex flex-column form">
                 <h3>Jour de réservation</h3>
-                <yfDatePicker @dateSelected="handleReservationDay" />
+                <yfDatePicker
+                  :defaultDate="booking.reservation.day"
+                  @dateSelected="handleReservationDay"
+                />
               </div>
               <div class="d-flex flex-column form">
                 <h3>Message (falcutatif) {{ messageLength }}/30</h3>
@@ -71,23 +74,6 @@ export default {
   },
   data() {
     return {
-      booking: {
-        name: '',
-        email: '',
-        nb_of_persons: {
-          price: 1,
-          value: '1',
-        },
-        reservation: {
-          day: '',
-          time: {
-            price: 2,
-            value: '20:30',
-          },
-        },
-        message: '',
-        is_checkout: false,
-      },
       select: {
         nb_of_persons: [
           {
@@ -139,6 +125,12 @@ export default {
         ],
       },
     }
+  },
+  props: {
+    booking: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     /**

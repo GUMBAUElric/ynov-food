@@ -62,7 +62,7 @@ export default {
      * @returns {boolean}
      */
     currentDay() {
-      return new Date().getDay() === '0' ? 6 : new Date().getDay() - 1
+      return new Date().getDay() === 0 ? 6 : new Date().getDay() - 1
     },
   },
   props: {
