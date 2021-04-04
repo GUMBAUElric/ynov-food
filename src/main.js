@@ -10,6 +10,7 @@ import 'notyf/notyf.min.css'
 import 'vue-select/dist/vue-select.css'
 import 'leaflet/dist/leaflet.css'
 import 'flatpickr/dist/flatpickr.min.css'
+import 'animate.css/animate.min.css'
 
 delete Icon.Default.prototype._getIconUrl
 Icon.Default.mergeOptions({
