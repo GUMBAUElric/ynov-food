@@ -60,8 +60,8 @@
     </div>
     <div class="d-flex justify-content-center ticket-footer">
       <button class="btn btn-secondary" @click="handlePayment" v-if="!layout.loading">
-        <span>Réserver</span>
-        <i class="fad fa-credit-card-front"></i>
+        <span>{{ layout.paymentError ? 'Recommencer' : 'Réserver' }}</span>
+        <i :class="layout.paymentError ? 'far fa-undo-alt' : 'fad fa-credit-card-front'"></i>
       </button>
       <div class="loader animate__animated animate__fadeIn" v-if="layout.loading">
         <svg viewBox="0 0 80 80">
@@ -89,6 +89,7 @@ export default {
       layout: {
         showBoxShadow: false,
         loading: false,
+        paymentError: false,
       },
     }
   },
@@ -124,6 +125,10 @@ export default {
     },
   },
   methods: {
+    /**
+     * @computed handlePayment
+     * @desc Do the payment
+     */
     handlePayment() {
       this.layout.loading = true
     },
@@ -310,7 +315,7 @@ export default {
 }
 
 .ticket-footer .btn {
-  width: 100px;
+  width: 130px;
 }
 
 .ticket-footer .btn i {
@@ -321,7 +326,7 @@ export default {
 }
 
 .ticket-footer .btn:hover {
-  width: 120px;
+  width: 150px;
 }
 
 .ticket-footer .btn:hover i {

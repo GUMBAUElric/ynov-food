@@ -68,10 +68,19 @@ export default {
   },
   methods: {
     ...mapActions(['addToBookings']),
+    /**
+     * @function goToStepPayment
+     * @desc Go to the step payment
+     * @param {object} booking The data booking
+     */
     goToStepPayment(booking) {
       this.booking = booking
       this.layout.isStepPayment = true
     },
+    /**
+     * @function goToStepBooking
+     * @desc Go to the step booking
+     */
     goToStepBooking() {
       this.layout.isStepPayment = false
     },
