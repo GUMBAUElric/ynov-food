@@ -15,7 +15,7 @@
       </div>
       <img
         class="img-mask"
-        :src="require('../../../assets/img/masque-obg-covid.jpeg')"
+        :src="require('../../../assets/img/mask-covid.jpeg')"
         alt="masque-obg-covid"
       />
     </div>
@@ -76,10 +76,12 @@
 /** Import */
 import { mapState } from 'vuex'
 import moment from 'moment'
+import Payment from '@/assets/utils/Payment'
 
 moment.locale()
 export default {
   name: 'yfRestaurantDetailsBookingPayment',
+  inject: ['notyf'],
   data() {
     return {
       date: {
@@ -91,6 +93,7 @@ export default {
         loading: false,
         paymentError: false,
       },
+      payment: Payment(),
     }
   },
   props: {
@@ -123,14 +126,47 @@ export default {
 
       return 2 + priceNbOfPersons + priceReservationTime
     },
+    /**
+     * @computed bookingPaymentDetails
+     * @desc Get the booking details
+     * @returns {object}
+     */
+    bookingPaymentDetails() {
+      return {
+        displayItems: [
+          {
+            label: `Réservation chez ${this.restaurant_details.name}`,
+            amount: { currency: 'EUR', value: this.totalAmount },
+          },
+          {
+            label: 'Réduction COVID-19',
+            amount: { currency: 'EUR', value: `-${this.totalAmount}` },
+          },
+        ],
+        total: {
+          label: 'Total',
+          amount: { currency: 'EUR', value: '0.00' },
+        },
+      }
+    },
   },
   methods: {
     /**
-     * @computed handlePayment
+     * @function handlePayment
      * @desc Do the payment
      */
-    handlePayment() {
-      this.layout.loading = true
+    async handlePayment() {
+      try {
+        this.layout.loading = true
+        this.layout.paymentError = false
+        await this.payment.doPayment(this.bookingPaymentDetails)
+        this.notyf.success('Votre réservation a bien été effectuée')
+      } catch (error) {
+        console.error(error.message)
+        this.notyf.error('Paiement échoué')
+        this.layout.loading = false
+        this.layout.paymentError = true
+      }
     },
   },
   mounted() {

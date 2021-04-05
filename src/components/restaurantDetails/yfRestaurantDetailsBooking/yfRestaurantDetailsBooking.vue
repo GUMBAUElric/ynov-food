@@ -28,7 +28,6 @@ import { mapActions, mapState } from 'vuex'
 import yfRestaurantDetailsBookingHeader from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBookingHeader.vue'
 import yfRestaurantDetailsBookingInfos from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBookingInfos.vue'
 import yfRestaurantDetailsBookingPayment from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBookingPayment.vue'
-import Payment from '@/assets/utils/Payment'
 
 export default {
   name: 'yfRestaurantDetailsBooking',
@@ -60,7 +59,6 @@ export default {
         message: '',
         is_checkout: false,
       },
-      payment: Payment(),
     }
   },
   computed: {
