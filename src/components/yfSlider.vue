@@ -16,13 +16,17 @@
 
 <script>
 export default {
-  name: 'yfRestaurantsListOptionsSlider',
+  name: 'yfSlider',
   data() {
     return {
-      range: 0,
+      range: this.initialRange,
     }
   },
   props: {
+    initialRange: {
+      type: String,
+      default: '0',
+    },
     icon: {
       type: String,
       default: '',

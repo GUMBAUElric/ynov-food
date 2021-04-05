@@ -58,16 +58,17 @@ export default {
           isSelected: false,
         },
       ],
+      idxSelectedCategory: sessionStorage.getItem('indexOfSelectedCategory') || '-1',
     }
   },
   computed: {
     /**
-     * @computed getIndexSelectedCategory
-     * @desc Find index selected category
-     * @returns {number}
+     * @computed
+     * @desc Check if category is selected
+     * @returns {boolean}
      */
-    getIndexSelectedCategory() {
-      return this.categories.findIndex(category => category.isSelected === true)
+    categoryIsSelected() {
+      return this.idxSelectedCategory !== '-1'
     },
   },
   methods: {
@@ -76,25 +77,35 @@ export default {
      * @computed setSelected
      * @desc This method set category selected
      * @param {number} idx The index of selected category
-     * @returns {void}
      */
     setSelected(idx) {
       const { food_name } = this.categories[idx]
-      const idxSelectedCategory = this.getIndexSelectedCategory
 
-      this.categories[idx].isSelected = !this.categories[idx].isSelected
+      if (this.categoryIsSelected) this.categories[this.idxSelectedCategory].isSelected = false
 
-      if (idxSelectedCategory !== -1) {
-        this.categories[idxSelectedCategory].isSelected = false
-
-        const foodName =
-          this.categories[idxSelectedCategory].food_name === food_name ? '' : food_name
-
-        this.updateTerm(foodName)
-      } else {
+      if (this.idxSelectedCategory !== idx.toString()) {
+        sessionStorage.setItem('indexOfSelectedCategory', idx)
+        this.idxSelectedCategory = idx.toString()
+        this.categories[idx].isSelected = true
         this.updateTerm(food_name)
+      } else {
+        sessionStorage.setItem('indexOfSelectedCategory', -1)
+        this.idxSelectedCategory = '-1'
+        this.updateTerm('')
       }
     },
+    /**
+     * @computed checkIfCategoryIsSelected
+     * @desc Check if a category is selected
+     */
+    checkIfCategoryIsSelected() {
+      if (this.categoryIsSelected) {
+        this.categories[this.idxSelectedCategory].isSelected = true
+      }
+    },
+  },
+  created() {
+    this.checkIfCategoryIsSelected()
   },
 }
 </script>
@@ -102,27 +113,6 @@ export default {
 <style scoped>
 .categories {
   width: 100%;
-}
-
-.categories .title {
-  position: relative;
-  margin: 50px;
-}
-
-.categories .title::before {
-  content: '';
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  bottom: 5px;
-  border-radius: 50%;
-  left: -10px;
-  background-color: var(--primary-color);
-}
-
-.categories .title h1 {
-  font-size: 1.8em;
-  font-weight: 300;
 }
 
 .categories .container {

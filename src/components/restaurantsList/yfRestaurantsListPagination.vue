@@ -24,7 +24,7 @@ export default {
   name: 'yfRestaurantsListPagination',
   data() {
     return {
-      page: 1,
+      page: parseInt(sessionStorage.getItem('pagination'), 10) || 1,
     }
   },
   methods: {
@@ -32,19 +32,19 @@ export default {
     /**
      * @function incrementPage
      * @desc This method increment page
-     * @returns {void}
      */
     incrementPage() {
       this.page += 1
+      sessionStorage.setItem('pagination', this.page)
       this.incrementOffset(20)
     },
     /**
      * @function decrementPage
      * @desc This method decrement page
-     * @returns {void}
      */
     decrementPage() {
       this.page -= 1
+      sessionStorage.setItem('pagination', this.page)
       this.decrementOffset(20)
     },
   },

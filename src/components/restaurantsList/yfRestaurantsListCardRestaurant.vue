@@ -3,7 +3,7 @@
     <div class="card-material-content">
       <div class="card-material-header">
         <img :src="restaurant.image_url" alt="restaurant-image" />
-        <button class="btn btn-primary" @click="checkIsFavorite(restaurant.id)">
+        <button class="btn btn-primary" @click="handleFavorite">
           <i class="fas fa-heart" :class="isFavorite ? 'favorite' : ''"></i>
         </button>
       </div>
@@ -29,7 +29,7 @@
           <div class="container">
             <p>{{ fetchCategories }}</p>
             <div class="d-flex justify-content-center more-details">
-              <button class="btn btn-secondary">Voir en details</button>
+              <button class="btn btn-secondary" @click="pushToDetails">Voir en details</button>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
 
 <script>
 /** Import */
-import FireBase from '@/assets/modules/FireBase'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'yfRestaurantsListCardRestaurant',
@@ -60,10 +60,11 @@ export default {
     },
   },
   computed: {
+    ...mapState(['favoritesref']),
     /**
      * @computed fetchCategories
      * @desc Join categories by ', '
-     * @returns {object[]}
+     * @returns {string}
      */
     fetchCategories() {
       return this.restaurant.categories.map(item => item.title).join(', ')
@@ -74,36 +75,37 @@ export default {
      * @returns {boolean}
      */
     isFavorite() {
-      return this.favorites.find(item => item.id_restaurant === this.restaurant.id) !== undefined
-    },
-    /**
-     * @computed isFavorite
-     * @desc Return index of favorite restaurant
-     * @returns {number}
-     */
-    favoriteIndex() {
-      return this.favorites.findIndex(item => item.id_restaurant === this.restaurant.id)
+      return this.favorites.find(item => item['.key'] === this.restaurant.id) !== undefined
     },
   },
   methods: {
+    ...mapActions(['addToFavorite', 'removeFavorite']),
     /**
-     * @function checkIsFavorite
-     * @desc Check favorite
+     * @function handleFavorite
+     * @desc Handle restaurant favorite
      * @returns {object[]}
      */
-    async checkIsFavorite(idRestaurant) {
+    async handleFavorite() {
+      const { id } = this.restaurant
       try {
         if (!this.isFavorite) {
-          await FireBase().insert({ id_restaurant: idRestaurant })
+          await this.addToFavorite(id)
           this.notyf.success('Favoris ajouté')
         } else {
-          await FireBase().remove(this.favorites[this.favoriteIndex].id)
+          await this.removeFavorite(id)
           this.notyf.success('Favoris supprimé')
         }
       } catch (error) {
         console.error(error)
         this.notyf.error('Désolé. Une erreur est survenue')
       }
+    },
+    /**
+     * @function pushToDetails
+     * @desc Push router to view restaurant list
+     */
+    pushToDetails() {
+      this.$router.push({ name: 'RestaurantDetails', params: { id: this.restaurant.id } })
     },
   },
 }

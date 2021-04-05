@@ -2,8 +2,8 @@
   <nav class="navbar">
     <div class="container-navbar">
       <ul class="d-flex justify-content-around align-items-center">
-        <li class="logo-app">
-          <img src="../assets/img/icon/logo_yf.svg" alt="logo-yf" />
+        <li class="logo-app" @click="pushToRestaurantList">
+          <img :src="require(`../assets/img/icon/logo-yf.svg`)" alt="logo-yf" />
         </li>
         <li class="title-app"><h1>Ynov Food</h1></li>
         <li class="d-flex favorite">
@@ -27,6 +27,11 @@ export default {
       return this.favorites.length
     },
   },
+  methods: {
+    pushToRestaurantList() {
+      this.$router.push({ name: 'RestaurantsList' })
+    },
+  },
 }
 </script>
 
@@ -46,6 +51,7 @@ export default {
 
 .navbar .container-navbar .logo-app img {
   width: 50px;
+  cursor: pointer;
 }
 .navbar .container-navbar .title-app {
   font-size: 1.4em;

@@ -8,8 +8,10 @@
 /** Import */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Request from '@/assets/modules/Request'
-import { vuexfireMutations } from 'vuexfire'
+import 'firebase/database'
+import { vuexfireMutations, firebaseAction } from 'vuexfire'
+import Request from '@/assets/utils/Request'
+import db from '@/assets/utils/FireBase'
 
 /** @constant {function} getYelp Send HTTP GET Request to yelp API */
 const { getYelp } = Request()
@@ -19,9 +21,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     restaurants_list: [],
+    restaurant_details: {},
     auto_complete: [],
     favorites: [],
-    rating: '0',
+    bookings: [],
     params: {
       latitude: '45.764042',
       longitude: '4.835659',
@@ -58,26 +61,35 @@ export default new Vuex.Store({
     UPDATE_OPEN_NOW(state, openNow) {
       state.params.open_now = openNow
     },
-    UPDATE_RATING(state, rating) {
-      state.rating = rating
-    },
     UPDATE_AUTO_COMPLETE(state, autoComplete) {
       state.auto_complete = autoComplete
     },
     UPDATE_FAVORITES(state, favorites) {
       state.favorites = favorites
     },
+    UPDATE_RESTAURANT_DETAILS(state, restaurant) {
+      state.restaurant_details = restaurant
+    },
   },
   actions: {
     async fetchRestaurants({ commit, state }) {
       try {
         let { businesses } = await getYelp('/businesses/search', state.params)
+        const rating = sessionStorage.getItem('rating')
 
-        if (state.rating !== '0') {
-          businesses = businesses.filter(item => state.rating === item.rating.toString())
+        if (rating && rating !== '0') {
+          businesses = businesses.filter(item => rating === item.rating.toString())
         }
 
         commit('UPDATE_RESTAURANTS_LIST', businesses)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async fetchRestaurantsDetails({ commit }, idRestaurant) {
+      try {
+        const restaurantDetails = await getYelp(`/businesses/${idRestaurant}`)
+        commit('UPDATE_RESTAURANT_DETAILS', restaurantDetails)
       } catch (error) {
         console.error(error)
       }
@@ -102,6 +114,43 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    bindFavorites: firebaseAction(async ({ bindFirebaseRef }) => {
+      return bindFirebaseRef('favorites', db.ref('favorites'))
+    }),
+    bindBookings: firebaseAction(async ({ bindFirebaseRef }) => {
+      return bindFirebaseRef('bookings', db.ref('bookings'))
+    }),
+    addToBookings: firebaseAction(async (context, payload) => {
+      const { idRestaurant, booking } = payload
+      try {
+        await db
+          .ref(`bookings`)
+          .child(idRestaurant)
+          .set(booking)
+      } catch (error) {
+        console.error(error)
+      }
+    }),
+    addToFavorite: firebaseAction(async (context, idRestaurant) => {
+      try {
+        await db
+          .ref(`favorites`)
+          .child(idRestaurant)
+          .set({ favorite: true })
+      } catch (error) {
+        console.error(error)
+      }
+    }),
+    removeFavorite: firebaseAction(async (context, idRestaurant) => {
+      try {
+        await db
+          .ref('favorites')
+          .child(idRestaurant)
+          .remove()
+      } catch (error) {
+        console.error(error)
+      }
+    }),
     incrementOffset({ commit, dispatch }, offset) {
       commit('INCREMENT_OFFSET', offset)
       dispatch('fetchRestaurants')
@@ -126,23 +175,23 @@ export default new Vuex.Store({
       commit('UPDATE_RADIUS', 0)
       dispatch('fetchRestaurants')
     },
-    updateOpenNow({ commit, dispatch }, openNow) {
-      commit('UPDATE_OPEN_NOW', openNow)
+    updateOpenNow({ commit, dispatch, state }) {
+      commit('UPDATE_OPEN_NOW', !state.params.open_now)
       dispatch('fetchRestaurants')
-    },
-    updateRating({ commit }, rating) {
-      commit('UPDATE_RATING', rating)
     },
     updateAutoComplete({ commit }, text) {
       commit('UPDATE_AUTO_COMPLETE', text)
     },
-    resetSearching({ commit }) {
+    resetSearching({ commit, dispatch }) {
       commit('UPDATE_AUTO_COMPLETE', [])
       commit('UPDATE_TERM', '')
+      dispatch('fetchRestaurants')
     },
-    /** FireBase */
     updateFavorites({ commit }, favorites) {
       commit('UPDATE_FAVORITES', favorites)
+    },
+    updateRestaurantDetails({ commit }, details) {
+      commit('UPDATE_RESTAURANT_DETAILS', details)
     },
   },
 })
