@@ -74,11 +74,12 @@
 
 <script>
 /** Import */
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
 import Payment from '@/assets/utils/Payment'
 
 moment.locale()
+
 export default {
   name: 'yfRestaurantDetailsBookingPayment',
   inject: ['notyf'],
@@ -128,7 +129,7 @@ export default {
     },
     /**
      * @computed bookingPaymentDetails
-     * @desc Get the booking details
+     * @desc Get the booking details for payment
      * @returns {object}
      */
     bookingPaymentDetails() {
@@ -149,8 +150,28 @@ export default {
         },
       }
     },
+    /**
+     * @computed bookingFireBaseDetails
+     * @desc Get the booking details for firebase
+     * @returns {object}
+     */
+    bookingFireBaseDetails() {
+      const { email, is_checkout, message, name, nb_of_persons, reservation } = this.booking
+      return {
+        email,
+        is_checkout: !is_checkout,
+        message,
+        name,
+        nb_of_persons: nb_of_persons.value,
+        reservation: {
+          time: reservation.time.value,
+          day: reservation.day,
+        },
+      }
+    },
   },
   methods: {
+    ...mapActions(['addToBookings']),
     /**
      * @function handlePayment
      * @desc Do the payment
@@ -159,8 +180,15 @@ export default {
       try {
         this.layout.loading = true
         this.layout.paymentError = false
+
         await this.payment.doPayment(this.bookingPaymentDetails)
-        this.notyf.success('Votre réservation a bien été effectuée')
+
+        this.addToBookings({
+          idRestaurant: this.restaurant_details.id,
+          booking: this.bookingFireBaseDetails,
+        })
+
+        setTimeout(() => this.$router.push({ name: 'Redirect' }), 1000)
       } catch (error) {
         console.error(error.message)
         this.notyf.error('Paiement échoué')

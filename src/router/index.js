@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import RestaurantsList from '@/views/RestaurantsList.vue'
 import RestaurantDetails from '@/views/RestaurantDetails.vue'
+import Redirect from '@/views/Redirect.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const routes = [
     path: '/restaurant/details/:id',
     name: 'RestaurantDetails',
     component: RestaurantDetails,
+  },
+  {
+    path: '/redirect',
+    name: 'Redirect',
+    component: Redirect,
   },
 ]
 

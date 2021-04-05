@@ -24,7 +24,6 @@
 
 <script>
 /** Import */
-import { mapActions, mapState } from 'vuex'
 import yfRestaurantDetailsBookingHeader from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBookingHeader.vue'
 import yfRestaurantDetailsBookingInfos from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBookingInfos.vue'
 import yfRestaurantDetailsBookingPayment from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBookingPayment.vue'
@@ -61,11 +60,7 @@ export default {
       },
     }
   },
-  computed: {
-    ...mapState(['restaurant_details']),
-  },
   methods: {
-    ...mapActions(['addToBookings']),
     /**
      * @function goToStepPayment
      * @desc Go to the step payment
