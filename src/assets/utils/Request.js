@@ -2,17 +2,23 @@
  * ?                    ABOUT
  * @author      : ElricGUMBAU
  * @email       : elric.gumbau@ynov.com
- * @description : Module to send request wit axios
+ * @description : Closure to send request wit axios
  *=============================================* */
 
 /** Import */
 import axios from 'axios'
 
 export default function Request() {
-  /** @desc Use cors with herokuapp */
+  /**
+   * @const PREFIX_URL_CORS
+   * @desc Use cors with herokuapp
+   * */
   const PREFIX_URL_CORS = process.env.VUE_APP_URL_CORS
 
-  /** @desc The endpoint of yelp api */
+  /**
+   * @const ENDPOINT_YELP_API
+   * @desc The endpoint of yelp api
+   * */
   const ENDPOINT_YELP_API = `${PREFIX_URL_CORS}/https://api.yelp.com/v3`
 
   /**

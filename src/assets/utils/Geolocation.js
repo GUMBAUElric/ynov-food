@@ -2,10 +2,15 @@
  * ?                    ABOUT
  * @author      : ElricGUMBAU
  * @email       : elric.gumbau@ynov.com
- * @description : Module to get geolocation
+ * @description : Closure to get geolocation
  *---------------------------------------------* */
 
 export default function Geolocation() {
+  /**
+   * @function findMe
+   * @desc This function return the latitude and longitude
+   * @returns {Promise<object>}
+   * */
   const findMe = () => {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
