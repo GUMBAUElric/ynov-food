@@ -3,10 +3,15 @@
  * ?                    ABOUT
  * @author      : ElricGUMBAU
  * @email       : elric.gumbau@ynov.com
- * @description : Module to use request payment api
+ * @description : Closure to use request payment api
  *------------------------------------------------------------------------* */
 
 export default function Payment() {
+  /**
+   * @function buildSupportedPaymentMethodData
+   * @desc This function return the supported payment method
+   * @returns {object}
+   * */
   const buildSupportedPaymentMethodData = () => {
     return [
       {
@@ -18,38 +23,31 @@ export default function Payment() {
       },
     ]
   }
+  /**
+   * @function doPayment
+   * @desc This function do the payment
+   * @param {object} bookingDetails The booking details
+   * @returns {Promise<void>}
+   * */
+  const doPayment = bookingDetails => {
+    return new Promise((resolve, reject) => {
+      const request = new PaymentRequest(buildSupportedPaymentMethodData(), bookingDetails)
 
-  const buildShoppingCartDetails = () => {
-    // Hardcoded for demo purposes:
-    return {
-      id: 'order-123',
-      displayItems: [
-        {
-          label: 'Example item',
-          amount: { currency: 'EUR', value: '1.00' },
-        },
-      ],
-      total: {
-        label: 'Total',
-        amount: { currency: 'EUR', value: '1.00' },
-      },
-    }
+      request.canMakePayment().then(result => {
+        if (result) {
+          request
+            .show()
+            .then(paymentResponse => {
+              paymentResponse.complete('success').then(() => {
+                resolve()
+              })
+            })
+            .catch(err => reject(new Error(err)))
+        } else reject(new Error("Can't make payment"))
+      })
+    })
   }
-
-  const processPayment = async () => {
-    try {
-      const request = new PaymentRequest(
-        buildSupportedPaymentMethodData(),
-        buildShoppingCartDetails()
-      )
-      const response = await request.show()
-      return response
-    } catch (error) {
-      return error
-    }
-  }
-
   return {
-    processPayment,
+    doPayment,
   }
 }
