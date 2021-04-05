@@ -7,8 +7,10 @@
       <yfRestaurantDetailsTableOpening
         :openingTime="openingTime"
         :includesMiddayAndEvening="includesMiddayAndEvening"
+        :style="!booking ? 'margin-top: 150px' : ''"
       />
-      <yfRestaurantDetailsBooking />
+      <yfRestaurantDetailsBooking v-if="!booking" />
+      <yfRestaurantDetailsReceipt v-else :booking="booking" />
     </div>
   </div>
 </template>
@@ -18,12 +20,14 @@
 import { mapState } from 'vuex'
 import yfRestaurantDetailsTableOpening from '@/components/restaurantDetails/yfRestaurantDetailsTableOpening.vue'
 import yfRestaurantDetailsBooking from '@/components/restaurantDetails/yfRestaurantDetailsBooking/yfRestaurantDetailsBooking.vue'
+import yfRestaurantDetailsReceipt from '@/components/restaurantDetails/yfRestaurantDetailsReceipt.vue'
 
 export default {
   name: 'yfRestaurantDetailsReservation',
   components: {
     yfRestaurantDetailsTableOpening,
     yfRestaurantDetailsBooking,
+    yfRestaurantDetailsReceipt,
   },
   data() {
     return {
@@ -31,7 +35,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['restaurant_details']),
+    ...mapState(['restaurant_details', 'bookings']),
     /**
      * @computed includesMiddayAndEvening
      * @desc Check if includes midday and evening
@@ -40,13 +44,21 @@ export default {
     includesMiddayAndEvening() {
       return this.restaurant_details.hours[0].open.length === 14
     },
+    /**
+     * @computed booking
+     * @desc Checka a reservation has already been made
+     * @returns {object[]}
+     */
+    booking() {
+      return this.bookings.find(item => item['.key'] === this.restaurant_details.id)
+    },
   },
   methods: {
     /**
-     * @function handleOpeningmiddayAndEvening
+     * @function handleOpeningMiddayAndEvening
      * @desc Handle opening time with midday and evening
      */
-    handleOpeningmiddayAndEvening() {
+    handleOpeningMiddayAndEvening() {
       const hours = this.restaurant_details.hours[0].open
 
       this.openingTime = hours.map(item => {
@@ -88,7 +100,7 @@ export default {
     },
   },
   created() {
-    if (this.includesMiddayAndEvening) this.handleOpeningmiddayAndEvening()
+    if (this.includesMiddayAndEvening) this.handleOpeningMiddayAndEvening()
     else this.handleDay()
   },
 }
