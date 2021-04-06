@@ -2,7 +2,7 @@
   <div class="container">
     <div class="receipt">
       <h2 class="receipt-title">Merci !</h2>
-      <p class="receipt-subtitle">Voici les détails de votre réservation :</p>
+      <p class="receipt-subtitle">Votre réservation a bien été effectuée.</p>
       <ul class="receipt-lines">
         <li class="receipt-line">
           <span class="receipt-line-item">Au nom de {{ booking.name }}</span>
