@@ -20,7 +20,7 @@ export default {
   },
   created() {
     sessionStorage.clear()
-    // this.bindFavorites()
+    this.bindFavorites()
     this.bindBookings()
   },
 }
