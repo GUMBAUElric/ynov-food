@@ -5,6 +5,10 @@
       <p class="receipt-subtitle">Voici les détails de votre réservation :</p>
       <ul class="receipt-lines">
         <li class="receipt-line">
+          <span class="receipt-line-item">Au nom de {{ booking.name }}</span>
+          <span class="receipt-line-price"><i class="fal fa-user"></i></span>
+        </li>
+        <li class="receipt-line">
           <span class="receipt-line-item">Le {{ booking.reservation.day }}</span>
           <span class="receipt-line-price"><i class="far fa-calendar-alt"></i></span>
         </li>
@@ -14,10 +18,6 @@
         </li>
         <li class="receipt-line">
           <span class="receipt-line-item">Pour {{ numberOfPersons }}</span>
-          <span class="receipt-line-price"><i class="fal fa-users"></i></span>
-        </li>
-        <li class="receipt-line">
-          <span class="receipt-line-item">Au nom {{ booking.name }}</span>
           <span class="receipt-line-price"><i class="fal fa-users"></i></span>
         </li>
       </ul>

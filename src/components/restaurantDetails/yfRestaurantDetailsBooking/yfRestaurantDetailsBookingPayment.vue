@@ -183,12 +183,12 @@ export default {
 
         await this.payment.doPayment(this.bookingPaymentDetails)
 
-        this.addToBookings({
-          idRestaurant: this.restaurant_details.id,
-          booking: this.bookingFireBaseDetails,
-        })
-
-        setTimeout(() => this.$router.push({ name: 'Redirect' }), 1000)
+        setTimeout(() => {
+          this.addToBookings({
+            idRestaurant: this.restaurant_details.id,
+            booking: this.bookingFireBaseDetails,
+          })
+        }, 1000)
       } catch (error) {
         console.error(error.message)
         this.notyf.error('Paiement échoué')

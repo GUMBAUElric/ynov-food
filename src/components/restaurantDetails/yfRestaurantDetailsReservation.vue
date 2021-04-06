@@ -10,7 +10,11 @@
         :style="!booking ? 'margin-top: 150px' : ''"
       />
       <yfRestaurantDetailsBooking v-if="!booking" />
-      <yfRestaurantDetailsReceipt v-else :booking="booking" />
+      <yfRestaurantDetailsReceipt
+        class="animate__animated animate__fadeIn"
+        v-else
+        :booking="booking"
+      />
     </div>
   </div>
 </template>

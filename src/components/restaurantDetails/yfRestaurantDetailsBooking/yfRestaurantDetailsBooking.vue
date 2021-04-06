@@ -1,17 +1,16 @@
 <template>
   <div class="container-booking">
     <yfRestaurantDetailsBookingHeader :isStepPayment="layout.isStepPayment" />
-    <transition name="fade" mode="out-in">
-      <yfRestaurantDetailsBookingInfos
-        v-if="!layout.isStepPayment"
-        :booking="booking"
-        @bookingData="goToStepPayment"
-      />
-    </transition>
+    <yfRestaurantDetailsBookingInfos
+      class="animate__animated animate__fadeIn animate__fast"
+      v-if="!layout.isStepPayment"
+      :booking="booking"
+      @bookingData="goToStepPayment"
+    />
     <yfRestaurantDetailsBookingPayment v-if="layout.isStepPayment" :booking="booking" />
     <div
       v-if="layout.isStepPayment"
-      class="d-flex flex-column justify-content-center align-items-center footer"
+      class="d-flex flex-column justify-content-center align-items-center animate__animated animate__fadeIn animate__fast animate__delay-5s	footer"
     >
       <p><sup>*</sup> Au vu de la situation sanitaire, toutes vos réservations sont offertes.</p>
       <button class="btn" @click="goToStepBooking">
@@ -85,8 +84,6 @@ export default {
 .container-booking .footer {
   margin-top: 15px;
   opacity: 0;
-  animation: fade 500ms ease-out forwards;
-  animation-delay: 5s;
 }
 
 .container-booking .footer p {
@@ -116,21 +113,5 @@ export default {
 .container-booking .footer .btn:hover i {
   transform: scale(1);
   margin-right: 3px;
-}
-
-/** Animations */
-@keyframes fade {
-  100% {
-    opacity: 1;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 </style>
