@@ -167,6 +167,7 @@ export default {
           time: reservation.time.value,
           day: reservation.day,
         },
+        restaurant_name: this.restaurant_details.name,
       }
     },
   },

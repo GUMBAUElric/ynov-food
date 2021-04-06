@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     pushToRestaurantList() {
-      this.$router.push({ name: 'RestaurantsList' })
+      this.$router.push({ name: 'RestaurantsList' }).catch(() => {})
     },
   },
 }

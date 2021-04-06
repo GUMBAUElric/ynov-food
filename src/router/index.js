@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import RestaurantsList from '@/views/RestaurantsList.vue'
 import RestaurantDetails from '@/views/RestaurantDetails.vue'
-import Redirect from '@/views/Redirect.vue'
+import Calendar from '@/views/Calendar.vue'
 
 Vue.use(VueRouter)
 
@@ -22,9 +22,9 @@ const routes = [
     component: RestaurantDetails,
   },
   {
-    path: '/redirect',
-    name: 'Redirect',
-    component: Redirect,
+    path: '/calendar',
+    name: 'Calendar',
+    component: Calendar,
   },
 ]
 
