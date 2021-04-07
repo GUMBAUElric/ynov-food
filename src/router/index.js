@@ -1,15 +1,28 @@
+/**------------------------------------------------------------------------------------------------
+ * ?                                           ABOUT
+ * @author         :  ElricGUMBAU
+ * @email          :  elric.gumbau@ynov.com
+ * @description    :  Building Single Page Applications (https://router.vuejs.org/)
+ *------------------------------------------------------------------------------------------------* */
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import RestaurantsList from '@/views/RestaurantsList.vue'
 import RestaurantDetails from '@/views/RestaurantDetails.vue'
 import Calendar from '@/views/Calendar.vue'
+import NotFound from '@/views/NotFound.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '*',
-    redirect: '/restaurants/list',
+    redirect: '/notfound',
+  },
+  {
+    path: '/notfound',
+    name: 'NotFound',
+    component: NotFound,
   },
   {
     path: '/restaurants/list',

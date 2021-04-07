@@ -127,6 +127,7 @@ export default {
     }
   },
   props: {
+    /** Booking data */
     booking: {
       type: Object,
       required: true,
@@ -145,6 +146,7 @@ export default {
   methods: {
     /**
      * @function handleReservationDay
+     * @param {string} day The day of reservation
      * @desc Set reservation day to booking
      */
     handleReservationDay(day) {

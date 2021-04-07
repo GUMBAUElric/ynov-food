@@ -2,10 +2,14 @@
   <nav class="navbar">
     <div class="container-navbar">
       <ul class="d-flex justify-content-around align-items-center">
-        <li class="logo-app" @click="pushToRestaurantList">
+        <li class="logo-app" @click="push('RestaurantsList')">
           <img :src="require(`../assets/img/icon/logo-yf.svg`)" alt="logo-yf" />
         </li>
         <li class="title-app"><h1>Ynov Food</h1></li>
+        <li class="d-flex calendar" @click="push('Calendar')">
+          <i class="far fa-calendar-alt"></i>
+          <p>Mes réservations</p>
+        </li>
         <li class="d-flex favorite">
           <i class="fas fa-heart"></i>
           <p class="nb_favorite">{{ numberOfFavorites }}</p>
@@ -23,13 +27,22 @@ export default {
   name: 'yfNavBar',
   computed: {
     ...mapState(['favorites']),
+    /**
+     * @function numberOfFavorites
+     * @desc Get the number of favorites
+     */
     numberOfFavorites() {
       return this.favorites.length
     },
   },
   methods: {
-    pushToRestaurantList() {
-      this.$router.push({ name: 'RestaurantsList' }).catch(() => {})
+    /**
+     * @function push
+     * @desc Go to the specific View
+     * @param {string} name The name of the View
+     */
+    push(name) {
+      this.$router.push({ name }).catch(() => {})
     },
   },
 }
@@ -57,7 +70,12 @@ export default {
   font-size: 1.4em;
 }
 
+.navbar .container-navbar .calendar p,
 .navbar .container-navbar .favorite .nb_favorite {
   margin-left: 10px;
+}
+
+.navbar .container-navbar .calendar {
+  cursor: pointer;
 }
 </style>

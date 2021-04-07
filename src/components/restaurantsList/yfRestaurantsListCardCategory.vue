@@ -16,6 +16,7 @@
 export default {
   name: 'yfRestaurantsListCategories',
   props: {
+    /** Category data */
     category: {
       type: Object,
       default: () => {

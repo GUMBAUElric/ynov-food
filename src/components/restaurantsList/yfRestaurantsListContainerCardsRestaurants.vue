@@ -8,7 +8,6 @@
         v-for="item in restaurants_list"
         :key="item.id"
         :restaurant="item"
-        :favorites="favorites"
       />
     </div>
   </div>
@@ -25,7 +24,7 @@ export default {
     yfRestaurantsListCardRestaurant,
   },
   computed: {
-    ...mapState(['favorites', 'restaurants_list']),
+    ...mapState(['restaurants_list']),
   },
 }
 </script>

@@ -430,4 +430,5 @@ textarea {
   background-color: #42b983 !important;
   color: #fff;
   padding: 5px 0;
+  cursor: pointer;
 }

@@ -18,6 +18,7 @@ export default {
     }
   },
   props: {
+    /** The default date */
     defaultDate: {
       type: String,
       default: '',

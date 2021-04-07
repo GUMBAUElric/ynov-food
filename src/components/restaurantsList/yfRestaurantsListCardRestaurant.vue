@@ -46,21 +46,16 @@ export default {
   name: 'yfRestaurantsListCardRestaurant',
   inject: ['notyf'],
   props: {
+    /** Restaurant infos */
     restaurant: {
       type: Object,
       default: () => {
         return {}
       },
     },
-    favorites: {
-      type: Array,
-      default: () => {
-        return []
-      },
-    },
   },
   computed: {
-    ...mapState(['favoritesref']),
+    ...mapState(['favorites']),
     /**
      * @computed fetchCategories
      * @desc Join categories by ', '

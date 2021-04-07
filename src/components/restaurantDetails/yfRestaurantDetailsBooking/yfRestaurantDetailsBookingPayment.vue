@@ -98,6 +98,7 @@ export default {
     }
   },
   props: {
+    /** Booking data */
     booking: {
       type: Object,
       default: () => {

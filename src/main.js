@@ -1,4 +1,11 @@
-/* eslint-disable global-require */
+/**------------------------------------------------------------------------
+ * ?                                ABOUT
+ * @author      : ElricGUMBAU
+ * @email       : elric.gumbau@berger-levrault.com
+ * @description : Initialise this root component into a element
+ * @copyright   : CARL Software (https://www.carl-software.fr/)
+ *------------------------------------------------------------------------* */
+
 import Vue from 'vue'
 import vSelect from 'vue-select'
 import { Icon } from 'leaflet'
