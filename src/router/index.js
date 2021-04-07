@@ -16,6 +16,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/restaurants/list',
+  },
+  {
     path: '*',
     redirect: '/notfound',
   },
