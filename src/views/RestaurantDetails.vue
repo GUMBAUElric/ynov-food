@@ -17,7 +17,7 @@
 
 <script>
 /** Import */
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import yfRestaurantDetailsInfos from '@/components/restaurantDetails/yfRestaurantDetailsInfos.vue'
 import yfRestaurantDetailsMap from '@/components/restaurantDetails/yfRestaurantDetailsMap.vue'
 import yfRestaurantDetailsReservation from '@/components/restaurantDetails/yfRestaurantDetailsReservation.vue'
@@ -35,11 +35,20 @@ export default {
       display: false,
     }
   },
+  watch: {
+    restaurant_details(newValue) {
+      if (!newValue) this.$router.push({ name: 'NotFound' })
+    },
+  },
+  computed: {
+    ...mapState(['restaurant_details']),
+  },
   methods: {
-    ...mapActions(['fetchRestaurantsDetails', 'updateRestaurantDetails']),
+    ...mapActions(['fetchRestaurantsDetails', 'updateRestaurantDetails', 'bindBookings']),
   },
   async created() {
     try {
+      this.bindBookings()
       await this.fetchRestaurantsDetails(this.id_restaurant)
       this.display = true
     } catch (error) {

@@ -36,6 +36,7 @@
 export default {
   name: 'yfRestaurantDetailsBookingHeader',
   props: {
+    /** Is the step payment */
     isStepPayment: {
       type: Boolean,
       default: false,

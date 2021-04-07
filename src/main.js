@@ -1,4 +1,11 @@
-/* eslint-disable global-require */
+/**------------------------------------------------------------------------
+ * ?                                ABOUT
+ * @author      : ElricGUMBAU
+ * @email       : elric.gumbau@berger-levrault.com
+ * @description : Initialise this root component into a element
+ * @copyright   : CARL Software (https://www.carl-software.fr/)
+ *------------------------------------------------------------------------* */
+
 import Vue from 'vue'
 import vSelect from 'vue-select'
 import { Icon } from 'leaflet'
@@ -11,8 +18,11 @@ import 'vue-select/dist/vue-select.css'
 import 'leaflet/dist/leaflet.css'
 import 'flatpickr/dist/flatpickr.min.css'
 import 'animate.css/animate.min.css'
+import 'vue-cal/dist/vuecal.css'
+import 'vue-cal/dist/i18n/fr'
 
 delete Icon.Default.prototype._getIconUrl
+
 Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
   iconUrl: require('leaflet/dist/images/marker-icon.png'),

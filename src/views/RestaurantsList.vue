@@ -23,7 +23,6 @@ import yfRestaurantsListOptions from '@/components/restaurantsList/yfRestaurants
 import yfRestaurantsListCategories from '@/components/restaurantsList/yfRestaurantsListCategories.vue'
 import yfRestaurantsListContainerCardsRestaurants from '@/components/restaurantsList/yfRestaurantsListContainerCardsRestaurants.vue'
 import yfRestaurantsListPagination from '@/components/restaurantsList/yfRestaurantsListPagination.vue'
-import restaurantsList from '@/assets/json/restaurantsList.json'
 
 export default {
   name: 'RestaurantsList',
@@ -36,7 +35,6 @@ export default {
   },
   data() {
     return {
-      restaurantsList,
       display: false,
     }
   },

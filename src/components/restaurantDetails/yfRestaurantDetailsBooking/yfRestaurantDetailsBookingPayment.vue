@@ -98,6 +98,7 @@ export default {
     }
   },
   props: {
+    /** Booking data */
     booking: {
       type: Object,
       default: () => {
@@ -167,6 +168,7 @@ export default {
           time: reservation.time.value,
           day: reservation.day,
         },
+        restaurant_name: this.restaurant_details.name,
       }
     },
   },

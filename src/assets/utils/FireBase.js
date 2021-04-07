@@ -2,7 +2,7 @@
  * ?                    ABOUT
  * @author      : ElricGUMBAU
  * @email       : elric.gumbau@ynov.com
- * @description : Module to use firabase
+ * @description : Use firebase
  *---------------------------------------------* */
 
 /** Import */

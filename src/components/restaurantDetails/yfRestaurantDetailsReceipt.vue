@@ -29,6 +29,7 @@
 export default {
   name: 'yfRestaurantDetailsReceipt',
   props: {
+    /** Booking data */
     booking: {
       type: Object,
       required: true,
@@ -50,6 +51,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
 .receipt {
   position: relative;
   flex: none;
@@ -57,8 +60,6 @@ export default {
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
 .receipt-title {
   margin-bottom: 15px;
@@ -92,5 +93,11 @@ export default {
 
 .receipt-line-item {
   font-weight: 300;
+}
+
+@media screen and (max-width: 1300px) {
+  .container {
+    margin-top: 40px;
+  }
 }
 </style>

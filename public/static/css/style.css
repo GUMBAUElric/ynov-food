@@ -417,3 +417,18 @@ textarea {
   font-size: 1.8em;
   font-weight: 300;
 }
+
+/***** CALENDAR *****/
+
+.vuecal__menu,
+.vuecal__cell-events-count {
+  background-color: #42b983 !important;
+  color: #fff !important;
+}
+
+.vuecal__event.reservation {
+  background-color: #42b983 !important;
+  color: #fff;
+  padding: 5px 0;
+  cursor: pointer;
+}

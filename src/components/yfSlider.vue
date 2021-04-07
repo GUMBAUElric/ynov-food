@@ -23,10 +23,12 @@ export default {
     }
   },
   props: {
+    /** The initial range */
     initialRange: {
       type: String,
       default: '0',
     },
+    /** Class icon */
     icon: {
       type: String,
       default: '',
